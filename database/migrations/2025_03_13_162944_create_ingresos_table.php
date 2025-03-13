@@ -10,14 +10,14 @@ return new class extends Migration {
    * Run the migrations.
    */
   public function up(): void {
-    Schema::create('transacciones', function (Blueprint $table) {
+    Schema::create('ingresos', function (Blueprint $table) {
       $table->id();
+      $table->unsignedBigInteger('id_trabajador')->nullable(false);
       $table->unsignedBigInteger('id_usuario')->nullable(false);
-      $table->float('total')->nullable(false);
-      $table->dateTime('fecha')->nullable(false)->useCurrent();
-      $table->string('codigo')->nullable(false);
-      $table->enum('estado', ['pedido', 'preparado', 'entregado'])->default('pedido');
+      $table->float('cantidad')->nullable(false);
+      $table->dateTime('fecha')->useCurrent();
 
+      $table->foreign('id_trabajador')->references('id')->on('usuarios');
       $table->foreign('id_usuario')->references('id')->on('usuarios');
     });
   }
@@ -26,6 +26,6 @@ return new class extends Migration {
    * Reverse the migrations.
    */
   public function down(): void {
-    Schema::dropIfExists('transacciones');
+    Schema::dropIfExists('ingresos');
   }
 };
