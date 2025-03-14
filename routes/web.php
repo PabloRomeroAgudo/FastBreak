@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Categoria\CategoriaController;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Rol;
@@ -9,8 +10,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-  return Inertia::render('welcome');
+  return redirect('/categoria');
 })->name('home');
+
+Route::get('/categoria', [CategoriaController::class, 'index']);
+
+Route::get('/categoria/{categoria}', [CategoriaController::class, 'show']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('dashboard', function () {
