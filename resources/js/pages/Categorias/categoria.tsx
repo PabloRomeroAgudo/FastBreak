@@ -1,3 +1,4 @@
+import Subtitle from '@/components/subtitle'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 
@@ -32,7 +33,7 @@ export default function Categoria({ categoria, productos }: { categoria: Categor
         <title>{categoria.nombre}</title>
       </Head>
 
-      <h2 className='text-amarillo bg-negro mt-4 py-4 text-center'>{categoria.nombre}</h2>
+      <Subtitle subtitulo={categoria.nombre} needBack={true} url='/categoria' />
 
       {productos.map((producto) => {
         return <p>{producto.nombre}</p>

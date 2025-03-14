@@ -1,4 +1,5 @@
 import { CardCategoria } from '@/components/categoria/card'
+import Subtitle from '@/components/subtitle'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 
@@ -20,7 +21,7 @@ export default function Welcome({ categorias }: { categorias: Categoria[] }) {
         <title>Bienvenido</title>
       </Head>
 
-      <h2 className='text-amarillo bg-negro mt-4 py-4 text-center'>{textTitle}</h2>
+      <Subtitle subtitulo={textTitle} />
 
       <section className='grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
         {categorias &&
