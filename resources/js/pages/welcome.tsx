@@ -1,15 +1,13 @@
-import { CardCategoria } from '@/components/categoria/card'
+import { CardCategoria } from '@/components/categoria/cardCategoria'
 import AppLayout from '@/layouts/app-layout'
+import { Categoria } from '@/types'
 import { Head } from '@inertiajs/react'
 
-export type Categoria = {
-  id: number
-  nombre: string
-  descripcion: string
-  imagen: null | string
+interface Props {
+  categorias: Categoria[]
 }
 
-export default function Welcome({ categorias }: { categorias: Categoria[] }) {
+export default function Welcome({ categorias }: Props) {
   const hayProductos = categorias.length > 0
 
   const textTitle = hayProductos ? 'Elige una categoría' : 'No hay categorías'
@@ -20,7 +18,7 @@ export default function Welcome({ categorias }: { categorias: Categoria[] }) {
         <title>Bienvenido</title>
       </Head>
 
-      <section className='grid grid-cols-[repeat(auto-fill,minmax(18rem,1fr))] gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
+      <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
         {categorias &&
           categorias.map((categoria) => {
             return <CardCategoria categoria={categoria} />
