@@ -14,27 +14,49 @@ class ProductoSeeder extends Seeder {
     DB::table('productos')->insert([
       [
         "nombre" => "Bocadillo lomo",
-        "precio" => 3
+        "descripcion" => "Pan crujiente, ingredientes frescos y el mejor sabor para tu pausa.",
+        "precio" => 2.99,
+        "imagen" => "/img/productos/plantilla1.png"
       ],
       [
         "nombre" => "Bocadillo chorizo",
-        "precio" => 3
+        "descripcion" => "Pan crujiente, ingredientes frescos y el mejor sabor para tu pausa.",
+        "precio" => 3,
+        "imagen" => "/img/productos/plantilla1.png"
       ],
       [
+        "nombre" => "Bocadillo vegano",
+        "descripcion" => "Pan crujiente, ingredientes frescos y el mejor sabor para tu pausa.",
+        "precio" => 3.5,
+        "imagen" => "/img/productos/plantilla1.png"
+      ]
+    ]);
+
+    DB::table('productos')->insert([
+      [
         "nombre" => "Coca cola zero",
-        "precio" => 1.80
+        "descripcion" => "Refrescante y fría para un dia caluroso.",
+        "precio" => 1.99,
       ],
       [
         "nombre" => "Agua",
-        "precio" => 1.20
+        "descripcion" => "Refrescante y fría para un dia caluroso.",
+        "precio" => 1.2,
+      ],
+      [
+        "nombre" => "Ron",
+        "descripcion" => "Refrescante y fría para un dia caluroso.",
+        "precio" => 7,
       ],
       [
         "nombre" => "Snickers",
-        "precio" => 1.20
+        "descripcion" => "Dulce chocolate para alegrar el dia.",
+        "precio" => 1.20,
       ],
       [
         "nombre" => "Pringles paprika",
-        "precio" => 2.70
+        "descripcion" => "Crujientes con el mejor sabor.",
+        "precio" => 2.70,
       ],
     ]);
   }

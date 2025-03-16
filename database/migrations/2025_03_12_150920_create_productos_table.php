@@ -13,7 +13,7 @@ return new class extends Migration {
       $table->id();
       $table->string('nombre')->nullable(false);
       $table->float('precio')->nullable(false);
-      $table->string('descripcion')->nullable();
+      $table->string('descripcion');
       $table->string('ingredientes')->nullable();
       $table->string('alergenos')->nullable();
       $table->integer('max_stock')->default(0);
