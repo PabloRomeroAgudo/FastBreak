@@ -34,8 +34,12 @@ const mediaQuery = () => {
 }
 
 const handleSystemThemeChange = () => {
-  const currentAppearance = localStorage.getItem('appearance') as Appearance
-  applyTheme(currentAppearance || 'system')
+  // const currentAppearance = localStorage.getItem('appearance') as Appearance
+
+  // TODO:
+  // Siempre modo claro
+  applyTheme('light')
+  // applyTheme(currentAppearance || 'system')
 }
 
 export function initializeTheme() {
