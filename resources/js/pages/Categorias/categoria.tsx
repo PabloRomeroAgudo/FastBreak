@@ -1,4 +1,3 @@
-import Subtitle from '@/components/subtitle'
 import AppLayout from '@/layouts/app-layout'
 import { Head } from '@inertiajs/react'
 
@@ -28,12 +27,10 @@ export type Pivot = {
 
 export default function Categoria({ categoria, productos }: { categoria: Categoria; productos: Producto[] }) {
   return (
-    <AppLayout>
+    <AppLayout subtitulo={categoria.nombre} needBack={true} url='/categoria'>
       <Head>
         <title>{categoria.nombre}</title>
       </Head>
-
-      <Subtitle subtitulo={categoria.nombre} needBack={true} url='/categoria' />
 
       {productos.map((producto) => {
         return <p>{producto.nombre}</p>
