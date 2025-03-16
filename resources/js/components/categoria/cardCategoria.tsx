@@ -1,13 +1,11 @@
+import { Categoria } from '@/types'
 import { Link } from '@inertiajs/react'
 
-export type Categoria = {
-  id: number
-  nombre: string
-  descripcion: string
-  imagen: null | string
+interface Props {
+  categoria: Categoria
 }
 
-export function CardCategoria({ categoria }: { categoria: Categoria }) {
+export function CardCategoria({ categoria }: Props) {
   return (
     <Link href={`/categoria/${categoria.nombre}`} className='group flex flex-col gap-2' key={categoria.id}>
       {categoria.imagen && (
