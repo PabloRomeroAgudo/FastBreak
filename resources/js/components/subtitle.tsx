@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { ArrowLeft } from 'lucide-react'
 
-export default function Subtitle({ needBack = false, subtitulo, url = '' }: { needBack?: boolean; subtitulo: string; url?: string }) {
+export default function Subtitle({ needBack = false, subtitulo, url = '' }: { needBack: boolean; subtitulo: string; url: string }) {
   return (
     <div className='bg-negro relative flex justify-center py-4'>
       {needBack &&
