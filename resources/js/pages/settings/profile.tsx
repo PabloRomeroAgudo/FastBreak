@@ -41,14 +41,23 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
   }
 
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={breadcrumbs}
+      subtitulo='Perfil'
+    >
       <Head title='Configuración de perfil' />
 
       <SettingsLayout>
         <div className='space-y-6'>
-          <HeadingSmall title='Información del perfil' description='Actualiza tu nombre y correo electrónico' />
+          <HeadingSmall
+            title='Información del perfil'
+            description='Actualiza tu nombre y correo electrónico'
+          />
 
-          <form onSubmit={submit} className='space-y-6'>
+          <form
+            onSubmit={submit}
+            className='space-y-6'
+          >
             <div className='grid gap-2'>
               <Label htmlFor='name'>Nombre</Label>
 
@@ -62,7 +71,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 placeholder='Nombre completo'
               />
 
-              <InputError className='mt-2' message={errors.name} />
+              <InputError
+                className='mt-2'
+                message={errors.name}
+              />
             </div>
 
             <div className='grid gap-2'>
@@ -79,7 +91,10 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                 placeholder='Dirección de correo'
               />
 
-              <InputError className='mt-2' message={errors.email} />
+              <InputError
+                className='mt-2'
+                message={errors.email}
+              />
             </div>
 
             {mustVerifyEmail && auth.user.email_verified_at === null && (
