@@ -13,7 +13,12 @@ export default function AppHeaderLayout({
 }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[]; subtitulo: string; needBack?: boolean; url?: string }>) {
   return (
     <AppShell>
-      <AppHeader breadcrumbs={breadcrumbs} subtitulo={subtitulo} needBack={needBack} url={url} />
+      <AppHeader
+        breadcrumbs={breadcrumbs}
+        subtitulo={subtitulo}
+        needBack={needBack}
+        url={url}
+      />
       <AppContent>{children}</AppContent>
     </AppShell>
   )
