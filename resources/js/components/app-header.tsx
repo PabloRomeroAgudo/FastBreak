@@ -74,7 +74,6 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                           <TooltipTrigger>
                             <a
                               href={item.url}
-                              target='_blank'
                               rel='noopener noreferrer'
                               className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
                             >
@@ -146,8 +145,6 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                         <a
                           key={item.title}
                           href={item.url}
-                          target='_blank'
-                          rel='noopener noreferrer'
                           className='flex items-center space-x-2 font-medium'
                         >
                           {item.icon && (
