@@ -1,14 +1,21 @@
+import { CarritoContext } from '@/context/carrito'
 import { Carrito, Producto, SharedData } from '@/types'
 import { Link, router, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { Buttons } from './buttons'
 
 interface Props {
   producto: Producto
-  carrito: Carrito
-  updateCarrito: (newcarrito: Carrito) => void
 }
 
-export default function CardProducto({ producto, carrito, updateCarrito }: Props) {
+export default function CardProducto({ producto }: Props) {
+  const contexto = useContext(CarritoContext)
+  if (!contexto) {
+    throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
+  }
+
+  const { carrito, setCarrito } = contexto
+
   const { auth } = usePage<SharedData>().props
   const { url } = usePage()
   const [cantidad, setCantidad] = useState(1)
@@ -48,7 +55,7 @@ export default function CardProducto({ producto, carrito, updateCarrito }: Props
       })
     }
 
-    updateCarrito(newCarrito)
+    setCarrito(newCarrito)
     setCantidad(1)
   }
 
@@ -69,29 +76,11 @@ export default function CardProducto({ producto, carrito, updateCarrito }: Props
             />
           </div>
 
-          <div className='font-principal flex gap-1'>
-            <button
-              disabled={cantidad <= 1}
-              onClick={() => handleClickAddItem(-1)}
-              className='bg-amarillo text-md flex-1 cursor-pointer rounded-md transition-colors disabled:cursor-not-allowed disabled:bg-red-800'
-            >
-              -
-            </button>
-            <span className='flex-2 text-center'>{cantidad}</span>
-            <button
-              onClick={() => handleClickAddItem(1)}
-              className='bg-amarillo text-md flex-1 cursor-pointer rounded-md'
-            >
-              +
-            </button>
-          </div>
-
-          <button
-            onClick={handleClickAddToCart}
-            className='bg-amarillo font-principal flex-1 cursor-pointer rounded-3xl'
-          >
-            Añadir
-          </button>
+          <Buttons
+            cantidad={cantidad}
+            handleClickAddItem={handleClickAddItem}
+            handleClickAddToCart={handleClickAddToCart}
+          />
         </>
       )}
 
@@ -112,31 +101,11 @@ export default function CardProducto({ producto, carrito, updateCarrito }: Props
       <p className='text-gris'>{descripcion}</p>
 
       {!imagen && (
-        <>
-          <div className='flex gap-1'>
-            <button
-              disabled={cantidad <= 1}
-              onClick={() => setCantidad(cantidad - 1)}
-              className='bg-amarillo font-principal text-md flex-1 cursor-pointer rounded-md transition-colors disabled:cursor-not-allowed disabled:bg-red-800'
-            >
-              -
-            </button>
-            <span className='font-principal flex-1 text-center'>{cantidad}</span>
-            <button
-              onClick={() => setCantidad(cantidad + 1)}
-              className='bg-amarillo font-principal text-md flex-1 cursor-pointer rounded-md'
-            >
-              +
-            </button>
-          </div>
-
-          <button
-            className='bg-amarillo font-principal flex-1 cursor-pointer rounded-3xl'
-            onClick={handleClickAddToCart}
-          >
-            Añadir
-          </button>
-        </>
+        <Buttons
+          cantidad={cantidad}
+          handleClickAddItem={handleClickAddItem}
+          handleClickAddToCart={handleClickAddToCart}
+        />
       )}
     </article>
   )
