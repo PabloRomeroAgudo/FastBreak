@@ -41,3 +41,34 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
   saldo: string
 }
+
+export type Categoria = {
+  id: number
+  nombre: string
+  descripcion: string
+  imagen: null | string
+}
+
+export type Producto = {
+  id: number
+  nombre: string
+  precio: number
+  descripcion: string | null
+  ingredientes: string | null
+  alergenos: string | null
+  max_stock: number
+  imagen: string | null
+  pivot: PivotProducto
+}
+
+type PivotProducto = {
+  id_categoria: number
+  id_producto: number
+}
+
+export type ProductoCarrito = Pick<Producto, 'id' | 'nombre' | 'precio' | 'descripcion'?> & { cantidad: number }
+
+export type Carrito = {
+  productos: ProductoCarrito[]
+  precioTotal: number
+}

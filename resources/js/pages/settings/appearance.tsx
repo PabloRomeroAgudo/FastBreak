@@ -16,12 +16,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Appearance() {
   return (
-    <AppLayout breadcrumbs={breadcrumbs}>
+    <AppLayout
+      breadcrumbs={breadcrumbs}
+      subtitulo='Apariencia'
+    >
       <Head title='Apariencia' />
 
       <SettingsLayout>
         <div className='space-y-6'>
-          <HeadingSmall title='Apariencia' description='Actualiza la apariencia' />
+          <HeadingSmall
+            title='Apariencia'
+            description='Actualiza la apariencia'
+          />
           <AppearanceTabs />
         </div>
       </SettingsLayout>

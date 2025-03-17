@@ -31,12 +31,12 @@ const rightNavItems: NavItem[] = [
 const rightNavItemsNotAuth: NavItemNotAuth[] = [
   {
     title: 'Log in',
-    url: '/login',
+    url: 'login',
     style: 'text-negro bg-amarillo w-20 rounded-sm text-lg font-bold text-center',
   },
   {
     title: 'Sign in',
-    url: '/register',
+    url: 'register',
     style: 'text-blanco',
   },
 ]
@@ -51,7 +51,7 @@ interface AppHeaderProps {
 export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url = '' }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const { auth } = page.props
-  console.log(auth)
+  const { url: currentURL } = page
   return (
     <>
       <div className='border-sidebar-border/80 bg-negro'>
@@ -66,17 +66,24 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                 {auth.user ? (
                   <>
                     {rightNavItems.map((item) => (
-                      <TooltipProvider key={item.title} delayDuration={0}>
+                      <TooltipProvider
+                        key={item.title}
+                        delayDuration={0}
+                      >
                         <Tooltip>
                           <TooltipTrigger>
                             <a
                               href={item.url}
-                              target='_blank'
                               rel='noopener noreferrer'
                               className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
                             >
                               <span className='sr-only'>{item.title}</span>
-                              {item.icon && <Icon iconNode={item.icon} className='size-5 opacity-80 group-hover:opacity-100' />}
+                              {item.icon && (
+                                <Icon
+                                  iconNode={item.icon}
+                                  className='size-5 opacity-80 group-hover:opacity-100'
+                                />
+                              )}
                             </a>
                           </TooltipTrigger>
                           <TooltipContent>
@@ -85,14 +92,22 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                         </Tooltip>
                       </TooltipProvider>
                     ))}
-                    <Link as='button' method='post' href='/logout' className='text-amarillo'>
+                    <Link
+                      as='button'
+                      method='post'
+                      href='/logout'
+                      className='text-amarillo'
+                    >
                       Cerrar Sesión
                     </Link>
                   </>
                 ) : (
                   <div className='flex items-center gap-4'>
                     {rightNavItemsNotAuth.map((item) => (
-                      <Link href={item.url} className={item.style}>
+                      <Link
+                        href={route(item.url, { redirect: currentURL })}
+                        className={item.style}
+                      >
                         {item.title}
                       </Link>
                     ))}
@@ -105,11 +120,18 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
           <div className='lg:hidden'>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant='ghost' size='icon' className='h-[34px] w-[34px]'>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='h-[34px] w-[34px]'
+                >
                   <Menu className='text-amarillo h-5 w-5' />
                 </Button>
               </SheetTrigger>
-              <SheetContent side='left' className='bg-sidebar flex h-full w-64 flex-col items-stretch justify-between'>
+              <SheetContent
+                side='left'
+                className='bg-sidebar flex h-full w-64 flex-col items-stretch justify-between'
+              >
                 <SheetTitle className='sr-only'>Navigation Menu</SheetTitle>
                 <SheetHeader className='flex justify-start text-left'>
                   <AppLogoIcon className='h-6 w-6 fill-current text-black dark:text-white' />
@@ -123,11 +145,14 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                         <a
                           key={item.title}
                           href={item.url}
-                          target='_blank'
-                          rel='noopener noreferrer'
                           className='flex items-center space-x-2 font-medium'
                         >
-                          {item.icon && <Icon iconNode={item.icon} className='h-5 w-5' />}
+                          {item.icon && (
+                            <Icon
+                              iconNode={item.icon}
+                              className='h-5 w-5'
+                            />
+                          )}
                           <span>{item.title}</span>
                         </a>
                       ))}
@@ -139,7 +164,11 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
           </div>
         </div>
       </div>
-      <Subtitle subtitulo={subtitulo} needBack={needBack} url={url} />
+      <Subtitle
+        subtitulo={subtitulo}
+        needBack={needBack}
+        url={url}
+      />
       {breadcrumbs.length > 1 && (
         <div className='border-sidebar-border/70 flex w-full border-b'>
           <div className='mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl'>

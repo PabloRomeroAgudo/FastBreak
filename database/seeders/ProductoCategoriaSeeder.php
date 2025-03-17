@@ -22,7 +22,7 @@ class ProductoCategoriaSeeder extends Seeder {
       ],
       [
         "id_producto" => 3,
-        "id_categoria" => 2,
+        "id_categoria" => 1,
       ],
       [
         "id_producto" => 4,
@@ -30,10 +30,18 @@ class ProductoCategoriaSeeder extends Seeder {
       ],
       [
         "id_producto" => 5,
-        "id_categoria" => 3,
+        "id_categoria" => 2,
       ],
       [
         "id_producto" => 6,
+        "id_categoria" => 2,
+      ],
+      [
+        "id_producto" => 7,
+        "id_categoria" => 3,
+      ],
+      [
+        "id_producto" => 8,
         "id_categoria" => 3,
       ],
     ]);

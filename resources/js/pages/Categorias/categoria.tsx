@@ -1,40 +1,40 @@
+import CardProducto from '@/components/producto/cardProducto'
 import AppLayout from '@/layouts/app-layout'
+import { type Producto } from '@/types'
 import { Head } from '@inertiajs/react'
+import { Toaster } from 'sonner'
 
-export type Categoria = {
-  id: number
-  nombre: string
-  descripcion: string
-  imagen: null | string
+interface Props {
+  categoria: string
+  productos: Producto[]
 }
 
-export type Producto = {
-  id: number
-  nombre: string
-  precio: number
-  descripcion: null
-  ingredientes: null
-  alergenos: null
-  max_stock: number
-  imagen: null
-  pivot: Pivot
-}
-
-export type Pivot = {
-  id_categoria: number
-  id_producto: number
-}
-
-export default function Categoria({ categoria, productos }: { categoria: Categoria; productos: Producto[] }) {
+export default function Categoria({ categoria, productos }: Props) {
   return (
-    <AppLayout subtitulo={categoria.nombre} needBack={true} url='/categoria'>
+    <AppLayout
+      subtitulo={categoria}
+      needBack={true}
+      url='/categoria'
+    >
       <Head>
-        <title>{categoria.nombre}</title>
+        <title>{categoria}</title>
       </Head>
+      <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8'>
+        {productos &&
+          productos.map((producto) => {
+            return (
+              <CardProducto
+                key={producto.id}
+                producto={producto}
+              />
+            )
+          })}
+      </section>
 
-      {productos.map((producto) => {
-        return <p>{producto.nombre}</p>
-      })}
+      <Toaster
+        richColors
+        duration={1500}
+      />
     </AppLayout>
   )
 }

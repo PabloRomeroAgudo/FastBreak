@@ -19,6 +19,6 @@ class CategoriaController extends Controller {
 
     $productos = $categoria->productos()->get();
 
-    return Inertia::render('Categorias/categoria', ['categoria' => $categoria, "productos" => $productos]);
+    return Inertia::render('Categorias/categoria', ['categoria' => $categoria->nombre, "productos" => $productos]);
   }
 }

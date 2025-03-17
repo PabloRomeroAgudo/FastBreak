@@ -8,6 +8,7 @@ import { initializeTheme } from './hooks/use-appearance'
 // Supports weights 100-900
 import '@fontsource-variable/inter'
 import '@fontsource/jockey-one' // Defaults to weight 400
+import { CarritoProvider } from './context/carrito'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
@@ -17,7 +18,11 @@ createInertiaApp({
   setup({ el, App, props }) {
     const root = createRoot(el)
 
-    root.render(<App {...props} />)
+    root.render(
+      <CarritoProvider>
+        <App {...props} />
+      </CarritoProvider>,
+    )
   },
   progress: {
     color: '#4B5563',

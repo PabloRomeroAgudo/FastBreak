@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-  return redirect('/categoria');
+  return redirect('categoria');
 })->name('home');
 
-Route::get('/categoria', [CategoriaController::class, 'index']);
+Route::get('categoria', [CategoriaController::class, 'index'])->name('categorias');
 
-Route::get('/categoria/{categoria}', [CategoriaController::class, 'show']);
+Route::get('categoria/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('dashboard', function () {
