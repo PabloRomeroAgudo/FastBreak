@@ -21,7 +21,12 @@ export default function Welcome({ categorias }: Props) {
       <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
         {categorias &&
           categorias.map((categoria) => {
-            return <CardCategoria categoria={categoria} />
+            return (
+              <CardCategoria
+                key={categoria.id}
+                categoria={categoria}
+              />
+            )
           })}
       </section>
     </AppLayout>

@@ -7,7 +7,10 @@ interface Props {
 
 export function CardCategoria({ categoria }: Props) {
   return (
-    <Link href={`/categoria/${categoria.nombre}`} className='group flex flex-col gap-2' key={categoria.id}>
+    <Link
+      href={`/categoria/${categoria.nombre}`}
+      className='group flex flex-col gap-2'
+    >
       {categoria.imagen && (
         <div className='overflow-clip rounded-xl transition duration-300'>
           <img
@@ -17,7 +20,7 @@ export function CardCategoria({ categoria }: Props) {
           />
         </div>
       )}
-      <h3 className='after:bg-amarillo group-hover:text-amarillo relative w-fit text-2xl font-bold transition-all group-hover:scale-110 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear group-hover:after:scale-x-100'>
+      <h3 className='after:bg-negro group-hover:after:bg-amarillo group-hover:text-amarillo relative w-fit text-2xl font-bold transition-all group-hover:scale-110 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear group-hover:after:scale-x-100'>
         {categoria.nombre}
       </h3>
       <p className='text-gris group-hover:text-negro transition-colors'>{categoria.descripcion}</p>
