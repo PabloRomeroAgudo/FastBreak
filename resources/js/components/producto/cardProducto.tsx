@@ -2,6 +2,7 @@ import { CarritoContext } from '@/context/carrito'
 import { Carrito, Producto, SharedData } from '@/types'
 import { Link, router, usePage } from '@inertiajs/react'
 import { useContext, useState } from 'react'
+import { toast } from 'sonner'
 import { Buttons } from './buttons'
 
 interface Props {
@@ -18,7 +19,7 @@ export default function CardProducto({ producto }: Props) {
 
   const { auth } = usePage<SharedData>().props
   const { url } = usePage()
-  const [cantidad, setCantidad] = useState(1)
+  const [cantidad, setCantidad] = useState(0)
 
   const { id, nombre, descripcion, imagen, precio } = producto
 
@@ -56,7 +57,9 @@ export default function CardProducto({ producto }: Props) {
     }
 
     setCarrito(newCarrito)
-    setCantidad(1)
+    setCantidad(0)
+
+    toast.success('Añadido al carrito correctamente')
   }
 
   return (

@@ -9,9 +9,9 @@ export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart }: 
     <>
       <div className='font-principal flex gap-1'>
         <button
-          disabled={cantidad <= 1}
+          disabled={cantidad <= 0}
           onClick={() => handleClickAddItem(-1)}
-          className='bg-amarillo text-md flex-1 cursor-pointer rounded-md transition-colors disabled:cursor-not-allowed disabled:bg-red-800'
+          className='bg-amarillo text-md disabled:text-blanco flex-1 cursor-pointer rounded-md transition-colors disabled:cursor-not-allowed disabled:bg-red-800'
         >
           -
         </button>
@@ -26,7 +26,8 @@ export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart }: 
 
       <button
         onClick={handleClickAddToCart}
-        className='bg-amarillo font-principal flex-1 cursor-pointer rounded-3xl'
+        className='bg-amarillo font-principal disabled:bg-00 flex-1 cursor-pointer rounded-3xl disabled:cursor-not-allowed'
+        disabled={cantidad === 0}
       >
         Añadir
       </button>

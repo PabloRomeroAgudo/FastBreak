@@ -33,7 +33,7 @@ export default function Categoria({ categoria, productos }: Props) {
 
       <Toaster
         richColors
-        duration={1200}
+        duration={1500}
       />
     </AppLayout>
   )
