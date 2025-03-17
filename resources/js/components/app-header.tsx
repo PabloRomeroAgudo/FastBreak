@@ -23,7 +23,7 @@ const rightNavItems: NavItem[] = [
   },
   {
     title: 'Perfil',
-    url: 'https://laravel.com/docs/starter-kits',
+    url: '/settings/profile',
     icon: CircleUserRound,
   },
 ]
@@ -55,61 +55,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
   return (
     <>
       <div className='border-sidebar-border/80 bg-negro'>
-        <div className='mx-auto flex h-16 items-center px-4'>
-          {/* Mobile Menu */}
-          <div className='lg:hidden'>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant='ghost'
-                  size='icon'
-                  className='mr-2 h-[34px] w-[34px]'
-                >
-                  <Menu className='h-5 w-5' />
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side='left'
-                className='bg-sidebar flex h-full w-64 flex-col items-stretch justify-between'
-              >
-                <SheetTitle className='sr-only'>Navigation Menu</SheetTitle>
-                <SheetHeader className='flex justify-start text-left'>
-                  <AppLogoIcon className='h-6 w-6 fill-current text-black dark:text-white' />
-                </SheetHeader>
-                <div className='flex h-full flex-1 flex-col space-y-4 p-4'>
-                  <div className='flex h-full flex-col justify-between text-sm'>
-                    <div className='flex flex-col space-y-4'></div>
-
-                    <div className='flex flex-col space-y-4'>
-                      {rightNavItems.map((item) => (
-                        <a
-                          key={item.title}
-                          href={item.url}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                          className='flex items-center space-x-2 font-medium'
-                        >
-                          {item.icon && (
-                            <Icon
-                              iconNode={item.icon}
-                              className='h-5 w-5'
-                            />
-                          )}
-                          <span>{item.title}</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-
+        <div className='mx-auto flex h-16 items-center justify-between px-4'>
           <AppLogo />
 
           {/* Desktop Navigation */}
-
-          <div className='ml-auto flex items-center space-x-3'>
+          {auth.user && <p className='text-blanco font-principal'>Saldo : {auth.user.saldo}</p>}
+          <div className='flex items-center space-x-3'>
             <div className='relative flex items-center space-x-1'>
               <div className='hidden lg:flex'>
                 {auth.user ? (
@@ -165,6 +116,54 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                 )}
               </div>
             </div>
+          </div>
+          {/* Mobile Menu */}
+          <div className='lg:hidden'>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant='ghost'
+                  size='icon'
+                  className='h-[34px] w-[34px]'
+                >
+                  <Menu className='text-amarillo h-5 w-5' />
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side='left'
+                className='bg-sidebar flex h-full w-64 flex-col items-stretch justify-between'
+              >
+                <SheetTitle className='sr-only'>Navigation Menu</SheetTitle>
+                <SheetHeader className='flex justify-start text-left'>
+                  <AppLogoIcon className='h-6 w-6 fill-current text-black dark:text-white' />
+                </SheetHeader>
+                <div className='flex h-full flex-1 flex-col space-y-4 p-4'>
+                  <div className='flex h-full flex-col justify-between text-sm'>
+                    <div className='flex flex-col space-y-4'></div>
+
+                    <div className='flex flex-col space-y-4'>
+                      {rightNavItems.map((item) => (
+                        <a
+                          key={item.title}
+                          href={item.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='flex items-center space-x-2 font-medium'
+                        >
+                          {item.icon && (
+                            <Icon
+                              iconNode={item.icon}
+                              className='h-5 w-5'
+                            />
+                          )}
+                          <span>{item.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
