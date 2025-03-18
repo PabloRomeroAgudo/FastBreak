@@ -14,12 +14,14 @@ export interface NavGroup {
   title: string
   items: NavItem[]
 }
-
+type method = 'post' | 'get' | 'delete' | 'patch' | 'put'
 export interface NavItem {
   title: string
   url: string
   icon?: LucideIcon | null
   isActive?: boolean
+  isIcon: boolean
+  method: method
 }
 
 export interface SharedData {
