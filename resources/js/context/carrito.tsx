@@ -1,13 +1,14 @@
+
 import { Carrito } from '@/types'
 import { createContext, ReactNode, useState } from 'react'
 
 interface Contexto {
   carrito: Carrito
-  setCarrito: (newCarrito: Carrito) => void
+  setCarrito: (newCarrito: Carrito) => void  
 }
 
 // Lo que hay que consumir
-export const CarritoContext = createContext<Contexto | null>(null)
+export const CarritoContext = createContext<Contexto | null>(null)  
 
 interface Props {
   children: ReactNode
