@@ -36,7 +36,7 @@ const rightNavItems: NavItem[] = [
     title: 'Ajustes',
     url: '/settings/profile',
     isIcon: false,
-    method: 'post',
+    method: 'get',
   },
   {
     title: 'Log Out',
