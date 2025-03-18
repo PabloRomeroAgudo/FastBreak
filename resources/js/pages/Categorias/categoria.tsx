@@ -1,7 +1,9 @@
 import CardProducto from '@/components/producto/cardProducto'
+import { CarritoContext } from '@/context/carrito'
 import AppLayout from '@/layouts/app-layout'
 import { type Producto } from '@/types'
 import { Head } from '@inertiajs/react'
+import { useContext } from 'react'
 import { Toaster } from 'sonner'
 
 interface Props {
@@ -10,6 +12,8 @@ interface Props {
 }
 
 export default function Categoria({ categoria, productos }: Props) {
+  const { carrito } = useContext(CarritoContext)!
+
   return (
     <AppLayout
       subtitulo={categoria}
@@ -30,6 +34,15 @@ export default function Categoria({ categoria, productos }: Props) {
             )
           })}
       </section>
+
+      <p>{carrito.precioTotal}</p>
+      {carrito.productos.map((producto) => {
+        return (
+          <p>
+            {producto.nombre} {producto.precio}€ {producto.cantidad}
+          </p>
+        )
+      })}
 
       <Toaster
         richColors

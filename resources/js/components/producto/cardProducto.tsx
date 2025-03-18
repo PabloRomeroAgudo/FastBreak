@@ -1,6 +1,7 @@
 import { CarritoContext } from '@/context/carrito'
+import { goToUrlWithRedirect } from '@/lib/utils'
 import { Carrito, Producto, SharedData } from '@/types'
-import { Link, router, usePage } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 import { Buttons } from './buttons'
@@ -29,7 +30,7 @@ export default function CardProducto({ producto }: Props) {
 
   const handleClickAddToCart = () => {
     if (!auth.user) {
-      router.get(route('login', { redirect: url }))
+      goToUrlWithRedirect('login', { redirect: url })
       return
     }
 
