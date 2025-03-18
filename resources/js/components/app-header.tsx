@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { getUrlNameWithRedirect } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
-import { CircleUserRound, Menu, ShoppingCart } from 'lucide-react'
+import { LogOut, Menu, ShoppingCart, StickyNote } from 'lucide-react'
 import AppLogo from './app-logo'
 import AppLogoIcon from './app-logo-icon'
 import Subtitle from './subtitle'
@@ -16,16 +16,34 @@ type NavItemNotAuth = {
   url: string
   style: string
 }
+
 const rightNavItems: NavItem[] = [
   {
     title: 'Carrito',
     url: '/carrito',
     icon: ShoppingCart,
+    isIcon: true,
+    method: 'post',
   },
   {
-    title: 'Perfil',
+    title: 'Pedidos',
+    url: '/pedidos',
+    icon: StickyNote,
+    isIcon: true,
+    method: 'post',
+  },
+  {
+    title: 'Ajustes',
     url: '/settings/profile',
-    icon: CircleUserRound,
+    isIcon: false,
+    method: 'get',
+  },
+  {
+    title: 'Log Out',
+    url: '/logout',
+    icon: LogOut,
+    isIcon: true,
+    method: 'post',
   },
 ]
 
@@ -33,12 +51,12 @@ const rightNavItemsNotAuth: NavItemNotAuth[] = [
   {
     title: 'Log in',
     url: 'login',
-    style: 'text-negro bg-amarillo w-20 rounded-sm text-lg font-bold text-center',
+    style: 'text-negro bg-amarillo w-20 rounded-sm text-lg font-bold font-principal text-center hover:bg-primary/90 hover:text-blanco ',
   },
   {
     title: 'Sign in',
     url: 'register',
-    style: 'text-blanco',
+    style: 'text-blanco bg-negro w-20  text-center rounded-sm hover:text-amarillo font-principal',
   },
 ]
 
@@ -60,47 +78,62 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
           <AppLogo />
 
           {/* Desktop Navigation */}
-          {auth.user && <p className='text-blanco font-principal'>Saldo : {auth.user.saldo}</p>}
           <div className='flex items-center space-x-3'>
             <div className='relative flex items-center space-x-1'>
               <div className='hidden lg:flex'>
+                {auth.user && <p className='text-blanco font-principal mt-auto flex h-9 items-center justify-center'>Saldo : {auth.user.saldo}</p>}
+
                 {auth.user ? (
                   <>
-                    {rightNavItems.map((item) => (
-                      <TooltipProvider
-                        key={item.title}
-                        delayDuration={0}
-                      >
-                        <Tooltip>
-                          <TooltipTrigger>
-                            <a
-                              href={item.url}
-                              rel='noopener noreferrer'
-                              className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
-                            >
-                              <span className='sr-only'>{item.title}</span>
-                              {item.icon && (
-                                <Icon
-                                  iconNode={item.icon}
-                                  className='size-5 opacity-80 group-hover:opacity-100'
-                                />
-                              )}
-                            </a>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{item.title}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    ))}
-                    <Link
-                      as='button'
-                      method='post'
-                      href='/logout'
-                      className='text-amarillo'
-                    >
-                      Cerrar Sesión
-                    </Link>
+                    {rightNavItems.map((item) =>
+                      item.isIcon ? (
+                        <TooltipProvider
+                          key={item.title}
+                          delayDuration={0}
+                        >
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Link
+                                method={item.method}
+                                href={item.url}
+                                className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo ml-1 inline-flex h-9 w-9 items-center justify-center rounded-md bg-transparent p-0 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
+                              >
+                                <span className='sr-only'>{item.title}</span>
+                                {item.icon && (
+                                  <Icon
+                                    iconNode={item.icon}
+                                    className='size-5 opacity-80 group-hover:opacity-100'
+                                  />
+                                )}
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{item.title}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      ) : (
+                        <TooltipProvider
+                          key={item.title}
+                          delayDuration={0}
+                        >
+                          <Tooltip>
+                            <TooltipTrigger>
+                              <Link
+                                method={item.method}
+                                href={item.url}
+                                className='group ring-offset-background hover:bg-accent text-amarillo hover:text-negro focus-visible:ring-ring ml-1 flex h-9 items-center justify-center rounded-md bg-transparent p-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
+                              >
+                                <p className='whitespace-nowrap'>{auth.user.name}</p>
+                              </Link>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>{item.title}</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      ),
+                    )}
                   </>
                 ) : (
                   <div className='flex items-center gap-4'>
