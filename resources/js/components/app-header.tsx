@@ -3,6 +3,7 @@ import { Icon } from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { getUrlNameWithRedirect } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { CircleUserRound, Menu, ShoppingCart } from 'lucide-react'
@@ -105,7 +106,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                   <div className='flex items-center gap-4'>
                     {rightNavItemsNotAuth.map((item) => (
                       <Link
-                        href={route(item.url, { redirect: currentURL })}
+                        href={getUrlNameWithRedirect(item.url, { redirect: currentURL })}
                         className={item.style}
                       >
                         {item.title}
