@@ -23,7 +23,7 @@ const rightNavItems: NavItem[] = [
     url: '/carrito',
     icon: ShoppingCart,
     isIcon: true,
-    method: 'post',
+    method: 'get',
   },
   {
     title: 'Pedidos',
