@@ -12,19 +12,22 @@ export default function Welcome({ categorias }: Props) {
 
   const textTitle = hayProductos ? 'Elige una categoría' : 'No hay categorías'
 
+  const someHasImage = categorias.some((categoria) => categoria.imagen)
+
   return (
     <AppLayout subtitulo={textTitle}>
       <Head>
         <title>Bienvenido</title>
       </Head>
 
-      <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
+      <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] justify-center gap-4 px-8 has-hover:[&>*:not(:hover)]:grayscale'>
         {categorias &&
           categorias.map((categoria) => {
             return (
               <CardCategoria
                 key={categoria.id}
                 categoria={categoria}
+                someHasImage={someHasImage}
               />
             )
           })}
