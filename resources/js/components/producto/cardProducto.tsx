@@ -71,12 +71,13 @@ export default function CardProducto({ producto }: Props) {
       {imagen && (
         <>
           <div className='relative overflow-clip rounded-xl transition duration-300'>
-            <span className='font-principal text-blanco bg-rojo absolute right-0 grid aspect-square h-20 place-content-center rounded-full text-3xl'>
+            <span className='font-principal text-blanco bg-rojo absolute right-0 grid aspect-square h-14 place-content-center rounded-full text-lg lg:h-20 lg:text-3xl'>
               {producto.precio}€
             </span>
             <img
               src={imagen}
               alt={`Imagen de la producto ${nombre}`}
+              className='aspect-square w-full object-contain'
             />
           </div>
 

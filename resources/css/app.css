@@ -16,6 +16,7 @@
   --color-rojo: #fe0000;
   --color-blanco: #ffffff;
   --color-negro: #000000;
+  /* --color-negro: #222428; */
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);

@@ -12,7 +12,7 @@ export default function AppLogo() {
           <AppLogoIcon className='text-amarillo size-5 fill-current dark:text-black' />
         </div>
         <div className='ml-1 grid text-left text-3xl'>
-          <h1 className='text-amarillo font-principal mb-0.5 truncate leading-none'>FastBreak</h1>
+          <span className='text-amarillo font-principal mb-0.5 truncate leading-none'>FastBreak</span>
         </div>
       </div>
     </Link>
