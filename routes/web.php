@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Carrito\CarritoController;
 use App\Http\Controllers\Categoria\CategoriaController;
+use App\Http\Controllers\TransaccionController;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Rol;
@@ -20,6 +21,10 @@ Route::get('categoria/{categoria}', [CategoriaController::class, 'show'])->name(
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::inertia('carrito', 'Carrito/carrito')->name('carrito');
+
+
+  Route::post('/carrito', [TransaccionController::class, 'store'])->name('pago');
+
 
   Route::get('dashboard', function () {
     return Inertia::render('dashboard');

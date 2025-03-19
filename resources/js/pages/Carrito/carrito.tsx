@@ -3,16 +3,22 @@ import Pagar from '@/components/carrito/pagar'
 import Precio from '@/components/carrito/precio'
 import { CarritoContext } from '@/context/carrito'
 import AppLayout from '@/layouts/app-layout'
-import { Head } from '@inertiajs/react'
+import { SharedData } from '@/types'
+import { Head, usePage } from '@inertiajs/react'
 import { useContext } from 'react'
+import { toast, Toaster } from 'sonner'
 
 export default function Carrito() {
   const contexto = useContext(CarritoContext)
   if (!contexto) {
     throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
   }
-  const { carrito } = contexto
 
+  const { carrito } = contexto
+  const { errors } = usePage<SharedData>().props
+  Object.values(errors).forEach((error) => {
+    toast.error(error)
+  })
   return (
     <AppLayout
       subtitulo={'Carrito'}
@@ -37,9 +43,9 @@ export default function Carrito() {
           <Pagar />
         </>
       ) : (
-        // <h3 className='text-rojo font-principal self-center text-4xl'>¡Vaya, parece que aún no has pedido nada...!</h3>
         <h3 className='text-rojo font-principal text-center text-4xl text-pretty'>¡Vaya, parece que aún no has pedido nada...!</h3>
       )}
+      <Toaster richColors />
     </AppLayout>
   )
 }

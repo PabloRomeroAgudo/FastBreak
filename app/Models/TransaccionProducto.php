@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaccionProducto extends Model {
   protected $table = 'transacciones_productos';
+  public $timestamps = false;
 
   public function transaccion() {
     return $this->belongsTo(Transaccion::class, 'id_transaccion');
