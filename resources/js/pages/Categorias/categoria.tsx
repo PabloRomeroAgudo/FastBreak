@@ -1,31 +1,39 @@
 import CardProducto from '@/components/producto/cardProducto'
-import { CarritoContext } from '@/context/carrito'
+import CarouselCat from '@/components/producto/carouselCat'
 import AppLayout from '@/layouts/app-layout'
-import { type Producto } from '@/types'
+import { type Categoria, type Producto } from '@/types'
 import { Head } from '@inertiajs/react'
-import { useContext } from 'react'
 import { Toaster } from 'sonner'
 
 interface Props {
-  categoria: string
+  categoria: Categoria
   productos: Producto[]
+  categorias: Categoria[]
 }
 
-export default function Categoria({ categoria, productos }: Props) {
-  const { carrito } = useContext(CarritoContext)!
+export default function Categoria({ categoria, categorias, productos }: Props) {
+  const areProducts = productos.length > 0
 
   return (
     <AppLayout
-      subtitulo={categoria}
+      subtitulo={categoria.nombre}
       needBack={true}
       url='/categoria'
     >
       <Head>
-        <title>{categoria}</title>
+        <title>{categoria.nombre}</title>
       </Head>
-      <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8'>
-        {productos &&
-          productos.map((producto) => {
+
+      <section className='mb-4 flex justify-center px-8'>
+        <CarouselCat
+          categorias={categorias}
+          categoriaActiva={categoria}
+        />
+      </section>
+
+      {areProducts ? (
+        <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] justify-center gap-4 px-8'>
+          {productos.map((producto) => {
             return (
               <CardProducto
                 key={producto.id}
@@ -33,16 +41,10 @@ export default function Categoria({ categoria, productos }: Props) {
               />
             )
           })}
-      </section>
-
-      <p>{carrito.precioTotal}</p>
-      {carrito.productos.map((producto) => {
-        return (
-          <p>
-            {producto.nombre} {producto.precio}€ {producto.cantidad}
-          </p>
-        )
-      })}
+        </section>
+      ) : (
+        <h3 className='text-rojo font-principal self-center text-center text-4xl'>No hay productos de {categoria.nombre}</h3>
+      )}
 
       <Toaster
         richColors
