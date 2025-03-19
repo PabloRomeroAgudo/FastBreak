@@ -26,17 +26,17 @@ export default function ElemCarrito({ producto }: { producto: ProductoCarrito })
   }
 
   return (
-    <article className='text-amarillo font-principal flex items-center justify-between gap-2.5 bg-black p-5 text-2xl md:text-3xl'>
-      <h3 className='w-24 text-white md:w-48'>{producto.nombre}</h3>
-      <span className='text-xl'>
-        Cantidad : <span className='text-white'> {producto.cantidad}</span>
+    <article className='text-amarillo font-principal bg-negro grid grid-flow-col items-center gap-2.5 p-5 text-2xl md:text-3xl'>
+      <h3 className='text-blanco w-24 md:w-48'>{producto.nombre}</h3>
+      <span className='justify-self-center text-xl'>
+        Cantidad : <span className='text-blanco'> {producto.cantidad}</span>
       </span>
-      <span className='text-xl'>
-        Precio : <span className='text-white'>{producto.precio} €</span>
+      <span className='justify-self-center text-xl'>
+        Precio : <span className='text-blanco'>{producto.precio} €</span>
       </span>
       <button
         onClick={eliminar}
-        className='relative w-fit cursor-pointer text-xl font-bold text-red-600 transition-all after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:bg-red-600 after:transition-all after:ease-linear hover:scale-110 hover:after:scale-x-100 md:text-2xl'
+        className='relative w-fit cursor-pointer justify-self-end text-xl font-bold text-red-600 transition-all after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:bg-red-600 after:transition-all after:ease-linear hover:scale-110 hover:after:scale-x-100 md:text-2xl'
       >
         Eliminar
       </button>

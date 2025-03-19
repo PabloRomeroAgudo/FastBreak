@@ -37,7 +37,8 @@ export default function Carrito() {
           <Pagar />
         </>
       ) : (
-        <h3 className='text-rojo font-principal self-center text-4xl'>¡Vaya, parece que aún no has pedido nada...!</h3>
+        // <h3 className='text-rojo font-principal self-center text-4xl'>¡Vaya, parece que aún no has pedido nada...!</h3>
+        <h3 className='text-rojo font-principal text-center text-4xl text-pretty'>¡Vaya, parece que aún no has pedido nada...!</h3>
       )}
     </AppLayout>
   )
