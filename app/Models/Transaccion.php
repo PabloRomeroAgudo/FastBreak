@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transaccion extends Model {
   protected $table = 'transacciones';
+  public $timestamps = false;
 
   public function usuario(): BelongsTo {
     return $this->belongsTo(User::class, 'id_usuario');
