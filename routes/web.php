@@ -19,7 +19,7 @@ Route::get('categoria', [CategoriaController::class, 'index'])->name('categorias
 Route::get('categoria/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-  Route::get('carrito', [CarritoController::class, 'index'])->name("carrito");
+  Route::inertia('carrito', 'Carrito/carrito')->name('carrito');
 
   Route::get('dashboard', function () {
     return Inertia::render('dashboard');
