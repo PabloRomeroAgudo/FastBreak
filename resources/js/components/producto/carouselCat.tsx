@@ -22,10 +22,10 @@ export default function CarouselCat({ categorias, categoriaActiva }: Props) {
 
   return (
     <Carousel
-      className='w-[60%] select-none'
+      className='flex w-[80%] items-center justify-center select-none md:w-[60%]'
       opts={{ align: 'start' }}
     >
-      <CarouselPrevious className='bg-amarillo text-blanco hover:text-blanco cursor-pointer border-0 hover:bg-yellow-500' />
+      <CarouselPrevious className='bg-amarillo text-blanco hover:text-blanco size-5 cursor-pointer border-0 hover:bg-yellow-500' />
 
       <CarouselContent className='py-2'>
         {categorias.map((categoria) => {
@@ -38,10 +38,10 @@ export default function CarouselCat({ categorias, categoriaActiva }: Props) {
               <Link
                 title={categoria.nombre}
                 href={`/categoria/${categoria.nombre}`}
-                className='group flex w-fit max-w-20 flex-col items-center gap-1 transition-all hover:scale-110'
+                className='group flex w-fit max-w-20 flex-col items-center transition-all hover:scale-110'
               >
                 <h4
-                  className={`${isActive ? 'text-amarillo underline' : 'text-gris group-hover:text-negro'} max-w-full overflow-clip text-nowrap text-ellipsis`}
+                  className={`${isActive ? 'text-amarillo underline' : 'text-gris group-hover:text-negro'} max-w-full overflow-clip text-sm text-nowrap text-ellipsis`}
                 >
                   {categoria.nombre}
                 </h4>
@@ -50,10 +50,10 @@ export default function CarouselCat({ categorias, categoriaActiva }: Props) {
                     <img
                       src={categoria.imagen}
                       alt={`Foto de la categoria ${categoria.nombre}`}
-                      className={`aspect-square h-14 rounded-2xl object-cover`}
+                      className={`aspect-square h-10 rounded-xl object-cover`}
                     />
                   ) : (
-                    <div className='bg-muted aspect-square h-14 rounded-2xl'></div>
+                    <div className='bg-muted aspect-square h-10 rounded-xl'></div>
                   ))}
               </Link>
             </CarouselItem>
@@ -61,7 +61,7 @@ export default function CarouselCat({ categorias, categoriaActiva }: Props) {
         })}
       </CarouselContent>
 
-      <CarouselNext className='bg-amarillo text-blanco hover:text-blanco cursor-pointer border-0 hover:bg-yellow-500' />
+      <CarouselNext className='bg-amarillo text-blanco hover:text-blanco size-5 cursor-pointer border-0 hover:bg-yellow-500' />
     </Carousel>
   )
 }
