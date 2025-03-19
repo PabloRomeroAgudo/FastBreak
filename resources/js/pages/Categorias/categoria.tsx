@@ -24,7 +24,7 @@ export default function Categoria({ categoria, categorias, productos }: Props) {
         <title>{categoria.nombre}</title>
       </Head>
 
-      <section className='mb-4 flex justify-center px-8'>
+      <section className='-mt-4 mb-4 flex justify-center px-4'>
         <CarouselCat
           categorias={categorias}
           categoriaActiva={categoria}
