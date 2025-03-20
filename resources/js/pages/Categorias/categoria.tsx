@@ -32,7 +32,7 @@ export default function Categoria({ categoria, categorias, productos }: Props) {
       </section>
 
       {areProducts ? (
-        <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] justify-center gap-4 px-8'>
+        <section className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4 px-8'>
           {productos.map((producto) => {
             return (
               <CardProducto
