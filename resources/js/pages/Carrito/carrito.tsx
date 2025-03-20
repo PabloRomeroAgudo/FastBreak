@@ -3,27 +3,35 @@ import Pagar from '@/components/carrito/pagar'
 import Precio from '@/components/carrito/precio'
 import { CarritoContext } from '@/context/carrito'
 import AppLayout from '@/layouts/app-layout'
-import { SharedData } from '@/types'
-import { Head, usePage } from '@inertiajs/react'
-import { useContext } from 'react'
-import { toast, Toaster } from 'sonner'
+import { Head } from '@inertiajs/react'
+import { useContext, useState } from 'react'
+import { Toaster } from 'sonner'
 
-export default function Carrito() {
+interface Props {
+  redirect: string
+}
+
+export enum TitleValues {
+  noOrder = '¡Vaya, parece que aún no has pedido nada...!',
+  success = 'Tu pedido se ha añadido correctamente',
+}
+
+export default function Carrito({ redirect }: Props) {
+  const [title, setTitle] = useState(TitleValues.noOrder)
+
+  const hasBought = title !== TitleValues.noOrder
+
   const contexto = useContext(CarritoContext)
   if (!contexto) {
     throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
   }
-
   const { carrito } = contexto
-  const { errors } = usePage<SharedData>().props
-  Object.values(errors).forEach((error) => {
-    toast.error(error)
-  })
+
   return (
     <AppLayout
       subtitulo={'Carrito'}
       needBack={true}
-      url='/categoria'
+      url={redirect}
     >
       <Head>
         <title>Carrito</title>
@@ -40,10 +48,16 @@ export default function Carrito() {
       {carrito.productos.length > 0 ? (
         <>
           <Precio producto={carrito.precioTotal} />
-          <Pagar />
+          <Pagar changeTitle={setTitle} />
         </>
       ) : (
-        <h3 className='text-rojo font-principal text-center text-4xl text-pretty'>¡Vaya, parece que aún no has pedido nada...!</h3>
+        <h3
+          className={
+            hasBought ? 'font-principal text-center text-4xl text-pretty text-green-500' : 'text-rojo font-principal text-center text-4xl text-pretty'
+          }
+        >
+          {title}
+        </h3>
       )}
       <Toaster richColors />
     </AppLayout>

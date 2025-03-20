@@ -8,8 +8,11 @@ use App\Models\Producto;
 use App\Models\Rol;
 use App\Models\Transaccion;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+use function App\Helpers\getRedirectParam;
 
 Route::get('/', function () {
   return redirect('categoria');
@@ -20,7 +23,10 @@ Route::get('categoria', [CategoriaController::class, 'index'])->name('categorias
 Route::get('categoria/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-  Route::inertia('carrito', 'Carrito/carrito')->name('carrito');
+  Route::get('carrito', function (Request $request) {
+    $redirect = getRedirectParam($request);
+    return Inertia::render('Carrito/carrito', ["redirect" => $redirect]);
+  })->name('carrito');
 
 
   Route::post('/carrito', [TransaccionController::class, 'store'])->name('pago');

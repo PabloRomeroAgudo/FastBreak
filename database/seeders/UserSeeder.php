@@ -17,19 +17,22 @@ class UserSeeder extends Seeder {
         'name' => "Pablo",
         'id_rol' => 1,
         "email" => "pablo@example.com",
-        "password" => Hash::make('1234')
+        "password" => Hash::make('1234'),
+        "saldo" => 100
       ],
       [
         'name' => "Guille",
         'id_rol' => 1,
         "email" => "guille@example.com",
-        "password" => Hash::make('1234')
+        "password" => Hash::make('1234'),
+        "saldo" => 100
       ],
       [
         'name' => "David",
         'id_rol' => 1,
         "email" => "david@example.com",
-        "password" => Hash::make('1234')
+        "password" => Hash::make('1234'),
+        "saldo" => 100
       ]
     ]);
   }

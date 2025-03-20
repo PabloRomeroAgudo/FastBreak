@@ -39,8 +39,6 @@ class TransaccionController extends Controller {
       $transaccion->codigo = 'a1';
       $transaccion->save();
 
-
-
       foreach ($productos as $producto) {
         $transaccionProducto = new TransaccionProducto();
         $transaccionProducto->id_transaccion = $transaccion->id;
@@ -49,7 +47,7 @@ class TransaccionController extends Controller {
         $transaccionProducto->save();
       }
 
-      $usuario =  User::find(Auth::id());
+      $usuario =  $request->user();
       $saldoUser  = $usuario->saldo;
       $nuevoSaldo = $saldoUser - $transaccion->total;
       $usuario->saldo = $nuevoSaldo;
