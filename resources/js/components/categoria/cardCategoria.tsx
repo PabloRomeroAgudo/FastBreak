@@ -10,7 +10,7 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
   return (
     <Link
       href={`/categoria/${categoria.nombre}`}
-      className='group flex flex-col gap-2'
+      className='group flex flex-col gap-2 transition'
     >
       <div className='overflow-clip rounded-xl transition duration-300'>
         {someHasImage &&
