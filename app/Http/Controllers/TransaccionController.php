@@ -31,7 +31,11 @@ class TransaccionController extends Controller {
    */
   public function store(TransaccionRequest $request) {
     $carrito  = $request->validated('carrito');
-    ['precioTotal' => $precioTotal, 'productos' => $productos] = $carrito;
+    [
+      'precioTotal' => $precioTotal,
+      'productos' => $productos
+    ] = $carrito;
+
     DB::transaction(function () use ($precioTotal, $productos, $request) {
       $transaccion = new Transaccion();
       $transaccion->id_usuario = Auth::id();
