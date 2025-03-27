@@ -1,7 +1,7 @@
 import { CarritoContext } from '@/context/carrito'
 import { TitleValues } from '@/pages/Carrito/carrito'
-import { Carrito, SharedData } from '@/types'
-import { router, usePage } from '@inertiajs/react'
+import { Carrito } from '@/types'
+import { router } from '@inertiajs/react'
 import { useContext } from 'react'
 import { toast } from 'sonner'
 
@@ -15,8 +15,6 @@ export default function Pagar({ changeTitle }: Props) {
     throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
   }
   const { carrito, setCarrito } = contexto
-
-  const { errors } = usePage<SharedData>().props
 
   const pago = () => {
     router.post(
@@ -32,7 +30,7 @@ export default function Pagar({ changeTitle }: Props) {
           setCarrito(nuevoCarrito)
           changeTitle(TitleValues.success)
         },
-        onError: () => {
+        onError: (errors) => {
           Object.values(errors).forEach((error) => {
             toast.error(error)
           })
