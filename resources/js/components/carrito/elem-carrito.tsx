@@ -21,8 +21,6 @@ export default function ElemCarrito({ producto }: { producto: ProductoCarrito })
     }
 
     setCarrito(nuevoCarrito)
-
-    console.log(nuevoCarrito)
   }
 
   return (
