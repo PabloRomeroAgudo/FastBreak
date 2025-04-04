@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Carrito\CarritoController;
 use App\Http\Controllers\Categoria\CategoriaController;
+use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\TransaccionController;
+use App\Http\Middleware\UserIsAdmin;
 use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Rol;
@@ -29,12 +31,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
   })->name('carrito');
 
 
-  Route::post('/carrito', [TransaccionController::class, 'store'])->name('pago');
+  Route::post('carrito', [TransaccionController::class, 'store'])->name('pago');
 
-
-  Route::get('dashboard', function () {
-    return Inertia::render('dashboard');
-  })->name('dashboard');
+  Route::middleware(UserIsAdmin::class)->group(function () {
+    Route::get('addSaldo', [IngresoController::class, 'create'])->name('saldo');
+    Route::post('addSaldo', [IngresoController::class, 'store']);
+  });
 });
 
 require __DIR__ . '/settings.php';
