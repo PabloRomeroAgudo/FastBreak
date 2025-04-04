@@ -1,4 +1,5 @@
 import { CarritoContext } from '@/context/carrito'
+import { getPrice2Decimals } from '@/lib/utils'
 import { Carrito, ProductoCarrito } from '@/types'
 import { useContext } from 'react'
 
@@ -33,7 +34,7 @@ export default function InfoAndButton({ producto, esMovil }: Props) {
         Cantidad : <span className='text-blanco'> {producto.cantidad}</span>
       </span>
       <span className={`text-xl ${!esMovil && 'justify-self-center'}`}>
-        Precio : <span className='text-blanco'>{producto.precio} €</span>
+        Precio : <span className='text-blanco'>{getPrice2Decimals(producto.precio)} €</span>
       </span>
       <button
         onClick={eliminar}
