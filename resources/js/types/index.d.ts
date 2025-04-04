@@ -16,6 +16,7 @@ export interface NavGroup {
 }
 type method = 'post' | 'get' | 'delete' | 'patch' | 'put'
 export interface NavItem {
+  hasPermission: boolean
   title: string
   url: string
   icon?: LucideIcon | null
@@ -41,7 +42,8 @@ export interface User {
   created_at: string
   updated_at: string
   [key: string]: unknown // This allows for additional properties...
-  saldo: string
+  saldo: number
+  esUsuarioNormal: boolean
 }
 
 export type Categoria = {
