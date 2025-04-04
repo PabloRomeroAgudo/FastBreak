@@ -15,6 +15,14 @@ class RolSeeder extends Seeder {
       [
         "nombre" => "desarrollo",
         "descripcion" => "desarrolladores"
+      ],
+      [
+        "nombre" => "trabajador",
+        "descripcion" => "trabajador en cafeteria"
+      ],
+      [
+        "nombre" => "normal",
+        "descripcion" => "usuario normal"
       ]
     ]);
   }

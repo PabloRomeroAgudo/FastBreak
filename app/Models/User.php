@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RolTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,6 +27,7 @@ class User extends Authenticatable {
     'name',
     'email',
     'password',
+    'id_rol'
   ];
 
   /**
@@ -55,5 +58,9 @@ class User extends Authenticatable {
 
   public function transacciones(): HasMany {
     return $this->hasMany(Transaccion::class, 'id_usuario');
+  }
+
+  public function isNormalUser(): bool {
+    return $this->id_rol === RolTypes::NORMAL->value;
   }
 }
