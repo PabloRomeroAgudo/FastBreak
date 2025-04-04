@@ -81,7 +81,11 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
           <div className='flex items-center space-x-3'>
             <div className='relative flex items-center space-x-1'>
               <div className='hidden lg:flex'>
-                {auth.user && <p className='text-blanco font-principal mt-auto flex h-9 items-center justify-center'>Saldo : {auth.user.saldo}</p>}
+                {auth.user && (
+                  <p className='text-blanco font-principal hover:bg-accent hover:text-accent-foreground mt-auto flex h-9 items-center justify-center rounded-md p-0 transition-colors hover:cursor-default'>
+                    Saldo : {auth.user.saldo}
+                  </p>
+                )}
 
                 {auth.user ? (
                   <>
@@ -175,21 +179,33 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                     <div className='flex flex-col space-y-4'></div>
 
                     <div className='flex flex-col space-y-4'>
-                      {rightNavItems.map((item) => (
-                        <a
-                          key={item.title}
-                          href={item.url}
-                          className='flex items-center space-x-2 font-medium'
-                        >
-                          {item.icon && (
-                            <Icon
-                              iconNode={item.icon}
-                              className='h-5 w-5'
-                            />
-                          )}
-                          <span>{item.title}</span>
-                        </a>
-                      ))}
+                      {rightNavItems.map((item) =>
+                        item.isIcon ? (
+                          <Link
+                            method={item.method}
+                            key={item.title}
+                            href={item.url}
+                            className='flex items-center space-x-2 font-medium'
+                          >
+                            {item.icon && (
+                              <Icon
+                                iconNode={item.icon}
+                                className='h-5 w-5'
+                              />
+                            )}
+                            <span>{item.title}</span>
+                          </Link>
+                        ) : (
+                          <Link
+                            method={item.method}
+                            key={item.title}
+                            href={item.url}
+                            className='flex items-center space-x-2 font-medium'
+                          >
+                            <span>{auth.user.name}</span>
+                          </Link>
+                        ),
+                      )}
                     </div>
                   </div>
                 </div>
