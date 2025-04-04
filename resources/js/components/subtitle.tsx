@@ -18,7 +18,7 @@ export default function Subtitle({ needBack = false, subtitulo, url = '' }: { ne
         ) : (
           <h1 className='font-principal text-red-600'>No has añadido el link</h1>
         ))}
-      <h1 className='text-amarillo font-principal text-3xl'>{subtitulo}</h1>
+      <h1 className='text-amarillo font-principal cursor-default text-3xl'>{subtitulo}</h1>
     </div>
   )
 }
