@@ -118,6 +118,24 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.87 0 0);
+
+  interpolate-size: allow-keywords;
+}
+
+details {
+  overflow: hidden;
+}
+
+details::details-content {
+  height: 0;
+  transition:
+    height 0.2s,
+    content-visibility 0.2s;
+  transition-behavior: allow-discrete;
+}
+
+details[open]::details-content {
+  height: auto;
 }
 
 .dark {

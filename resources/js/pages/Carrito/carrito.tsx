@@ -37,16 +37,18 @@ export default function Carrito({ redirect }: Props) {
         <title>Carrito</title>
       </Head>
 
-      {carrito.productos.map((item) => {
-        return (
-          <ElemCarrito
-            producto={item}
-            key={item.id}
-          />
-        )
-      })}
       {carrito.productos.length > 0 ? (
         <>
+          <section className='grid gap-4'>
+            {carrito.productos.map((item) => {
+              return (
+                <ElemCarrito
+                  key={item.id}
+                  producto={item}
+                />
+              )
+            })}
+          </section>
           <Precio producto={carrito.precioTotal} />
           <Pagar changeTitle={setTitle} />
         </>
@@ -59,6 +61,7 @@ export default function Carrito({ redirect }: Props) {
           {title}
         </h3>
       )}
+
       <Toaster richColors />
     </AppLayout>
   )

@@ -1,5 +1,5 @@
 import { CarritoContext } from '@/context/carrito'
-import { goToUrlWithRedirect } from '@/lib/utils'
+import { getPrice2Decimals, goToUrlWithRedirect } from '@/lib/utils'
 import { Carrito, Producto, SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { useContext, useState } from 'react'
@@ -72,7 +72,7 @@ export default function CardProducto({ producto }: Props) {
         <>
           <div className='relative overflow-clip rounded-xl transition duration-300'>
             <span className='font-principal text-blanco bg-rojo absolute right-0 grid aspect-square h-14 place-content-center rounded-full text-lg lg:h-20 lg:text-3xl'>
-              {producto.precio}€
+              {getPrice2Decimals(producto.precio)}€
             </span>
             <img
               src={imagen}
@@ -99,7 +99,9 @@ export default function CardProducto({ producto }: Props) {
 
         {/* PRECIO cuando no hay imagen */}
         {!imagen && (
-          <span className='font-principal text-blanco bg-rojo grid aspect-square h-12 place-content-center rounded-full'>{producto.precio}€</span>
+          <span className='font-principal text-blanco bg-rojo grid aspect-square h-12 place-content-center rounded-full'>
+            {getPrice2Decimals(producto.precio)}€
+          </span>
         )}
       </div>
 

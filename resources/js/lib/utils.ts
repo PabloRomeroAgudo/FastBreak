@@ -13,3 +13,7 @@ export function goToUrlWithRedirect(url: string, { redirect }: { redirect: strin
 export function getUrlNameWithRedirect(url: string, { redirect }: { redirect: string }) {
   return route(url, { redirect })
 }
+
+export function getPrice2Decimals(numero: number) {
+  return numero.toLocaleString('es-Es', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+}
