@@ -43,7 +43,7 @@ export interface User {
   updated_at: string
   [key: string]: unknown // This allows for additional properties...
   saldo: number
-  esUsuarioNormal: boolean
+  esUsuario: boolean
 }
 
 export type Categoria = {

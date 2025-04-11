@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware {
       'auth' => [
         'user' => Auth::check() ? [
           ...$request->user()->toArray(),
-          'esUsuarioNormal' => $request->user()->isNormalUser(),
+          'esUsuario' => $request->user()->isNormalUser(),
         ] : null,
       ],
       'ziggy' => fn(): array => [

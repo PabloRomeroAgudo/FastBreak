@@ -21,8 +21,8 @@ class RolSeeder extends Seeder {
         "descripcion" => "trabajador en cafeteria"
       ],
       [
-        "nombre" => "normal",
-        "descripcion" => "usuario normal"
+        "nombre" => "usuario",
+        "descripcion" => "usuario corriente"
       ]
     ]);
   }

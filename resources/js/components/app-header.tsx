@@ -47,7 +47,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
       method: 'get',
     },
     {
-      hasPermission: auth.user && !auth.user.esUsuarioNormal,
+      hasPermission: auth.user && !auth.user.esUsuario,
       title: 'Añadir saldo',
       url: route('saldo'),
       icon: Euro,
