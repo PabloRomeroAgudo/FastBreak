@@ -17,7 +17,7 @@ class PedidosEntregarController extends Controller {
     }])
       ->where('estado', TransaccionEstado::PREPARADO)
       ->select('id', 'codigo', 'fecha')
-      ->orderBy('fecha', 'desc')
+      // ->orderBy('fecha', 'desc')
       ->get();
     return Inertia::render('Pedidos/deliver', ['pedidos' => $pedidos]);
   }
@@ -53,8 +53,12 @@ class PedidosEntregarController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, string $id) {
-    //
+  public function update(Request $request, Transaccion $pedido) {
+    $pedido->update([
+      "estado" => TransaccionEstado::ENTREGADO
+    ]);
+
+    return back();
   }
 
   /**
