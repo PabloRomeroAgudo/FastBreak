@@ -15,16 +15,18 @@ export default function Nav({ active }: Props) {
   return (
     <nav className='bg-negro text-blanco mb-5 grid grid-cols-2 justify-items-center py-3'>
       <Link
+        prefetch='hover'
         as='h2'
         href={route('preparar')}
-        className={`font-principal text-2xl ${isPrepararActive && 'text-amarillo'}`}
+        className={`font-principal cursor-pointer text-2xl select-none ${isPrepararActive && 'text-amarillo'}`}
       >
         {LinkValues.preparar}
       </Link>
       <Link
+        prefetch='hover'
         as='h2'
         href={route('entregar')}
-        className={`font-principal text-2xl ${!isPrepararActive && 'text-amarillo'}`}
+        className={`font-principal cursor-pointer text-2xl select-none ${!isPrepararActive && 'text-amarillo'}`}
       >
         {LinkValues.entregar}
       </Link>

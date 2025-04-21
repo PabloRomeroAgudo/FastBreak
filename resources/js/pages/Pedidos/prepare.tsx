@@ -1,5 +1,5 @@
-import ElemPedido from '@/components/pedidos/elemPedido'
 import Nav, { LinkValues } from '@/components/pedidos/nav'
+import Pedidos from '@/components/pedidos/pedidos'
 import AppLayout from '@/layouts/app-layout'
 import { Pedido } from '@/types'
 import { Head } from '@inertiajs/react'
@@ -19,16 +19,7 @@ export default function Prepare({ pedidos }: Props) {
       <div>
         <Nav active={LinkValues.preparar} />
 
-        <section className='grid gap-2'>
-          {pedidos.map((pedido) => {
-            return (
-              <ElemPedido
-                key={pedido.id}
-                pedido={pedido}
-              />
-            )
-          })}
-        </section>
+        <Pedidos pedidos={pedidos} />
       </div>
     </AppLayout>
   )
