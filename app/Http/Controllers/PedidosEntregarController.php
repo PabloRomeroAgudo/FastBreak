@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransaccionEstado;
+use App\Models\Transaccion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,7 +12,14 @@ class PedidosEntregarController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    return Inertia::render('Pedidos/deliver');
+    $pedidos = Transaccion::with(['productos' => function ($q) {
+      $q->select('productos.nombre');
+    }])
+      ->where('estado', TransaccionEstado::PREPARADO)
+      ->select('id', 'codigo', 'fecha')
+      ->orderBy('fecha', 'desc')
+      ->get();
+    return Inertia::render('Pedidos/deliver', ['pedidos' => $pedidos]);
   }
 
   /**

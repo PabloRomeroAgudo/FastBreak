@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TransaccionEstado;
 use App\Models\Transaccion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +15,7 @@ class PedidosPrepararController extends Controller {
     $pedidos = Transaccion::with(['productos' => function ($q) {
       $q->select('productos.nombre');
     }])
-      ->where('estado', 'pedido')
+      ->where('estado', TransaccionEstado::PEDIDO)
       ->select('id', 'codigo', 'fecha')
       ->orderBy('fecha', 'desc')
       ->get();
