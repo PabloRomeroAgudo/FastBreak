@@ -1,10 +1,29 @@
 import { Pedido } from '@/types'
+import { router, useForm } from '@inertiajs/react'
 
 interface Props {
   pedido: Pedido
+  isPrepare?: boolean
 }
 
-export default function ElemPedido({ pedido }: Props) {
+export default function ElemPedido({ pedido, isPrepare }: Props) {
+  const buttonText = isPrepare ? 'Listo' : 'Entregado'
+
+  const { patch, data } = useForm({
+    id: pedido.id,
+  })
+
+  const handleClick = () => {
+    const url = isPrepare ? route('prepararAct', data.id) : route('entregarAct', data.id)
+
+    patch(url, {
+      onSuccess: () => {
+        router.flush(route('entregar'))
+        router.flush(route('preparar'))
+      },
+    })
+  }
+
   return (
     <article className='font-principal bg-negro text-blanco flex flex-col justify-between gap-4 text-xl md:flex-row md:px-4'>
       <span className='text-amarillo self-center'>Pedido {pedido.id}</span>
@@ -23,9 +42,14 @@ export default function ElemPedido({ pedido }: Props) {
         })}
       </div>
 
-      <div className='grid justify-center gap-2 self-center text-3xl'>
+      <div className='grid justify-items-center gap-2 self-center text-3xl'>
         <span className='text-amarillo'>Codigo: {pedido.codigo}</span>
-        <button className='bg-amarillo text-negro rounded-md'>Listo</button>
+        <button
+          onClick={handleClick}
+          className='bg-amarillo text-negro disabled:bg-amarillo/40 disabled:outline-amarillo/40 cursor-pointer rounded-md p-2 transition-all duration-300 hover:scale-110 disabled:pointer-events-none'
+        >
+          {buttonText}
+        </button>
       </div>
     </article>
   )

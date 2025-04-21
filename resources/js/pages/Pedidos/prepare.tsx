@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function Prepare({ pedidos }: Props) {
-  console.log(pedidos)
   return (
     <AppLayout subtitulo='Pedidos'>
       <Head>
@@ -19,7 +18,10 @@ export default function Prepare({ pedidos }: Props) {
       <div>
         <Nav active={LinkValues.preparar} />
 
-        <Pedidos pedidos={pedidos} />
+        <Pedidos
+          pedidos={pedidos}
+          isPrepare
+        />
       </div>
     </AppLayout>
   )

@@ -40,7 +40,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('addSaldo', [IngresoController::class, 'store']);
 
     Route::get('pedidos/preparar', [PedidosPrepararController::class, 'index'])->name('preparar');
+    Route::patch('pedidos/preparar/{pedido}', [PedidosPrepararController::class, 'update'])->name('prepararAct');
+
     Route::get('pedidos/entregar', [PedidosEntregarController::class, 'index'])->name('entregar');
+    Route::patch('pedidos/entregar/{pedido}', [PedidosEntregarController::class, 'update'])->name('entregarAct');
   });
 });
 
