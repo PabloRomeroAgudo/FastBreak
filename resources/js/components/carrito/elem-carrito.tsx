@@ -1,5 +1,6 @@
 import { useIsMobile } from '@/hooks/use-mobile'
 import { ProductoCarrito } from '@/types'
+import { ArrowRight } from 'lucide-react'
 import InfoAndButton from './infoAndBoton'
 
 interface Props {
@@ -10,8 +11,14 @@ export default function ElemCarrito({ producto }: Props) {
   const esMovil = useIsMobile()
 
   return esMovil ? (
-    <details className='text-amarillo font-principal bg-negro gap-2.5 text-3xl'>
-      <summary className='text-blanco cursor-pointer p-5'>{producto.nombre}</summary>
+    <details className='text-amarillo font-principal bg-negro group gap-2.5 text-3xl'>
+      <summary className='text-blanco flex cursor-pointer list-none items-center gap-2 p-5'>
+        <ArrowRight
+          size={30}
+          className='transition-transform duration-300 group-open:rotate-90'
+        />
+        {producto.nombre}
+      </summary>
       <div className='grid p-5 pt-0'>
         <InfoAndButton
           producto={producto}

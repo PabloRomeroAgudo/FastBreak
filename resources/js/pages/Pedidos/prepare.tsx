@@ -15,7 +15,7 @@ export default function Prepare({ pedidos }: Props) {
         <title>Pedidos para preparar</title>
       </Head>
 
-      <div>
+      <div className='flex flex-col gap-5'>
         <Nav active={LinkValues.preparar} />
 
         <Pedidos

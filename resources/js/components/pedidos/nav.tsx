@@ -13,12 +13,12 @@ export default function Nav({ active }: Props) {
   const isPrepararActive = active === LinkValues.preparar
 
   return (
-    <nav className='bg-negro text-blanco mb-5 grid grid-cols-2 justify-items-center py-3'>
+    <nav className='bg-negro text-blanco grid grid-cols-2 justify-items-center'>
       <Link
         prefetch='hover'
         as='h2'
         href={route('preparar')}
-        className={`font-principal cursor-pointer text-2xl select-none ${isPrepararActive && 'text-amarillo'}`}
+        className={`font-principal w-full cursor-pointer py-3 text-center text-3xl select-none ${isPrepararActive && 'bg-amarillo text-negro'}`}
       >
         {LinkValues.preparar}
       </Link>
@@ -26,7 +26,7 @@ export default function Nav({ active }: Props) {
         prefetch='hover'
         as='h2'
         href={route('entregar')}
-        className={`font-principal cursor-pointer text-2xl select-none ${!isPrepararActive && 'text-amarillo'}`}
+        className={`font-principal w-full cursor-pointer py-3 text-center text-3xl select-none ${!isPrepararActive && 'bg-amarillo text-negro'}`}
       >
         {LinkValues.entregar}
       </Link>

@@ -11,6 +11,17 @@ class Transaccion extends Model {
   protected $table = 'transacciones';
   public $timestamps = false;
 
+  /**
+   * Get the attributes that should be cast.
+   *
+   * @return array<string, string>
+   */
+  protected function casts(): array {
+    return [
+      'fecha' => 'datetime',
+    ];
+  }
+
   public function usuario(): BelongsTo {
     return $this->belongsTo(User::class, 'id_usuario');
   }

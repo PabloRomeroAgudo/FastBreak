@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\TransaccionEstado;
 use App\Models\Transaccion;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -18,7 +19,14 @@ class PedidosEntregarController extends Controller {
       ->where('estado', TransaccionEstado::PREPARADO)
       ->select('id', 'codigo', 'fecha')
       // ->orderBy('fecha', 'desc')
-      ->get();
+      ->get()
+      ->map(function (Transaccion $pedido) {
+        $arr = $pedido->toArray();
+        // FORMATO CORRECTO: 'H:i'
+        $arr['hora'] = $pedido->fecha->format('H:i');
+        return $arr;
+      });
+
     return Inertia::render('Pedidos/deliver', ['pedidos' => $pedidos]);
   }
 

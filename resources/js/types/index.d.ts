@@ -90,5 +90,6 @@ interface Pedido {
   id: number
   codigo: string
   fecha: string
+  hora: string
   productos: ProductoPedido[]
 }

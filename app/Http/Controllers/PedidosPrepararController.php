@@ -18,7 +18,13 @@ class PedidosPrepararController extends Controller {
       ->where('estado', TransaccionEstado::PEDIDO)
       ->select('id', 'codigo', 'fecha')
       // ->orderBy('fecha', 'desc')
-      ->get();
+      ->get()
+      ->map(function (Transaccion $pedido) {
+        $arr = $pedido->toArray();
+        // FORMATO CORRECTO: 'H:i'
+        $arr['hora'] = $pedido->fecha->format('H:i');
+        return $arr;
+      });
 
     return Inertia::render('Pedidos/prepare', ['pedidos' => $pedidos]);
   }

@@ -25,32 +25,36 @@ export default function ElemPedido({ pedido, isPrepare }: Props) {
   }
 
   return (
-    <article className='font-principal bg-negro text-blanco flex flex-col justify-between gap-4 text-xl md:flex-row md:px-4'>
-      <span className='text-amarillo self-center'>Pedido {pedido.id}</span>
+    <article className='font-principal bg-negro text-blanco flex flex-col justify-between gap-4 text-xl opacity-0 transition-opacity group-open:opacity-100 md:flex-row md:px-4'>
+      <span className='text-amarillo self-center text-center text-5xl'>Codigo: {pedido.codigo}</span>
 
       <div className='flex flex-col gap-2 self-center'>
         {pedido.productos.map((producto) => {
           return (
-            <div
+            <label
               key={`${producto.pivot.id_transaccion}-${producto.pivot.id_producto}`}
-              className='flex gap-10 text-3xl'
+              className='has-checked:text-blanco/70 relative flex cursor-pointer items-center gap-10 text-3xl has-checked:line-through'
             >
-              <span className='w-80'>{producto.nombre}</span>
-              <span className='text-center'>{producto.pivot.cantidad}</span>
-            </div>
+              <span className='w-60'>{producto.nombre}</span>
+              <span className='grow text-center'>{producto.pivot.cantidad}</span>
+
+              {isPrepare && (
+                <input
+                  type='checkbox'
+                  className='peer pointer-events-none size-5'
+                />
+              )}
+            </label>
           )
         })}
       </div>
 
-      <div className='grid justify-items-center gap-2 self-center text-3xl'>
-        <span className='text-amarillo'>Codigo: {pedido.codigo}</span>
-        <button
-          onClick={handleClick}
-          className='bg-amarillo text-negro disabled:bg-amarillo/40 disabled:outline-amarillo/40 cursor-pointer rounded-md p-2 transition-all duration-300 hover:scale-110 disabled:pointer-events-none'
-        >
-          {buttonText}
-        </button>
-      </div>
+      <button
+        onClick={handleClick}
+        className='bg-amarillo text-negro disabled:bg-amarillo/40 disabled:outline-amarillo/40 cursor-pointer self-center rounded-md p-3 px-6 text-2xl transition-all duration-300 hover:scale-110 disabled:pointer-events-none disabled:cursor-not-allowed md:p-6 md:text-4xl'
+      >
+        {buttonText}
+      </button>
     </article>
   )
 }

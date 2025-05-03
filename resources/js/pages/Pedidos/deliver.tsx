@@ -15,7 +15,7 @@ export default function Deliver({ pedidos }: Props) {
         <title>Pedidos para Entregar</title>
       </Head>
 
-      <div>
+      <div className='flex flex-col gap-5'>
         <Nav active={LinkValues.entregar} />
 
         <Pedidos pedidos={pedidos} />
