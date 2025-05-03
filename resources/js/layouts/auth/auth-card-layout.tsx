@@ -1,15 +1,13 @@
-import AppLogoIcon from '@/components/app-logo-icon'
+import AppLogo from '@/components/app-logo'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Link } from '@inertiajs/react'
 import { type PropsWithChildren } from 'react'
 
 export default function AuthCardLayout({
   children,
-  title,
   description,
 }: PropsWithChildren<{
   name?: string
-  title?: string
   description?: string
 }>) {
   return (
@@ -18,19 +16,17 @@ export default function AuthCardLayout({
         <Link
           href={route('home')}
           className='flex items-center gap-2 self-center font-medium'
-        >
-          <div className='flex h-9 w-9 items-center justify-center'>
-            <AppLogoIcon className='size-9 fill-current text-black dark:text-white' />
-          </div>
-        </Link>
+        ></Link>
 
         <div className='flex flex-col gap-6'>
-          <Card className='rounded-xl'>
-            <CardHeader className='px-10 pt-8 pb-0 text-center'>
-              <CardTitle className='text-xl'>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
+          <Card className='bg-negro rounded-xl'>
+            <CardHeader className='text-amarillo items-center pt-8 text-center'>
+              <CardTitle className='text-xl'>
+                <AppLogo />
+              </CardTitle>
+              <CardDescription className='text-amarillo mt-3 max-w-70'>{description}</CardDescription>
             </CardHeader>
-            <CardContent className='px-10 py-8'>{children}</CardContent>
+            <CardContent className='text-amarillo px-10 py-8'>{children}</CardContent>
           </Card>
         </div>
       </div>

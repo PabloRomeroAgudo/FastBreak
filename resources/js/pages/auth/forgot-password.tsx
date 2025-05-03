@@ -7,7 +7,6 @@ import InputError from '@/components/input-error'
 import TextLink from '@/components/text-link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import AuthLayout from '@/layouts/auth-layout'
 
 export default function ForgotPassword({ status }: { status?: string }) {
@@ -22,10 +21,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
   }
 
   return (
-    <AuthLayout
-      title='Forgot password'
-      description='Enter your email to receive a password reset link'
-    >
+    <AuthLayout description='Introduce tu email para recibir un enlace para reiniciar la contraseña'>
       <Head title='Forgot password' />
 
       {status && <div className='mb-4 text-center text-sm font-medium text-green-600'>{status}</div>}
@@ -33,7 +29,6 @@ export default function ForgotPassword({ status }: { status?: string }) {
       <div className='space-y-6'>
         <form onSubmit={submit}>
           <div className='grid gap-2'>
-            <Label htmlFor='email'>Email address</Label>
             <Input
               id='email'
               type='email'
@@ -42,7 +37,8 @@ export default function ForgotPassword({ status }: { status?: string }) {
               value={data.email}
               autoFocus
               onChange={(e) => setData('email', e.target.value)}
-              placeholder='email@example.com'
+              placeholder='Email'
+              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
             />
 
             <InputError message={errors.email} />
@@ -50,18 +46,23 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
           <div className='my-6 flex items-center justify-start'>
             <Button
-              className='w-full'
+              className='hover:bg-amarillo text-blanco font-principal hover:text-negro mt-4 w-full cursor-pointer text-xl'
               disabled={processing}
             >
               {processing && <LoaderCircle className='h-4 w-4 animate-spin' />}
-              Email password reset link
+              Enviar enlace
             </Button>
           </div>
         </form>
 
-        <div className='text-muted-foreground space-x-1 text-center text-sm'>
-          <span>Or, return to</span>
-          <TextLink href={route('login')}>log in</TextLink>
+        <div className='text-amarillo space-x-1 text-center text-sm'>
+          <span>O, vuelve a</span>
+          <TextLink
+            href={route('login')}
+            className='text-blanco'
+          >
+            Iniciar sesión
+          </TextLink>
         </div>
       </div>
     </AuthLayout>
