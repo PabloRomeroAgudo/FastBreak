@@ -3,6 +3,8 @@
 use App\Http\Controllers\Carrito\CarritoController;
 use App\Http\Controllers\Categoria\CategoriaController;
 use App\Http\Controllers\IngresoController;
+use App\Http\Controllers\PedidosEntregarController;
+use App\Http\Controllers\PedidosPrepararController;
 use App\Http\Controllers\TransaccionController;
 use App\Http\Middleware\UserIsAdmin;
 use App\Models\Categoria;
@@ -36,6 +38,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::middleware(UserIsAdmin::class)->group(function () {
     Route::get('addSaldo', [IngresoController::class, 'create'])->name('saldo');
     Route::post('addSaldo', [IngresoController::class, 'store']);
+
+    Route::get('pedidos/preparar', [PedidosPrepararController::class, 'index'])->name('preparar');
+    Route::patch('pedidos/preparar/{pedido}', [PedidosPrepararController::class, 'update'])->name('prepararAct');
+
+    Route::get('pedidos/entregar', [PedidosEntregarController::class, 'index'])->name('entregar');
+    Route::patch('pedidos/entregar/{pedido}', [PedidosEntregarController::class, 'update'])->name('entregarAct');
   });
 });
 

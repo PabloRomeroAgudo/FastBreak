@@ -76,3 +76,20 @@ export type Carrito = {
   productos: ProductoCarrito[]
   precioTotal: number
 }
+
+interface ProductoPedido {
+  nombre: string
+  pivot: {
+    id_transaccion: number
+    id_producto: number
+    cantidad: number
+  }
+}
+
+interface Pedido {
+  id: number
+  codigo: string
+  fecha: string
+  hora: string
+  productos: ProductoPedido[]
+}

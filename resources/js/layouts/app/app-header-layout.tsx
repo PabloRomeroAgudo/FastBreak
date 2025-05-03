@@ -20,6 +20,8 @@ export default function AppHeaderLayout({
         url={url}
       />
       <AppContent>{children}</AppContent>
+
+      <footer className='border-negro font-principal mt-3 min-h-20 w-7xl self-center border-t text-center'>esto es el footer</footer>
     </AppShell>
   )
 }

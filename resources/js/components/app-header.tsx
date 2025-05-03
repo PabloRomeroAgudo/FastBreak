@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { getPrice2Decimals, getUrlNameWithRedirect } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
-import { Euro, LogOut, Menu, ShoppingCart, StickyNote } from 'lucide-react'
+import { ClipboardList, Euro, LogOut, Menu, ShoppingCart, StickyNote } from 'lucide-react'
 import AppLogo from './app-logo'
 import Subtitle from './subtitle'
 
@@ -50,6 +50,14 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
       title: 'Añadir saldo',
       url: route('saldo'),
       icon: Euro,
+      isIcon: true,
+      method: 'get',
+    },
+    {
+      hasPermission: auth.user && !auth.user.esUsuario,
+      title: 'Pedidos a preparar',
+      url: route('preparar'),
+      icon: ClipboardList,
       isIcon: true,
       method: 'get',
     },
