@@ -42,45 +42,28 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
   }
 
   return (
-    <AuthLayout
-      title='Log in to your account'
-      description='Enter your email and password below to log in'
-    >
+    <AuthLayout description=''>
       <Head title='Log in' />
       <form
         className='flex flex-col gap-6'
         onSubmit={submit}
       >
-        <div className='grid gap-6'>
-          <div className='grid gap-2'>
-            <Label htmlFor='email'>Email address</Label>
-            <Input
-              id='email'
-              type='email'
-              required
-              autoFocus
-              tabIndex={1}
-              autoComplete='email'
-              value={data.email}
-              onChange={(e) => setData('email', e.target.value)}
-              placeholder='email@example.com'
-            />
-            <InputError message={errors.email} />
-          </div>
+        <div className='grid gap-13'>
+          <Input
+            id='email'
+            type='email'
+            required
+            autoFocus
+            tabIndex={1}
+            autoComplete='email'
+            value={data.email}
+            onChange={(e) => setData('email', e.target.value)}
+            placeholder='Email'
+            className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
+          />
+          <InputError message={errors.email} />
 
           <div className='grid gap-2'>
-            <div className='flex items-center'>
-              <Label htmlFor='password'>Password</Label>
-              {canResetPassword && (
-                <TextLink
-                  href={route('password.request')}
-                  className='ml-auto text-sm'
-                  tabIndex={5}
-                >
-                  Forgot password?
-                </TextLink>
-              )}
-            </div>
             <Input
               id='password'
               type='password'
@@ -89,9 +72,21 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
               autoComplete='current-password'
               value={data.password}
               onChange={(e) => setData('password', e.target.value)}
-              placeholder='Password'
+              placeholder='Contraseña'
+              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
             />
             <InputError message={errors.password} />
+            <div className='flex items-center'>
+              {canResetPassword && (
+                <TextLink
+                  href={route('password.request')}
+                  className='text-blanco ml-auto text-sm'
+                  tabIndex={5}
+                >
+                  Olvidaste la contraseña?
+                </TextLink>
+              )}
+            </div>
           </div>
 
           <div className='flex items-center space-x-3'>
@@ -102,27 +97,28 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
               onClick={() => setData('remember', !data.remember)}
               tabIndex={3}
             />
-            <Label htmlFor='remember'>Remember me</Label>
+            <Label htmlFor='remember'>Recuérdame</Label>
           </div>
 
           <Button
             type='submit'
-            className='mt-4 w-full'
+            className='bg-amarillo text-negro font-principal hover:text-blanco mt-4 w-full cursor-pointer text-xl'
             tabIndex={4}
             disabled={processing}
           >
             {processing && <LoaderCircle className='h-4 w-4 animate-spin' />}
-            Log in
+            INICIAR SESIÓN
           </Button>
         </div>
 
-        <div className='text-muted-foreground text-center text-sm'>
-          Don't have an account?{' '}
+        <div className='text-amarillo text-center text-sm'>
+          No tienes una cuenta?{' '}
           <TextLink
             href={route('register')}
             tabIndex={5}
+            className='text-blanco'
           >
-            Sign up
+            Regístrate
           </TextLink>
         </div>
       </form>
