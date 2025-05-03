@@ -8,7 +8,6 @@ import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Euro, LogOut, Menu, ShoppingCart, StickyNote } from 'lucide-react'
 import AppLogo from './app-logo'
-import AppLogoIcon from './app-logo-icon'
 import Subtitle from './subtitle'
 
 type NavItemNotAuth = {
@@ -63,7 +62,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
     },
     {
       hasPermission: true,
-      title: 'Log Out',
+      title: 'Cerrar Sesión',
       url: '/logout',
       icon: LogOut,
       isIcon: true,
@@ -73,12 +72,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
 
   const rightNavItemsNotAuth: NavItemNotAuth[] = [
     {
-      title: 'Log in',
+      title: 'Iniciar Sesión',
       url: getUrlNameWithRedirect('login', { redirect: currentURL }),
-      style: 'text-negro bg-amarillo w-20 rounded-sm text-lg font-bold font-principal text-center hover:bg-primary/90 hover:text-blanco ',
+      style: 'text-negro bg-amarillo p-2 rounded-sm text-lg font-medium font-principal text-center hover:bg-primary/90 hover:text-blanco ',
     },
     {
-      title: 'Sign in',
+      title: 'Regístrate',
       url: getUrlNameWithRedirect('register', { redirect: currentURL }),
       style: 'text-blanco bg-negro w-20  text-center rounded-sm hover:text-amarillo font-principal',
     },
@@ -96,7 +95,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
               <div className='hidden md:flex'>
                 {auth.user ? (
                   <div className='flex items-center gap-2'>
-                    <span className='text-blanco font-principal cursor-default rounded-sm'>Saldo : {getPrice2Decimals(auth.user.saldo)}€</span>
+                    <span className='text-blanco font-principal cursor-default rounded-sm'>Saldo: {getPrice2Decimals(auth.user.saldo)}€</span>
                     {rightNavItems.map(
                       (item) =>
                         item.hasPermission &&
@@ -138,9 +137,11 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                                 <Link
                                   method={item.method}
                                   href={item.url}
-                                  className='group ring-offset-background hover:bg-accent text-amarillo hover:text-negro focus-visible:ring-ring ml-1 flex h-9 items-center justify-center rounded-md bg-transparent p-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
+                                  className='group ring-offset-background hover:bg-accent text-blanco hover:text-negro focus-visible:ring-ring ml-1 flex h-9 items-center justify-center rounded-md bg-transparent p-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
                                 >
-                                  <span className='whitespace-nowrap'>{auth.user.name}</span>
+                                  <span className='whitespace-nowrap'>
+                                    {auth.user.name} \ {auth.user.id}
+                                  </span>
                                 </Link>
                               </TooltipTrigger>
                               <TooltipContent>
@@ -173,56 +174,75 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
             <Sheet>
               <SheetTrigger asChild>
                 <Button
-                  variant='ghost'
+                  variant='link'
                   size='icon'
-                  className='h-[34px] w-[34px]'
+                  className='text-amarillo h-[34px] w-[34px]'
                 >
                   <Menu className='text-amarillo h-5 w-5' />
                 </Button>
               </SheetTrigger>
               <SheetContent
                 side='left'
-                className='bg-sidebar flex h-full w-64 flex-col items-stretch justify-between'
+                className='bg-negro flex h-full w-64 flex-col items-stretch justify-between'
               >
                 <SheetTitle className='sr-only'>Menu de navegacion</SheetTitle>
                 <SheetHeader className='flex justify-start text-left'>
-                  <AppLogoIcon className='h-6 w-6 fill-current text-black dark:text-white' />
+                  <AppLogo />
                 </SheetHeader>
-                <div className='flex h-full flex-1 flex-col space-y-4 p-4'>
+                <div className='text-amarillo flex h-full flex-1 flex-col space-y-4 p-4'>
                   <div className='flex h-full flex-col justify-between text-sm'>
                     <div className='flex flex-col space-y-4'></div>
 
                     <div className='flex flex-col space-y-4'>
-                      {auth.user &&
-                        rightNavItems.map(
-                          (item) =>
-                            item.hasPermission &&
-                            (item.isIcon ? (
-                              <Link
-                                method={item.method}
-                                key={item.title}
-                                href={item.url}
-                                className='active:bg-accent flex w-fit items-center font-medium'
-                              >
-                                {item.icon && (
-                                  <Icon
-                                    iconNode={item.icon}
-                                    className='h-5 w-5'
-                                  />
-                                )}
-                                <span>{item.title}</span>
-                              </Link>
-                            ) : (
-                              <Link
-                                method={item.method}
-                                key={item.title}
-                                href={item.url}
-                                className='flex w-fit items-center font-medium'
-                              >
-                                <span>{auth.user.name}</span>
-                              </Link>
-                            )),
-                        )}
+                      {auth.user ? (
+                        <>
+                          <span className='text-blanco ml-2 cursor-default rounded-sm font-medium'>Saldo: {getPrice2Decimals(auth.user.saldo)}€</span>
+
+                          {rightNavItems.map(
+                            (item) =>
+                              item.hasPermission &&
+                              (item.isIcon ? (
+                                <Link
+                                  method={item.method}
+                                  key={item.title}
+                                  href={item.url}
+                                  className='active:bg-accent flex w-fit items-center p-2 font-medium active:rounded-sm'
+                                >
+                                  {item.icon && (
+                                    <Icon
+                                      iconNode={item.icon}
+                                      className='mr-3 h-5 w-5'
+                                    />
+                                  )}
+                                  <span>{item.title}</span>
+                                </Link>
+                              ) : (
+                                <Link
+                                  method={item.method}
+                                  key={item.title}
+                                  href={item.url}
+                                  className='text-blanco active:bg-accent flex w-fit items-center p-2 font-medium active:rounded-sm'
+                                >
+                                  <span>
+                                    {auth.user.name} \ {auth.user.id}
+                                  </span>
+                                </Link>
+                              )),
+                          )}
+                        </>
+                      ) : (
+                        <div className='flex flex-col space-y-4'>
+                          {rightNavItemsNotAuth.map((item) => (
+                            <Link
+                              href={item.url}
+                              className={item.style}
+                              key={item.title}
+                            >
+                              <span>{item.title}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
