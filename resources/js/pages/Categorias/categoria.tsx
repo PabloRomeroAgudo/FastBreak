@@ -14,6 +14,8 @@ interface Props {
 export default function Categoria({ categoria, categorias, productos }: Props) {
   const areProducts = productos.length > 0
 
+  const someHasImage = productos.some((productos) => productos.imagen)
+
   return (
     <AppLayout
       subtitulo={categoria.nombre}
@@ -38,6 +40,7 @@ export default function Categoria({ categoria, categorias, productos }: Props) {
               <CardProducto
                 key={producto.id}
                 producto={producto}
+                someHasImage={someHasImage}
               />
             )
           })}

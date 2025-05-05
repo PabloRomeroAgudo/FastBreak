@@ -6,7 +6,7 @@ interface Props {
 
 export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart }: Props) {
   return (
-    <>
+    <div className='flex flex-col gap-3'>
       <div className='font-principal flex gap-1'>
         <button
           disabled={cantidad <= 0}
@@ -26,11 +26,11 @@ export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart }: 
 
       <button
         onClick={handleClickAddToCart}
-        className='bg-amarillo font-principal disabled:bg-00 flex-1 cursor-pointer rounded-3xl disabled:cursor-not-allowed'
+        className='bg-amarillo font-principal flex-1 cursor-pointer rounded-3xl disabled:cursor-not-allowed'
         disabled={cantidad === 0}
       >
         Añadir
       </button>
-    </>
+    </div>
   )
 }

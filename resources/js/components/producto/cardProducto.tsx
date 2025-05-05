@@ -8,9 +8,10 @@ import { Buttons } from './buttons'
 
 interface Props {
   producto: Producto
+  someHasImage: boolean
 }
 
-export default function CardProducto({ producto }: Props) {
+export default function CardProducto({ producto, someHasImage }: Props) {
   const contexto = useContext(CarritoContext)
   if (!contexto) {
     throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
@@ -68,17 +69,21 @@ export default function CardProducto({ producto }: Props) {
       className='flex flex-col gap-2'
       key={id}
     >
-      {imagen && (
+      {someHasImage && (
         <>
           <div className='relative overflow-clip rounded-xl transition duration-300'>
             <span className='font-principal text-blanco bg-rojo absolute right-0 grid aspect-square h-14 place-content-center rounded-full text-lg lg:h-20 lg:text-3xl'>
               {getPrice2Decimals(producto.precio)}€
             </span>
-            <img
-              src={imagen}
-              alt={`Imagen de la producto ${nombre}`}
-              className='aspect-square w-full object-contain'
-            />
+            {imagen ? (
+              <img
+                src={imagen}
+                alt={`Imagen de la producto ${nombre}`}
+                className='aspect-square w-full object-contain'
+              />
+            ) : (
+              <div className='bg-muted aspect-square w-full object-contain'></div>
+            )}
           </div>
 
           <Buttons
@@ -98,16 +103,16 @@ export default function CardProducto({ producto }: Props) {
         </Link>
 
         {/* PRECIO cuando no hay imagen */}
-        {!imagen && (
+        {!someHasImage && (
           <span className='font-principal text-blanco bg-rojo grid aspect-square h-12 place-content-center rounded-full'>
             {getPrice2Decimals(producto.precio)}€
           </span>
         )}
       </div>
 
-      <p className='text-gris'>{descripcion}</p>
+      <p className='text-gris grow'>{descripcion}</p>
 
-      {!imagen && (
+      {!someHasImage && (
         <Buttons
           cantidad={cantidad}
           handleClickAddItem={handleClickAddItem}
