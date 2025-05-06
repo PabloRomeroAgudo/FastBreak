@@ -29,6 +29,11 @@ class IngresoController extends Controller {
    */
   public function store(IngresoRequest $request) {
     $data = $request->validated();
+    $trabajador = $request->user();
+
+
+
+    DB::transaction(function () use ($trabajador, $data) {
 
     DB::transaction(function () use ($request, $data) {
       ["idUsuario" => $idUsuario, "cantidad" => $cantidad] = $data;
