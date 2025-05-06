@@ -2,11 +2,11 @@ import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle } from 'lucide-react'
 import { FormEventHandler } from 'react'
 
-import InputError from '@/components/input-error'
 import TextLink from '@/components/text-link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import AuthLayout from '@/layouts/auth-layout'
+import { toast, Toaster } from 'sonner'
 
 type RegisterForm = {
   name: string
@@ -16,7 +16,7 @@ type RegisterForm = {
 }
 
 export default function Register() {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
+  const { data, setData, post, processing, reset } = useForm<Required<RegisterForm>>({
     name: '',
     email: '',
     password: '',
@@ -27,6 +27,8 @@ export default function Register() {
     e.preventDefault()
     post(route('register'), {
       onFinish: () => reset('password', 'password_confirmation'),
+      onError: (errors) => toast.error(Object.values(errors)[0]),
+      // onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
     })
   }
 
@@ -38,73 +40,58 @@ export default function Register() {
         onSubmit={submit}
       >
         <div className='grid gap-6'>
-          <div className='grid gap-2'>
-            <Input
-              id='name'
-              type='text'
-              required
-              autoFocus
-              tabIndex={1}
-              autoComplete='name'
-              value={data.name}
-              onChange={(e) => setData('name', e.target.value)}
-              disabled={processing}
-              placeholder='Nombre'
-              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
-            />
-            <InputError
-              message={errors.name}
-              className='mt-2'
-            />
-          </div>
+          <Input
+            id='name'
+            type='text'
+            required
+            autoFocus
+            tabIndex={1}
+            autoComplete='name'
+            value={data.name}
+            onChange={(e) => setData('name', e.target.value)}
+            disabled={processing}
+            placeholder='Nombre'
+            className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
+          />
 
-          <div className='grid gap-2'>
-            <Input
-              id='email'
-              type='email'
-              required
-              tabIndex={2}
-              autoComplete='email'
-              value={data.email}
-              onChange={(e) => setData('email', e.target.value)}
-              disabled={processing}
-              placeholder='Email'
-              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
-            />
-            <InputError message={errors.email} />
-          </div>
+          <Input
+            id='email'
+            type='email'
+            required
+            tabIndex={2}
+            autoComplete='email'
+            value={data.email}
+            onChange={(e) => setData('email', e.target.value)}
+            disabled={processing}
+            placeholder='Email'
+            className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
+          />
 
-          <div className='grid gap-2'>
-            <Input
-              id='password'
-              type='password'
-              required
-              tabIndex={3}
-              autoComplete='new-password'
-              value={data.password}
-              onChange={(e) => setData('password', e.target.value)}
-              disabled={processing}
-              placeholder='Contraseña'
-              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
-            />
-            <InputError message={errors.password} />
-          </div>
+          <Input
+            id='password'
+            type='password'
+            required
+            tabIndex={3}
+            autoComplete='new-password'
+            value={data.password}
+            onChange={(e) => setData('password', e.target.value)}
+            disabled={processing}
+            placeholder='Contraseña'
+            className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
+          />
 
-          <div className='grid gap-2'>
-            <Input
-              id='password_confirmation'
-              type='password'
-              required
-              tabIndex={4}
-              autoComplete='new-password'
-              value={data.password_confirmation}
-              onChange={(e) => setData('password_confirmation', e.target.value)}
-              disabled={processing}
-              placeholder='Confirmar contraseña'
-              className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
-            />
-            <InputError message={errors.password_confirmation} />
-          </div>
+          <Input
+            id='password_confirmation'
+            type='password'
+            required
+            tabIndex={4}
+            autoComplete='new-password'
+            value={data.password_confirmation}
+            onChange={(e) => setData('password_confirmation', e.target.value)}
+            disabled={processing}
+            placeholder='Confirmar contraseña'
+            className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
+          />
 
           <Button
             type='submit'
@@ -128,6 +115,8 @@ export default function Register() {
           </TextLink>
         </div>
       </form>
+
+      <Toaster richColors />
     </AuthLayout>
   )
 }

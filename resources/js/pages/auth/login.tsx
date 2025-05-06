@@ -2,13 +2,13 @@ import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle } from 'lucide-react'
 import { FormEventHandler } from 'react'
 
-import InputError from '@/components/input-error'
 import TextLink from '@/components/text-link'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import AuthLayout from '@/layouts/auth-layout'
+import { toast, Toaster } from 'sonner'
 
 type LoginForm = {
   email: string
@@ -28,7 +28,7 @@ type Redirect = {
 }
 
 export default function Login({ status, canResetPassword, redirect }: LoginProps) {
-  const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
+  const { data, setData, post, processing, reset } = useForm<Required<LoginForm>>({
     email: '',
     password: '',
     remember: false,
@@ -38,6 +38,7 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
     e.preventDefault()
     post(route('login', { redirect }), {
       onFinish: () => reset('password'),
+      onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
     })
   }
 
@@ -61,7 +62,6 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
             placeholder='Email'
             className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
           />
-          <InputError message={errors.email} />
 
           <div className='grid gap-2'>
             <Input
@@ -75,7 +75,6 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
               placeholder='Contraseña'
               className='bg-amarillo text-negro font-principal placeholder:text-negro border-0'
             />
-            <InputError message={errors.password} />
             <div className='flex items-center'>
               {canResetPassword && (
                 <TextLink
@@ -124,6 +123,8 @@ export default function Login({ status, canResetPassword, redirect }: LoginProps
       </form>
 
       {status && <div className='mb-4 text-center text-sm font-medium text-green-600'>{status}</div>}
+
+      <Toaster richColors />
     </AuthLayout>
   )
 }
