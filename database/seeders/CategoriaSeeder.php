@@ -13,6 +13,15 @@ class CategoriaSeeder extends Seeder {
    * Run the database seeds.
    */
   public function run(): void {
-    Categoria::factory()->has(Producto::factory()->count(10))->count(11)->create();
+    $this->addCategorias();
+  }
+
+  public function addCategorias($nbCategorias = 11, $nbProductos = 10): void {
+    Categoria::factory()
+      ->has(
+        Producto::factory()
+          ->count(10)
+      )->count(11)
+      ->create();
   }
 }
