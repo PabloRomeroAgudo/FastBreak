@@ -20,8 +20,8 @@ class CategoriaSeeder extends Seeder {
     Categoria::factory()
       ->has(
         Producto::factory()
-          ->count(10)
-      )->count(11)
+          ->count($nbProductos)
+      )->count($nbCategorias)
       ->create();
   }
 }
