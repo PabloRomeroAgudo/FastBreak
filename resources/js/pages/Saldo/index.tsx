@@ -43,26 +43,22 @@ export default function Saldo() {
           onSubmit={handleSubmit}
           noValidate
         >
-          <label className='text-blanco grid gap-2 text-sm'>
-            ID del usuario
-            <input
-              className='bg-amarillo text-negro rounded-md p-2'
-              type='number'
-              value={data.idUsuario || ''}
-              onChange={(e) => setData('idUsuario', e.target.value ? Number(e.target.value) : null)}
-            />
-          </label>
+          <input
+            className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
+            type='number'
+            value={data.idUsuario || ''}
+            onChange={(e) => setData('idUsuario', e.target.value ? Number(e.target.value) : null)}
+            placeholder='ID del usuario'
+          />
 
-          <label className='text-blanco grid gap-2 text-sm'>
-            Cantidad
-            <input
-              className='bg-amarillo text-negro rounded-md p-2'
-              type='number'
-              value={data.cantidad || ''}
-              step={0.01}
-              onChange={(e) => setData('cantidad', e.target.value ? Number(e.target.value) : null)}
-            />
-          </label>
+          <input
+            className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
+            type='number'
+            value={data.cantidad || ''}
+            step={0.01}
+            onChange={(e) => setData('cantidad', e.target.value ? Number(e.target.value) : null)}
+            placeholder='Cantidad'
+          />
 
           <button
             className='bg-amarillo disabled:bg-amarillo/40 flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
