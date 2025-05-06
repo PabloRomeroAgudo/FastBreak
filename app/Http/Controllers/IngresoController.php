@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Ingreso\IngresoRequest;
 use App\Models\Ingreso;
+use App\Models\Transaccion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,22 +32,20 @@ class IngresoController extends Controller {
     $data = $request->validated();
     $trabajador = $request->user();
 
-
-
     DB::transaction(function () use ($trabajador, $data) {
 
-    DB::transaction(function () use ($request, $data) {
       ["idUsuario" => $idUsuario, "cantidad" => $cantidad] = $data;
+      /**@var User $user */
+      $receptor = User::find($idUsuario);
 
-      $user = User::find($idUsuario);
+      $trabajador
+        ->ingresosRealizados()
+        ->create([
+          'id_usuario' => $idUsuario,
+          'cantidad'   => $cantidad,
+        ]);
 
-      Ingreso::create([
-        "id_trabajador" => $request->user()->id,
-        "id_usuario" =>  $idUsuario,
-        "cantidad" =>  $cantidad
-      ]);
-
-      $user->increment('saldo', $cantidad);
+      $receptor->increment('saldo', $cantidad);
     });
 
     return back();
