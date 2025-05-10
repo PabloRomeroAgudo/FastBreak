@@ -17,10 +17,10 @@ class CategoriaController extends Controller {
 
   public function show(Categoria $categoria): Response {
 
-    $productos = $categoria->productos()->get();
+    $productos = $categoria->productos()->paginate(7);
 
     $categorias = Categoria::all('id', 'nombre', 'imagen');
 
-    return Inertia::render('Categorias/categoria', ['categoria' => $categoria, "categorias" => $categorias, "productos" => $productos]);
+    return Inertia::render('Categorias/categoria', ['categoria' => $categoria, "categorias" => $categorias, "paginacion" => $productos]);
   }
 }

@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\RolTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,6 +59,14 @@ class User extends Authenticatable {
 
   public function transacciones(): HasMany {
     return $this->hasMany(Transaccion::class, 'id_usuario');
+  }
+
+  public function ingresosRecibidos(): HasMany {
+    return $this->hasMany(Ingreso::class, 'id_usuario');
+  }
+
+  public function ingresosRealizados(): HasMany {
+    return $this->hasMany(Ingreso::class, 'id_trabajador');
   }
 
   public function isNormalUser(): bool {

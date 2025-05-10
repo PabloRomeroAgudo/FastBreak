@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 Route::get('categoria', [CategoriaController::class, 'index'])->name('categorias');
 
-Route::get('categoria/{categoria}', [CategoriaController::class, 'show'])->name('categoria.show');
+Route::get('categoria/{categoria:nombre}', [CategoriaController::class, 'show'])->name('categoria.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('carrito', function (Request $request) {

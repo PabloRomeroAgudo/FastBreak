@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\RolTypes;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -27,19 +28,12 @@ class RegisteredUserController extends Controller {
    *
    * @throws \Illuminate\Validation\ValidationException
    */
-  public function store(Request $request): RedirectResponse {
-    $request->validate([
-      'name' => 'required|string|max:255',
-      'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-      'password' => ['required', 'confirmed', Rules\Password::defaults()],
-    ]);
+  public function store(RegisterRequest $request): RedirectResponse {
+    $data = $request->validated();
 
-    $user = User::create([
-      'name' => $request->name,
-      'id_rol' => RolTypes::USUARIO->value,
-      'email' => $request->email,
-      'password' => Hash::make($request->password),
-    ]);
+    $data['id_rol'] = RolTypes::USUARIO;
+
+    $user = User::create($data);
 
     event(new Registered($user));
 

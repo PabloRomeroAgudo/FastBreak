@@ -37,24 +37,21 @@ class TransaccionController extends Controller {
     ] = $carrito;
 
     DB::transaction(function () use ($precioTotal, $productos, $request) {
-      $transaccion = new Transaccion();
-      $transaccion->id_usuario = Auth::id();
-      $transaccion->total = $precioTotal;
-      $transaccion->codigo = 'a1';
-      $transaccion->save();
+      $usuario = $request->user();
 
-      // https://laravel.com/docs/12.x/eloquent-relationships#attaching-detaching
-      // Se necesita un array asociativo en el que la clave es el id de producto y el valor
-      // es otro array asociativo con los valores que se quieren añadir a la tabla intermedia
-      $datos = [];
-      foreach ($productos as $producto) {
-        $datos[$producto['id']] = ['cantidad' => $producto['cantidad']];
+      /** @var \App\Models\Transaccion $transaccion */
+      $transaccion = $usuario->transacciones()->create([
+        'total' => $precioTotal,
+        'codigo' => 'a1'
+      ]);
+
+      $datosPivot = [];
+      foreach ($productos as $item) {
+        $datosPivot[$item['id']] = ['cantidad' => $item['cantidad']];
       }
-      $transaccion->productos()->attach($datos);
+      $transaccion->productos()->attach($datosPivot);
 
-      $usuario =  $request->user();
       $usuario->decrement('saldo', $transaccion->total);
-      $usuario->save();
     });
   }
 

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RolTypes;
+use App\Models\Rol;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -12,35 +15,28 @@ class UserSeeder extends Seeder {
    * Run the database seeds.
    */
   public function run(): void {
-    DB::table('usuarios')->insert([
+    $usuarios = [
       [
-        'name' => "Pablo",
-        'id_rol' => 1,
+        "name" => "Pablo",
         "email" => "pablo@example.com",
-        "password" => Hash::make('1234'),
-        "saldo" => 100
       ],
       [
         'name' => "Guille",
-        'id_rol' => 1,
         "email" => "guille@example.com",
-        "password" => Hash::make('1234'),
-        "saldo" => 100
       ],
       [
         'name' => "David",
-        'id_rol' => 1,
         "email" => "david@example.com",
-        "password" => Hash::make('1234'),
-        "saldo" => 100
       ],
       [
         'name' => "PRUEBA",
-        'id_rol' => 3,
+        'id_rol' => RolTypes::USUARIO,
         "email" => "prueba@example.com",
-        "password" => Hash::make('1234'),
         "saldo" => 0
       ]
-    ]);
+    ];
+
+    User::factory()
+      ->createMany($usuarios);
   }
 }

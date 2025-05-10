@@ -1,7 +1,8 @@
 import { AppContent } from '@/components/app-content'
 import { AppHeader } from '@/components/app-header'
 import { AppShell } from '@/components/app-shell'
-import { type BreadcrumbItem } from '@/types'
+import { SharedData, type BreadcrumbItem } from '@/types'
+import { usePage } from '@inertiajs/react'
 import type { PropsWithChildren } from 'react'
 
 export default function AppHeaderLayout({
@@ -11,6 +12,7 @@ export default function AppHeaderLayout({
   needBack,
   url,
 }: PropsWithChildren<{ breadcrumbs?: BreadcrumbItem[]; subtitulo: string; needBack?: boolean; url?: string }>) {
+  const { name } = usePage<SharedData>().props
   return (
     <AppShell>
       <AppHeader
@@ -21,7 +23,9 @@ export default function AppHeaderLayout({
       />
       <AppContent>{children}</AppContent>
 
-      <footer className='border-negro font-principal mt-3 min-h-20 w-7xl self-center border-t text-center'>esto es el footer</footer>
+      <footer className='border-negro font-principal mx-5 mt-3 grid min-h-20 items-center self-stretch border-t text-center md:mx-10'>
+        💛❤️Hecho con amor por los desarrolladores de {name} ❤️💛
+      </footer>
     </AppShell>
   )
 }
