@@ -97,7 +97,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
       <div className='flex items-center gap-4'>
         <Link
           href={`/producto/${nombre}`}
-          className='after:bg-negro hover:after:bg-amarillo hover:text-amarillo relative w-fit text-2xl font-bold transition-all after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear hover:scale-110 hover:after:scale-x-100'
+          className='hover:text-amarillow-fit text-2xl font-bold transition-all hover:underline'
         >
           <h3>{nombre}</h3>
         </Link>

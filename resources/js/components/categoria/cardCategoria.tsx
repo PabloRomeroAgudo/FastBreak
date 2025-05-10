@@ -26,7 +26,7 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
             <div className='bg-muted aspect-square transition-transform group-hover:scale-120'></div>
           ))}
       </div>
-      <h3 className='after:bg-negro group-hover:after:bg-amarillo group-hover:text-amarillo relative w-fit text-2xl font-bold transition-all group-hover:scale-110 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear group-hover:after:scale-x-100'>
+      <h3 className='group-hover:text-amarillo w-full text-center text-2xl font-bold transition-all group-hover:scale-110 group-hover:underline'>
         {categoria.nombre}
       </h3>
       <p className='text-gris group-hover:text-negro text-pretty transition-colors'>{categoria.descripcion}</p>
