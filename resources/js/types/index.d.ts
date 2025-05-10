@@ -93,3 +93,40 @@ interface Pedido {
   hora: string
   productos: ProductoPedido[]
 }
+
+// Paginacion que viene de Laravel
+export type Pagination = {
+  current_page: number
+  data: Datum[]
+  first_page_url: string
+  from: number
+  links: LinksPag[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: string
+  to: number
+}
+
+export type Datum = {
+  id: number
+  nombre: string
+  precio: number
+  descripcion: string
+  ingredientes: null
+  alergenos: null
+  max_stock: number
+  imagen: null | string
+  pivot: Pivot
+}
+
+export type LinksPag = {
+  url: string
+  label: string
+  active: boolean
+}
+
+export type Pivot = {
+  id_categoria: number
+  id_producto: number
+}
