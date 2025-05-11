@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout'
 import { Categoria } from '@/types'
-import { Head, router, useForm } from '@inertiajs/react'
-import { LoaderCircle, Trash } from 'lucide-react'
+import { Head, useForm } from '@inertiajs/react'
+import { LoaderCircle, Trash, X } from 'lucide-react'
 import { ChangeEvent, FormEventHandler, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
@@ -18,6 +18,8 @@ export default function Edit({ categoria }: Props) {
     imagen: null as File | null,
     borrarImagen: false as boolean,
   })
+
+  const { delete: destroy, processing: processingBorrado } = useForm({})
 
   const [url, setUrl] = useState(imagen)
 
@@ -37,7 +39,7 @@ export default function Edit({ categoria }: Props) {
   }
 
   const handleDelete = () => {
-    router.delete(route('categoria.destroy', categoria.id))
+    destroy(route('categoria.destroy', categoria.id))
   }
 
   return (
@@ -70,7 +72,7 @@ export default function Edit({ categoria }: Props) {
             <textarea
               value={data.descripcion}
               onChange={(e) => setData('descripcion', e.target.value)}
-              className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content rounded-md p-2'
+              className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] rounded-md p-2'
             />
           </label>
 
@@ -95,7 +97,10 @@ export default function Edit({ categoria }: Props) {
               </div>
             </div>
 
-            <div className='text-rojo cursor-pointer p-2'>
+            <div
+              title='Eliminar imagen seleccionada'
+              className='text-rojo cursor-pointer p-2'
+            >
               <Trash
                 onClick={() => {
                   setData('borrarImagen', true)
@@ -117,11 +122,31 @@ export default function Edit({ categoria }: Props) {
 
         <button
           className='bg-negro text-rojo cursor-pointer rounded-md p-2'
-          onClick={handleDelete}
+          onClick={() => document.querySelector('dialog')?.showModal()}
         >
           Borrar Categoria
         </button>
       </div>
+
+      <dialog className='backdrop:bg-negro/70 absolute top-1/2 left-1/2 -translate-1/2 overflow-visible'>
+        <div className='border-amarillo bg-negro text-blanco grid gap-8 overflow-hidden border p-8'>
+          <button
+            onClick={() => document.querySelector('dialog')?.close()}
+            className='border-amarillo bg-negro hover:text-blanco absolute -top-2 -right-2 cursor-pointer border text-gray-300 transition'
+          >
+            <X />
+          </button>
+          <h1 className='text-amarillo max-w-52 text-center'>¿Seguro que quieres borrar la categoría "{nombre}"?</h1>
+          <button
+            onClick={handleDelete}
+            className='text-rojo/60 border-rojo/60 hover:text-rojo hover:border-rojo disabled:text-rojo/30 disabled:border-rojo/30 flex cursor-pointer items-center justify-center gap-1 self-end rounded-md border transition'
+            disabled={processingBorrado}
+          >
+            {processingBorrado && <LoaderCircle className='h-4 w-4 animate-spin' />}
+            {processingBorrado ? 'Borrando...' : 'Borrar'}
+          </button>
+        </div>
+      </dialog>
 
       <Toaster richColors />
     </AppLayout>

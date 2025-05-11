@@ -22,7 +22,7 @@ class IngresoController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    return Inertia::render('Saldo/index');
+    return Inertia::render('Ingreso/create');
   }
 
   /**

@@ -21,20 +21,18 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
                 <img
                   src={categoria.imagen}
                   alt={`Imagen de la categoria ${categoria.nombre}`}
-                  className='aspect-square w-full transition-transform group-hover:scale-120'
+                  className='aspect-square w-full transition-transform'
                 />
               )
             ) : (
-              <div className='bg-muted aspect-square transition-transform group-hover:scale-120'></div>
+              <div className='bg-muted aspect-square transition-transform'></div>
             )}
           </Link>
         )}
       </div>
       <div className='flex items-center justify-items-start'>
         <Link href={route('categoria.show', categoria.nombre)}>
-          <h3 className='group-hover:text-amarillo text-center text-2xl font-bold transition-all group-hover:scale-110 group-hover:underline'>
-            {categoria.nombre}
-          </h3>
+          <h3 className='text-2xl font-bold transition-all'>{categoria.nombre}</h3>
         </Link>
 
         {auth.user && auth.user.esAdmin && (
@@ -42,7 +40,7 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
             href={route('categoria.edit', categoria.nombre)}
             className='hover:text-amarillo ml-auto'
           >
-            <Pencil className='.icon' />
+            <Pencil />
           </Link>
         )}
       </div>

@@ -1,0 +1,12 @@
+article:has(h3:hover) img,
+img:hover {
+  color: red;
+  scale: 1.2;
+}
+
+h3:hover,
+article:has(img:hover) h3 {
+  color: var(--color-amarillo);
+  text-decoration: underline;
+  scale: 1.1;
+}
