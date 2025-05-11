@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Categoria>
@@ -36,8 +36,10 @@ class CategoriaFactory extends Factory {
       '/categorias/plantilla3.png',
     ];
 
+    $nombre = $this->faker->unique()->randomElement($categorias);
     return [
-      'nombre' => $this->faker->unique()->randomElement($categorias),
+      'nombre' => $nombre,
+      'slug' => Str::slug($nombre, language: 'es'),
       'descripcion' => $this->faker->paragraph(),
       'imagen' => $this->faker->optional()->randomElement($imagenes)
     ];

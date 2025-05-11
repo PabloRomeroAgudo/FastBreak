@@ -32,8 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::post('carrito', [TransaccionController::class, 'store'])->name('pago');
 
   Route::middleware(UserIsWorker::class)->group(function () {
-    Route::get('addSaldo', [IngresoController::class, 'create'])->name('saldo');
-    Route::post('addSaldo', [IngresoController::class, 'store']);
+    Route::get('saldo/add', [IngresoController::class, 'create'])->name('saldo');
+    Route::post('saldo/add', [IngresoController::class, 'store']);
 
     Route::get('pedidos/preparar', [PedidosPrepararController::class, 'index'])->name('preparar');
     Route::patch('pedidos/preparar/{pedido}', [PedidosPrepararController::class, 'update'])->name('prepararAct');
@@ -45,7 +45,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::middleware(UserIsAdmin::class)->group(function () {
     Route::get('categoria/add', [CategoriaController::class, 'create'])->name('categoria.create');
     Route::post('categoria/add', [CategoriaController::class, 'store'])->name('categoria.store');
-    Route::get('categoria/{categoria:nombre}/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
+    Route::get('categoria/{categoria:slug}/edit', [CategoriaController::class, 'edit'])->name('categoria.edit');
     Route::post('categoria/{categoria}/edit', [CategoriaController::class, 'update'])->name('categoria.update');
     Route::delete('categoria/{categoria}', [CategoriaController::class, 'destroy'])->name('categoria.destroy');
 
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-Route::get('categoria/{categoria:nombre}', [CategoriaController::class, 'show'])->name('categoria.show');
+Route::get('categoria/{categoria:slug}', [CategoriaController::class, 'show'])->name('categoria.show');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

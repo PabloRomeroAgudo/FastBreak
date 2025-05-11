@@ -15,7 +15,10 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
     <article className='group flex flex-col gap-2'>
       <div className='overflow-clip rounded-xl'>
         {someHasImage && (
-          <Link href={route('categoria.show', categoria.nombre)}>
+          <Link
+            href={route('categoria.show', categoria.slug)}
+            className='img'
+          >
             {categoria.imagen ? (
               categoria.imagen && (
                 <img
@@ -31,13 +34,13 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
         )}
       </div>
       <div className='flex items-center justify-items-start'>
-        <Link href={route('categoria.show', categoria.nombre)}>
+        <Link href={route('categoria.show', categoria.slug)}>
           <h3 className='text-2xl font-bold transition-all'>{categoria.nombre}</h3>
         </Link>
 
         {auth.user && auth.user.esAdmin && (
           <Link
-            href={route('categoria.edit', categoria.nombre)}
+            href={route('categoria.edit', categoria.slug)}
             className='hover:text-amarillo ml-auto'
           >
             <Pencil />

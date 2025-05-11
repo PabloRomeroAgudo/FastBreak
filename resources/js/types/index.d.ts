@@ -50,6 +50,7 @@ export interface User {
 export type Categoria = {
   id: number
   nombre: string
+  slug: string
   descripcion: string
   imagen: null | string
 }
