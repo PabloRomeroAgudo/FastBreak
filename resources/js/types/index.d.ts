@@ -44,6 +44,7 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
   saldo: number
   esUsuario: boolean
+  esAdmin: boolean
 }
 
 export type Categoria = {

@@ -6,7 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { getPrice2Decimals, getUrlNameWithRedirect } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
-import { ClipboardList, Euro, LogOut, Menu, ShoppingCart, StickyNote } from 'lucide-react'
+import { ClipboardList, Euro, LogOut, Menu, Plus, ShoppingCart, StickyNote } from 'lucide-react'
 import AppLogo from './app-logo'
 import Subtitle from './subtitle'
 
@@ -29,6 +29,14 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
   const { url: currentURL } = page
 
   const rightNavItems: NavItem[] = [
+    {
+      hasPermission: auth.user && auth.user.esAdmin,
+      title: 'Añadir categoria',
+      url: getUrlNameWithRedirect('categoria.create', { redirect: currentURL }),
+      icon: Plus,
+      isIcon: true,
+      method: 'get',
+    },
     {
       hasPermission: true,
       title: 'Carrito',

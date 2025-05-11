@@ -72,4 +72,8 @@ class User extends Authenticatable {
   public function isNormalUser(): bool {
     return $this->id_rol === RolTypes::USUARIO->value;
   }
+
+  public function isAdmin(): bool {
+    return $this->id_rol === RolTypes::ADMIN->value || $this->id_rol === RolTypes::DESARROLLADOR->value;
+  }
 }
