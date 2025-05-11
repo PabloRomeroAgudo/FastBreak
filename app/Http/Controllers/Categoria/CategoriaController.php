@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriaCreateRequest;
 use App\Http\Requests\CategoriaUpdateRequest;
 use App\Models\Categoria;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CategoriaController extends Controller {
   public function index(): Response {
@@ -51,6 +50,8 @@ class CategoriaController extends Controller {
       $datos['imagen'] = $imagenPath;
     }
 
+    $datos["slug"] = Str::slug($datos["nombre"]);
+
     Categoria::create($datos);
   }
 
@@ -67,6 +68,8 @@ class CategoriaController extends Controller {
   public function update(CategoriaUpdateRequest $request, Categoria $categoria) {
 
     $datos = $request->validated();
+
+    $datos["slug"] = Str::slug($datos["nombre"]);
 
     if ($datos['imagen']) {
       $imagen = $datos['imagen'];

@@ -3,7 +3,7 @@ article .img:hover {
   scale: 1.2;
 }
 
-h3:hover,
+article h3:hover,
 article:has(.img:hover) h3 {
   color: var(--color-amarillo);
   text-decoration: underline;
