@@ -46,7 +46,6 @@ export default function Edit({ categoria }: Props) {
     <AppLayout
       subtitulo={`Editar categoria "${nombre}"`}
       needBack={true}
-      url={route('home')}
     >
       <Head>
         <title>{`Editar categoria "${nombre}"`}</title>

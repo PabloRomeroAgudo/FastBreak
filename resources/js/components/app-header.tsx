@@ -3,7 +3,7 @@ import { Icon } from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { getPrice2Decimals, getUrlNameWithRedirect } from '@/lib/utils'
+import { getPrice2Decimals } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { ClipboardList, Euro, LogOut, Menu, Plus, ShoppingCart, StickyNote } from 'lucide-react'
@@ -26,13 +26,12 @@ interface AppHeaderProps {
 export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url = '' }: AppHeaderProps) {
   const page = usePage<SharedData>()
   const { auth } = page.props
-  const { url: currentURL } = page
 
   const rightNavItems: NavItem[] = [
     {
       hasPermission: auth.user && auth.user.esAdmin,
       title: 'Añadir categoria',
-      url: getUrlNameWithRedirect('categoria.create', { redirect: currentURL }),
+      url: route('categoria.create'),
       icon: Plus,
       isIcon: true,
       method: 'get',
@@ -40,7 +39,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
     {
       hasPermission: true,
       title: 'Carrito',
-      url: getUrlNameWithRedirect('carrito', { redirect: currentURL }),
+      url: route('carrito'),
       icon: ShoppingCart,
       isIcon: true,
       method: 'get',
@@ -79,7 +78,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
     {
       hasPermission: true,
       title: 'Cerrar Sesión',
-      url: '/logout',
+      url: route('logout'),
       icon: LogOut,
       isIcon: true,
       method: 'post',
@@ -89,12 +88,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
   const rightNavItemsNotAuth: NavItemNotAuth[] = [
     {
       title: 'Iniciar Sesión',
-      url: getUrlNameWithRedirect('login', { redirect: currentURL }),
+      url: route('login'),
       style: 'text-negro bg-amarillo p-2 rounded-sm text-lg font-medium font-principal text-center hover:bg-primary/90 hover:text-blanco ',
     },
     {
       title: 'Regístrate',
-      url: getUrlNameWithRedirect('register', { redirect: currentURL }),
+      url: route('register'),
       style: 'text-blanco bg-negro w-20  text-center rounded-sm hover:text-amarillo font-principal',
     },
   ]
@@ -127,7 +126,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                                 <Link
                                   method={item.method}
                                   href={item.url}
-                                  className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo inline-flex size-9 items-center justify-center rounded-md bg-transparent text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
+                                  className='group ring-offset-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring text-amarillo inline-flex size-9 cursor-pointer items-center justify-center rounded-md bg-transparent text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50'
                                 >
                                   <span className='sr-only'>{item.title}</span>
                                   {item.icon && (

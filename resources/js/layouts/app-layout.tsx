@@ -10,7 +10,7 @@ interface AppLayoutProps {
   url?: string
 }
 
-export default ({ children, breadcrumbs, subtitulo, needBack = false, url = '', ...props }: AppLayoutProps) => (
+export default ({ children, breadcrumbs, subtitulo, needBack = false, url, ...props }: AppLayoutProps) => (
   <AppLayoutTemplate
     breadcrumbs={breadcrumbs}
     {...props}

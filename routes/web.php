@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-use function App\Helpers\getRedirectParam;
-
 // Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
@@ -27,8 +25,7 @@ Route::get('categoria', [CategoriaController::class, 'index'])->name('categorias
 
 Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('carrito', function (Request $request) {
-    $redirect = getRedirectParam($request);
-    return Inertia::render('Carrito/carrito', ["redirect" => $redirect]);
+    return Inertia::render('Carrito/carrito');
   })->name('carrito');
 
 

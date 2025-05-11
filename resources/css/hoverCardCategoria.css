@@ -1,6 +1,5 @@
 article:has(h3:hover) img,
-img:hover {
-  color: red;
+article img:hover {
   scale: 1.2;
 }
 

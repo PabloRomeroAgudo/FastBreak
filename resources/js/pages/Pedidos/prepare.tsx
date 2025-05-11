@@ -10,7 +10,10 @@ interface Props {
 
 export default function Prepare({ pedidos }: Props) {
   return (
-    <AppLayout subtitulo='Pedidos'>
+    <AppLayout
+      subtitulo='Pedidos'
+      needBack={true}
+    >
       <Head>
         <title>Pedidos para preparar</title>
       </Head>

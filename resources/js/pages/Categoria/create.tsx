@@ -29,7 +29,10 @@ export default function Create() {
   }
 
   return (
-    <AppLayout subtitulo='Añadir Categoria'>
+    <AppLayout
+      subtitulo='Añadir Categoria'
+      needBack={true}
+    >
       <Head>
         <title>Añadir Categoria</title>
       </Head>

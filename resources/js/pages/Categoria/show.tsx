@@ -26,7 +26,6 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
     <AppLayout
       subtitulo={categoria.nombre}
       needBack={true}
-      url='/categoria'
     >
       <Head>
         <title>{categoria.nombre}</title>

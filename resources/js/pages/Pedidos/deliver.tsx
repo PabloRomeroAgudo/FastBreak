@@ -10,7 +10,10 @@ interface Props {
 
 export default function Deliver({ pedidos }: Props) {
   return (
-    <AppLayout subtitulo='Pedidos'>
+    <AppLayout
+      subtitulo='Pedidos'
+      needBack={true}
+    >
       <Head>
         <title>Pedidos para Entregar</title>
       </Head>

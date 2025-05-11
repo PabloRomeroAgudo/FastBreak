@@ -31,8 +31,6 @@ export default function Saldo() {
     })
   }
 
-  console.log(window.history.state)
-
   return (
     <AppLayout
       subtitulo='Añadir saldo'
