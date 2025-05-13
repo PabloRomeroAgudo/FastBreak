@@ -137,7 +137,7 @@ export default function Create() {
             </div>
 
             <button
-              className='bg-amarillo disabled:bg-amarillo/40 flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
+              className='bg-amarillo disabled:bg-amarillo/40 text-negro flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
               type='submit'
               disabled={processing}
             >
