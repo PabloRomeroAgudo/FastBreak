@@ -57,7 +57,7 @@ export default function Edit({ categoria }: Props) {
       <div className='flex flex-col items-center gap-2'>
         <form
           onSubmit={handleSubmit}
-          className='bg-negro font-principal flex w-1/3 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
+          className='bg-negro font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
         >
           <label className='text-blanco flex flex-col'>
             Nombre:

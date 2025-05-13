@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Producto\ProductoCreateRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -18,14 +19,33 @@ class ProductoController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    return 'hola';
+    return Inertia::render('Producto/create');
   }
 
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request) {
-    //
+  public function store(ProductoCreateRequest $request) {
+    $data = $request->validated();
+    if (!is_null($data['ingredientes'])) {
+      $data['ingredientes'] = implode(", ", $data['ingredientes']);
+    }
+
+    if (!is_null($data['alergenos'])) {
+      $data['alergenos'] = implode(", ", $data['alergenos']);
+    }
+
+    if ($data['imagen']) {
+      /** @var \Illuminate\Http\UploadedFile $imagen */
+      $imagen = $data['imagen'];
+
+
+      $imagenPath = $imagen->store('productos', 'public');
+
+      $data['imagen'] = $imagenPath;
+    }
+
+    Producto::create($data);
   }
 
   /**

@@ -6,7 +6,7 @@ import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 export default function Create() {
-  const { data, setData, post, processing } = useForm({
+  const { data, setData, post, processing, reset } = useForm({
     nombre: '',
     descripcion: '',
     imagen: null as File | null,
@@ -21,6 +21,10 @@ export default function Create() {
 
     post(route('categoria.store'), {
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
+      onSuccess: () => {
+        toast.success('Categoria creada correctamente')
+        reset()
+      },
     })
   }
 
@@ -46,7 +50,7 @@ export default function Create() {
           <form
             noValidate
             onSubmit={handleSubmit}
-            className='bg-negro font-principal flex w-1/3 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
+            className='bg-negro font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
           >
             <label className='text-blanco flex flex-col'>
               Nombre:

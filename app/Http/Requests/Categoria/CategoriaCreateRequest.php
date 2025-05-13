@@ -23,7 +23,7 @@ class CategoriaCreateRequest extends FormRequest {
     return [
       "nombre" => ['required', 'string', 'max:255', Rule::unique(Categoria::class, 'nombre')],
       "descripcion" => ['required', 'string'],
-      "imagen" => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048']
+      "imagen" => ['nullable', 'image', 'max:2048']
     ];
   }
 

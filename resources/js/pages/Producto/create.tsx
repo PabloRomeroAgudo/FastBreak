@@ -11,8 +11,8 @@ export default function Create() {
     nombre: '',
     precio: null as number | null,
     descripcion: '',
-    ingredientes: '',
-    alergenos: '',
+    ingredientes: null as string[] | null,
+    alergenos: null as string[] | null,
     imagen: null as File | null,
   })
 
@@ -24,6 +24,7 @@ export default function Create() {
     e.preventDefault()
 
     post(route('producto.store'), {
+      onBefore: (visit) => console.log(visit.data),
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
     })
   }
@@ -50,7 +51,7 @@ export default function Create() {
           <form
             noValidate
             onSubmit={handleSubmit}
-            className='bg-negro font-principal text-blanco flex w-1/3 min-w-xs flex-col gap-8 rounded-xl p-10'
+            className='bg-negro font-principal text-blanco flex w-2/5 min-w-xs flex-col gap-8 rounded-xl p-10'
           >
             <label className='flex flex-col'>
               Nombre:
@@ -78,16 +79,17 @@ export default function Create() {
               <textarea
                 value={data.descripcion}
                 onChange={(e) => setData('descripcion', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+                className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
               />
             </label>
 
             <label className='flex flex-col'>
               Ingredientes:
               <textarea
-                value={data.ingredientes}
-                onChange={(e) => setData('ingredientes', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+                value={data.ingredientes?.join(', ')}
+                onChange={(e) => setData('ingredientes', e.target.value !== '' ? e.target.value.split(', ') : null)}
+                placeholder='Espacios separados por ", "'
+                className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
               />
             </label>
 
@@ -95,9 +97,10 @@ export default function Create() {
               Alérgenos:
               <input
                 type='text'
-                value={data.alergenos}
-                onChange={(e) => setData('alergenos', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
+                value={data.alergenos?.join(', ')}
+                placeholder='Espacios separados por ", "'
+                onChange={(e) => setData('alergenos', e.target.value !== '' ? e.target.value.split(', ') : null)}
+                className='bg-amarillo text-negro font-body rounded-md p-2'
               />
             </label>
 
