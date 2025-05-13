@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Categoria;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoriaCreateRequest;
-use App\Http\Requests\CategoriaUpdateRequest;
+use App\Http\Requests\Categoria\CategoriaCreateRequest;
+use App\Http\Requests\Categoria\CategoriaUpdateRequest;
 use App\Models\Categoria;
 use Inertia\Inertia;
 use Inertia\Response;
