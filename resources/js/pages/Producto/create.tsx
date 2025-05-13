@@ -4,11 +4,15 @@ import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle, Trash } from 'lucide-react'
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
+import '../../../css/inputNumber.css'
 
 export default function Create() {
   const { data, setData, post, processing } = useForm({
     nombre: '',
+    precio: null as number | null,
     descripcion: '',
+    ingredientes: '',
+    alergenos: '',
     imagen: null as File | null,
   })
 
@@ -19,7 +23,7 @@ export default function Create() {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
 
-    post(route('categoria.store'), {
+    post(route('producto.store'), {
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
     })
   }
@@ -32,23 +36,23 @@ export default function Create() {
 
   return (
     <AppLayout
-      subtitulo='Añadir Categoria'
+      subtitulo='Añadir Producto'
       needBack={true}
     >
       <Head>
-        <title>Añadir Categoria</title>
+        <title>Añadir Producto</title>
       </Head>
 
       <div className='flex flex-col gap-5'>
-        <Nav active={LinkValues.categoria} />
+        <Nav active={LinkValues.producto} />
 
         <div className='flex justify-center'>
           <form
             noValidate
             onSubmit={handleSubmit}
-            className='bg-negro font-principal flex w-1/3 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
+            className='bg-negro font-principal text-blanco flex w-1/3 min-w-xs flex-col gap-8 rounded-xl p-10'
           >
-            <label className='text-blanco flex flex-col'>
+            <label className='flex flex-col'>
               Nombre:
               <input
                 type='text'
@@ -58,12 +62,42 @@ export default function Create() {
               />
             </label>
 
-            <label className='text-blanco flex flex-col'>
+            <label className='flex flex-col'>
+              Precio:
+              <input
+                type='number'
+                value={data.precio || ''}
+                step={0.01}
+                onChange={(e) => setData('precio', e.target.value ? Number(e.target.value) : null)}
+                className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
+              />
+            </label>
+
+            <label className='flex flex-col'>
               Descripción:
               <textarea
                 value={data.descripcion}
                 onChange={(e) => setData('descripcion', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] rounded-md p-2'
+                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+              />
+            </label>
+
+            <label className='flex flex-col'>
+              Ingredientes:
+              <textarea
+                value={data.ingredientes}
+                onChange={(e) => setData('ingredientes', e.target.value)}
+                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+              />
+            </label>
+
+            <label className='flex flex-col'>
+              Alérgenos:
+              <input
+                type='text'
+                value={data.alergenos}
+                onChange={(e) => setData('alergenos', e.target.value)}
+                className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
               />
             </label>
 

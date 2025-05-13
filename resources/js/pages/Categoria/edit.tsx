@@ -2,7 +2,7 @@ import AppLayout from '@/layouts/app-layout'
 import { Categoria } from '@/types'
 import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle, Trash, X } from 'lucide-react'
-import { ChangeEvent, FormEventHandler, useState } from 'react'
+import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 interface Props {
@@ -18,8 +18,9 @@ export default function Edit({ categoria }: Props) {
     imagen: null as File | null,
     borrarImagen: false as boolean,
   })
-
   const { delete: destroy, processing: processingBorrado } = useForm({})
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const [url, setUrl] = useState(imagen)
 
@@ -33,6 +34,7 @@ export default function Edit({ categoria }: Props) {
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('change')
     const file = e.target.files?.[0] ?? null
     setData('imagen', file)
     setUrl(file ? URL.createObjectURL(file) : null)
@@ -80,6 +82,7 @@ export default function Edit({ categoria }: Props) {
             <div className='relative size-56 overflow-hidden rounded-2xl'>
               <input
                 className='absolute inset-0 z-10 size-full cursor-pointer text-transparent file:hidden'
+                ref={inputRef}
                 type='file'
                 accept='.jpg, .jpeg, .png, .webp'
                 onChange={handleFileChange}
@@ -93,7 +96,7 @@ export default function Edit({ categoria }: Props) {
               )}
 
               <div className='bg-blanco/40 absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
-                <span>Toca para cambiar</span>
+                <span>{url ? `Toca para cambiar` : `Toca para añadir`}</span>
               </div>
             </div>
 
@@ -105,6 +108,9 @@ export default function Edit({ categoria }: Props) {
                 onClick={() => {
                   setData('borrarImagen', true)
                   setUrl(null)
+                  if (inputRef.current) {
+                    inputRef.current.value = ''
+                  }
                 }}
               />
             </div>

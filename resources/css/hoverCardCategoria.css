@@ -1,10 +1,10 @@
-article:has(h3:hover) .img,
+article:has(.titulo:hover) .img,
 article .img:hover {
   scale: 1.2;
 }
 
-article h3:hover,
-article:has(.img:hover) h3 {
+article .titulo:hover,
+article:has(.img:hover) .titulo {
   color: var(--color-amarillo);
   text-decoration: underline;
   scale: 1.1;

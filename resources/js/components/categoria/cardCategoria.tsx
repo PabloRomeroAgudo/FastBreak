@@ -34,8 +34,11 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
         )}
       </div>
       <div className='flex items-center justify-items-start'>
-        <Link href={route('categoria.show', categoria.slug)}>
-          <h3 className='text-2xl font-bold transition-all'>{categoria.nombre}</h3>
+        <Link
+          href={route('categoria.show', categoria.slug)}
+          className='text-2xl font-bold transition-all'
+        >
+          <h3 className='titulo'>{categoria.nombre}</h3>
         </Link>
 
         {auth.user && auth.user.esAdmin && (
