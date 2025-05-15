@@ -22,7 +22,7 @@ class CategoriaController extends Controller {
 
     $productos = $categoria->productos()->paginate(7);
 
-    $categorias = Categoria::all('id', 'nombre', 'imagen');
+    $categorias = Categoria::all('id', 'nombre', 'imagen', 'slug');
 
     return Inertia::render('Categoria/show', ['categoria' => $categoria, "categorias" => $categorias, "paginacion" => $productos]);
   }
