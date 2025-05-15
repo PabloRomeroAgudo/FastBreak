@@ -15,7 +15,7 @@ class ProductoFactory extends Factory {
    */
   public function definition(): array {
 
-    $imagen = "/categorias/plantilla1.png";
+    $imagen = "/productos/plantilla1.png";
 
 
     return [

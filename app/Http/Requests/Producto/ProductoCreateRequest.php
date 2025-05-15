@@ -26,13 +26,14 @@ class ProductoCreateRequest extends FormRequest {
   public function rules(): array {
     return [
       "nombre" => ['required', 'string', 'max:255', Rule::unique(Producto::class, 'nombre')],
-      "precio" => ['required', 'decimal:0,2', 'gt:0'],
+      "precio" => ['required', 'decimal:0,2', 'gt:0', 'lt:100'],
       "descripcion" => ['required', 'string'],
       "ingredientes" => ['nullable', 'array'],
       "ingredientes.*" => ['string'],
       "alergenos" => ['nullable', 'array'],
       "alergenos.*" => ['string'],
       "imagen" => ['nullable', 'image', 'max:2048'],
+      "categorias" => ['required', 'array', 'min:0']
     ];
   }
 
@@ -48,6 +49,7 @@ class ProductoCreateRequest extends FormRequest {
       'precio.required' => 'Debes introducir un :attribute',
       'precio.decimal' => 'El :attribute debe tener 2 decimales como maximo',
       'precio.gt' => 'El :attribute debe ser positivo',
+      'precio.lt' => 'El :attribute debe ser menor de 100€',
       'precio' => 'Error en el precio.',
 
       'descripcion.required' => 'La descripcion es obligatoria.',
@@ -56,6 +58,9 @@ class ProductoCreateRequest extends FormRequest {
       'imagen.image' => 'El archivo debe ser una imagen',
       'imagen.max' => 'La imagen es demasiado pesada (maximo: :max)',
       'imagen' => 'Error en la imagen.',
+
+      'categorias.required' => 'Selecciona al menos una categoría.',
+      'categorias' => 'Error en la categoria.'
     ];
   }
 

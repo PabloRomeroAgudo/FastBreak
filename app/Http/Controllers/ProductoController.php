@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Producto\ProductoCreateRequest;
+use App\Models\Categoria;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -19,7 +20,9 @@ class ProductoController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    return Inertia::render('Producto/create');
+    $categorias = Categoria::get(['id', 'nombre']);
+
+    return Inertia::render('Producto/create', ["categoriasProp" => $categorias]);
   }
 
   /**
@@ -27,6 +30,7 @@ class ProductoController extends Controller {
    */
   public function store(ProductoCreateRequest $request) {
     $data = $request->validated();
+
     if (!is_null($data['ingredientes'])) {
       $data['ingredientes'] = implode(", ", $data['ingredientes']);
     }
@@ -45,7 +49,13 @@ class ProductoController extends Controller {
       $data['imagen'] = $imagenPath;
     }
 
-    Producto::create($data);
+    $categorias = $data['categorias'];
+    unset($data['categorias']);
+
+    /** @var \App\Models\Producto $producto*/
+    $producto = Producto::create($data);
+
+    $producto->categorias()->sync($categorias);
   }
 
   /**

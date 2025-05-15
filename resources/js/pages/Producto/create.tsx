@@ -6,7 +6,16 @@ import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 import '../../../css/inputNumber.css'
 
-export default function Create() {
+interface Categorias {
+  id: number
+  nombre: string
+}
+
+interface Props {
+  categoriasProp: Categorias[]
+}
+
+export default function Create({ categoriasProp }: Props) {
   const { data, setData, post, processing } = useForm({
     nombre: '',
     precio: null as number | null,
@@ -14,6 +23,7 @@ export default function Create() {
     ingredientes: null as string[] | null,
     alergenos: null as string[] | null,
     imagen: null as File | null,
+    categorias: null as number[] | null,
   })
 
   const [url, setUrl] = useState<string | null>(null)
@@ -24,8 +34,8 @@ export default function Create() {
     e.preventDefault()
 
     post(route('producto.store'), {
-      onBefore: (visit) => console.log(visit.data),
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
+      onSuccess: () => toast.success('Producto añadido correctamente.'),
     })
   }
 
@@ -149,6 +159,48 @@ export default function Create() {
             </button>
           </form>
         </div>
+
+        <ul className='bg-negro grid w-3/5 min-w-max grid-cols-1 items-center justify-items-center self-center rounded-2xl p-3 text-white sm:grid-cols-2 lg:grid-cols-3'>
+          {categoriasProp.map((categoria) => {
+            return (
+              <li
+                key={categoria.id}
+                className='w-60'
+              >
+                <label className='relative flex w-fit cursor-pointer items-center gap-2 text-xl'>
+                  <input
+                    type='checkbox'
+                    className='peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 shadow transition-all hover:shadow-md'
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        const nuevoArr = [...(data.categorias || [])]
+                        nuevoArr.push(categoria.id)
+                        setData('categorias', nuevoArr)
+                      } else {
+                        const nuevoArr = data.categorias?.filter((c) => c !== categoria.id) || []
+                        setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
+                      }
+                    }}
+                  />
+                  <span className='pointer-events-none absolute size-5 transform text-white opacity-0 peer-checked:opacity-100'>
+                    <svg
+                      viewBox='0 0 20 20'
+                      fill='currentColor'
+                      stroke='currentColor'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                        clipRule='evenodd'
+                      ></path>
+                    </svg>
+                  </span>
+                  <span className='decoration-1 underline-offset-2 peer-checked:underline'>{categoria.nombre}</span>
+                </label>
+              </li>
+            )
+          })}
+        </ul>
       </div>
 
       <Toaster richColors />

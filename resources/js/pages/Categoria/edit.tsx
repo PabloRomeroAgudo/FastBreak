@@ -34,7 +34,6 @@ export default function Edit({ categoria }: Props) {
   }
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('change')
     const file = e.target.files?.[0] ?? null
     setData('imagen', file)
     setUrl(file ? URL.createObjectURL(file) : null)
