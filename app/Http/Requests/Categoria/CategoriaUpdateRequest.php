@@ -26,7 +26,8 @@ class CategoriaUpdateRequest extends FormRequest {
       "nombre" => ['required', 'string', 'max:255', Rule::unique(Categoria::class, 'nombre')->ignore($categoriaId)],
       "descripcion" => ['required', 'string'],
       "imagen" => ['nullable', 'image', 'max:2048'],
-      "borrarImagen" => ['boolean']
+      "borrarImagen" => ['boolean'],
+      "productos" => ['nullable', 'array']
     ];
   }
 
@@ -45,6 +46,8 @@ class CategoriaUpdateRequest extends FormRequest {
       'imagen.image' => 'El archivo debe ser una imagen',
       'imagen.max' => 'La imagen es demasiado pesada (maximo: :max)',
       'imagen' => 'Error en la imagen.',
+
+      'productos' => 'Error en los productos.'
     ];
   }
 }

@@ -5,11 +5,22 @@ import { LoaderCircle, Trash, X } from 'lucide-react'
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
-interface Props {
-  categoria: Categoria
+interface Producto {
+  id: number
+  nombre: string
 }
 
-export default function Edit({ categoria }: Props) {
+interface Categoria2 extends Categoria {
+  productos: Producto[]
+}
+
+interface Props {
+  categoria: Categoria2
+  productosProp: Producto[]
+}
+
+export default function Edit({ categoria, productosProp }: Props) {
+  console.log(categoria)
   const { nombre, descripcion, imagen } = categoria
 
   const { data, setData, post, processing } = useForm({
@@ -17,7 +28,9 @@ export default function Edit({ categoria }: Props) {
     descripcion,
     imagen: null as File | null,
     borrarImagen: false as boolean,
+    productos: categoria.productos.map((p) => p.id) as number[] | null,
   })
+
   const { delete: destroy, processing: processingBorrado } = useForm({})
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -124,6 +137,53 @@ export default function Edit({ categoria }: Props) {
             Guardar
           </button>
         </form>
+
+        <section className='bg-negro grid w-3/5 min-w-max justify-center gap-3 self-center rounded-2xl p-3 text-white'>
+          <h3 className='text-center text-2xl'>Productos a añadir</h3>
+          <ul className='grid grid-cols-1 gap-3 sm:grid-cols-2 sm:justify-items-center lg:grid-cols-3'>
+            {productosProp.map((producto) => {
+              return (
+                <li
+                  key={producto.id}
+                  className='flex w-full items-center'
+                >
+                  <div className='h-full w-full'>
+                    <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
+                      <input
+                        type='checkbox'
+                        checked={!!data.productos?.find((id) => id === producto.id)}
+                        className='peer checked:border-amarillo h-5 w-5 cursor-pointer appearance-none rounded border border-white shadow transition-all hover:shadow-md'
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            const nuevoArr = [...(data.productos || [])]
+                            nuevoArr.push(producto.id)
+                            setData('productos', nuevoArr)
+                          } else {
+                            const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
+                            setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
+                          }
+                        }}
+                      />
+                      <span className='pointer-events-none absolute left-2 size-5 transform opacity-0 transition-opacity peer-checked:opacity-100'>
+                        <svg
+                          viewBox='0 0 20 20'
+                          fill='currentColor'
+                        >
+                          <path
+                            fillRule='evenodd'
+                            d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                            clipRule='evenodd'
+                          ></path>
+                        </svg>
+                      </span>
+                      <span className='decoration-1 underline-offset-2 peer-checked:underline'>{producto.nombre}</span>
+                    </label>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
 
         <button
           className='bg-negro text-rojo cursor-pointer rounded-md p-2'

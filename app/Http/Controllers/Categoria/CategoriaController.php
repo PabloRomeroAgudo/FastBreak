@@ -69,7 +69,12 @@ class CategoriaController extends Controller {
    * Show the form for editing the specified resource.
    */
   public function edit(Categoria $categoria) {
-    return Inertia::render('Categoria/edit', ["categoria" => $categoria]);
+    $categoria->load(['productos' => function ($query) {
+      $query->select('productos.id', 'nombre');
+    }]);
+
+    $productos = Producto::get(['id', 'nombre']);
+    return Inertia::render('Categoria/edit', ["categoria" => $categoria, "productosProp" => $productos]);
   }
 
   /**
@@ -77,30 +82,34 @@ class CategoriaController extends Controller {
    */
   public function update(CategoriaUpdateRequest $request, Categoria $categoria) {
 
-    $datos = $request->validated();
+    $data = $request->validated();
 
-    $datos["slug"] = Str::slug($datos["nombre"]);
+    $data["slug"] = Str::slug($data["nombre"]);
 
-    if ($datos['imagen']) {
-      $imagen = $datos['imagen'];
+    if ($data['imagen']) {
+      $imagen = $data['imagen'];
       $imagenPath = $imagen->store('categorias', 'public');
-      $datos['imagen'] = $imagenPath;
+      $data['imagen'] = $imagenPath;
 
       // borrar la anterior si existía
       if ($categoria->getRawOriginal('imagen')) {
         Storage::disk('public')->delete($categoria->getRawOriginal('imagen'));
       }
-    } else if ($datos['borrarImagen']) {
+    } else if ($data['borrarImagen']) {
       if ($categoria->getRawOriginal('imagen')) {
         Storage::disk('public')->delete($categoria->getRawOriginal('imagen'));
       }
-      $datos['imagen'] = null;
+      $data['imagen'] = null;
     } else {
-      unset($datos['imagen']);
+      unset($data['imagen']);
     }
-    unset($datos['borrarImagen']);
+    unset($data['borrarImagen']);
 
-    $categoria->update($datos);
+    $productos = $data['productos'];
+    unset($data['productos']);
+
+    $categoria->productos()->sync($productos);
+    $categoria->update($data);
     $categoria->refresh();
 
     return to_route('categoria.edit', $categoria);
