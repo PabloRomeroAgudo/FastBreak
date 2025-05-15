@@ -15,16 +15,13 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
     <article className='group flex flex-col gap-2'>
       <div className='overflow-clip rounded-xl'>
         {someHasImage && (
-          <Link
-            href={route('categoria.show', categoria.slug)}
-            className='img'
-          >
+          <Link href={route('categoria.show', categoria.slug)}>
             {categoria.imagen ? (
               categoria.imagen && (
                 <img
                   src={categoria.imagen}
                   alt={`Imagen de la categoria ${categoria.nombre}`}
-                  className='aspect-square w-full transition-transform'
+                  className='img aspect-square w-full transition-transform'
                 />
               )
             ) : (
@@ -36,9 +33,9 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
       <div className='flex items-center justify-items-start'>
         <Link
           href={route('categoria.show', categoria.slug)}
-          className='text-2xl font-bold transition-all'
+          className='text-2xl font-bold'
         >
-          <h3 className='titulo'>{categoria.nombre}</h3>
+          <h3 className='titulo transition-all'>{categoria.nombre}</h3>
         </Link>
 
         {auth.user && auth.user.esAdmin && (
