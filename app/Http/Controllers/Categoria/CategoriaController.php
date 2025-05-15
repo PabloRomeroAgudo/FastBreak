@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Categoria\CategoriaCreateRequest;
 use App\Http\Requests\Categoria\CategoriaUpdateRequest;
 use App\Models\Categoria;
+use App\Models\Producto;
 use Inertia\Inertia;
 use Inertia\Response;
 use Illuminate\Support\Facades\Storage;
@@ -31,28 +32,37 @@ class CategoriaController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    return Inertia::render('Categoria/create');
+    $productos = Producto::get(['id', 'nombre']);
+
+    return Inertia::render('Categoria/create', ["productosProp" => $productos]);
   }
 
   /**
    * Store a newly created resource in storage.
    */
   public function store(CategoriaCreateRequest $request) {
-    $datos = $request->validated();
+    $data = $request->validated();
 
-    if ($datos['imagen']) {
+
+    if ($data['imagen']) {
       /** @var \Illuminate\Http\UploadedFile $imagen */
-      $imagen = $datos['imagen'];
+      $imagen = $data['imagen'];
 
 
       $imagenPath = $imagen->store('categorias', 'public');
 
-      $datos['imagen'] = $imagenPath;
+      $data['imagen'] = $imagenPath;
     }
 
-    $datos["slug"] = Str::slug($datos["nombre"]);
+    $data["slug"] = Str::slug($data["nombre"]);
 
-    Categoria::create($datos);
+    $productos = $data['productos'];
+    unset($data['productos']);
+
+    /** @var \App\Models\Categoria $categoria*/
+    $categoria = Categoria::create($data);
+
+    $categoria->productos()->sync($productos);
   }
 
   /**

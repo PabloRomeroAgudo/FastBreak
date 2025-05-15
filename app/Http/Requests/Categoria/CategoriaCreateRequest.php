@@ -23,7 +23,8 @@ class CategoriaCreateRequest extends FormRequest {
     return [
       "nombre" => ['required', 'string', 'max:255', Rule::unique(Categoria::class, 'nombre')],
       "descripcion" => ['required', 'string'],
-      "imagen" => ['nullable', 'image', 'max:2048']
+      "imagen" => ['nullable', 'image', 'max:2048'],
+      "productos" => ['nullable', 'array']
     ];
   }
 
@@ -42,6 +43,8 @@ class CategoriaCreateRequest extends FormRequest {
       'imagen.image' => 'El archivo debe ser una imagen',
       'imagen.max' => 'La imagen es demasiado pesada (maximo: :max)',
       'imagen' => 'Error en la imagen.',
+
+      'productos' => 'Error en los productos.'
     ];
   }
 }
