@@ -110,7 +110,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
         )}
       </div>
 
-      <p className='text-gris grow'>{descripcion}</p>
+      <p className={`text-gris grow`}>{descripcion}</p>
 
       {!someHasImage && (
         <Buttons

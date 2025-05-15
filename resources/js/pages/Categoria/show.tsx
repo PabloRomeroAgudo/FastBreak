@@ -31,7 +31,7 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
         <title>{categoria.nombre}</title>
       </Head>
 
-      <section className='-mt-4 mb-4 flex justify-center px-4'>
+      <section className='-mt-4 flex justify-center px-4'>
         <CarouselCat
           categorias={categorias}
           categoriaActiva={categoria}
@@ -39,7 +39,7 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
       </section>
 
       {areProducts ? (
-        <section className='mt-auto grid grow gap-5 px-8'>
+        <section className='grid gap-5 px-8'>
           <div className='grid grid-cols-[repeat(auto-fit,minmax(12rem,20rem))] justify-center gap-4'>
             {productos.map((producto) => {
               return (
