@@ -16,7 +16,7 @@ export default function Subtitle({ needBack = false, subtitulo, url }: { needBac
   }
 
   return (
-    <div className='bg-negro relative mb-4 flex items-center justify-center py-2'>
+    <div className='bg-negro relative mb-4 flex items-center justify-center px-12 py-2'>
       {needBack && (
         <button
           className='absolute left-4 cursor-pointer'
@@ -29,7 +29,7 @@ export default function Subtitle({ needBack = false, subtitulo, url }: { needBac
         </button>
       )}
 
-      <h1 className='text-amarillo font-principal cursor-default text-3xl'>{subtitulo}</h1>
+      <h1 className='text-amarillo font-principal cursor-default text-center text-3xl text-balance'>{subtitulo}</h1>
     </div>
   )
 }
