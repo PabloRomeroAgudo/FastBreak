@@ -108,12 +108,11 @@ export default function Create({ categoriasProp }: Props) {
 
             <label className='flex flex-col'>
               Alérgenos:
-              <input
-                type='text'
+              <textarea
                 value={data.alergenos?.join(', ')}
                 placeholder='Espacios separados por ", "'
                 onChange={(e) => setData('alergenos', e.target.value !== '' ? e.target.value.split(', ') : null)}
-                className='bg-amarillo text-negro font-body rounded-md p-2'
+                className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
               />
             </label>
 
@@ -134,7 +133,7 @@ export default function Create({ categoriasProp }: Props) {
                   />
                 )}
 
-                <div className='bg-blanco/40 absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
+                <div className='bg-blanco/40 text-negro absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
                   <span>{url ? `Toca para cambiar` : `Toca para añadir`}</span>
                 </div>
               </div>

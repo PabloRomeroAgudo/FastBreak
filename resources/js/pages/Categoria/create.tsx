@@ -60,9 +60,9 @@ export default function Create({ productosProp }: Props) {
           <form
             noValidate
             onSubmit={handleSubmit}
-            className='bg-negro font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
+            className='bg-negro text-blanco font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
           >
-            <label className='text-blanco flex flex-col'>
+            <label className='flex flex-col'>
               Nombre:
               <input
                 type='text'
@@ -72,7 +72,7 @@ export default function Create({ productosProp }: Props) {
               />
             </label>
 
-            <label className='text-blanco flex flex-col'>
+            <label className='flex flex-col'>
               Descripción:
               <textarea
                 value={data.descripcion}
@@ -98,7 +98,7 @@ export default function Create({ productosProp }: Props) {
                   />
                 )}
 
-                <div className='bg-blanco/40 absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
+                <div className='bg-blanco/40 text-negro absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
                   <span>{url ? `Toca para cambiar` : `Toca para añadir`}</span>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function Create({ productosProp }: Props) {
             </div>
 
             <button
-              className='bg-amarillo disabled:bg-amarillo/40 flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
+              className='bg-amarillo disabled:bg-amarillo/40 text-negro flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
               type='submit'
               disabled={processing}
             >

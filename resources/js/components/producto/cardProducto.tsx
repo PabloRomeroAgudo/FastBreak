@@ -2,6 +2,7 @@ import { CarritoContext } from '@/context/carrito'
 import { getPrice2Decimals, goToUrlWithRedirect } from '@/lib/utils'
 import { Carrito, Datum, SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
+import { Pencil } from 'lucide-react'
 import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 import { Buttons } from './buttons'
@@ -101,6 +102,15 @@ export default function CardProducto({ producto, someHasImage }: Props) {
         >
           <h3>{nombre}</h3>
         </Link>
+
+        {auth.user && auth.user.esAdmin && (
+          <Link
+            href={route('producto.edit', producto.slug)}
+            className='hover:text-amarillo ml-auto'
+          >
+            <Pencil />
+          </Link>
+        )}
 
         {/* PRECIO cuando no hay imagen */}
         {!someHasImage && (

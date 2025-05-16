@@ -21,7 +21,7 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
                 <img
                   src={categoria.imagen}
                   alt={`Imagen de la categoria ${categoria.nombre}`}
-                  className='img aspect-square w-full transition-transform'
+                  className='img aspect-square w-full object-contain transition-transform'
                 />
               )
             ) : (

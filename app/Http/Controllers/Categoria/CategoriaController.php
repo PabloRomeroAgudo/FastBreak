@@ -43,6 +43,7 @@ class CategoriaController extends Controller {
   public function store(CategoriaCreateRequest $request) {
     $data = $request->validated();
 
+    $data["slug"] = Str::slug($data["nombre"]);
 
     if ($data['imagen']) {
       /** @var \Illuminate\Http\UploadedFile $imagen */
@@ -53,8 +54,6 @@ class CategoriaController extends Controller {
 
       $data['imagen'] = $imagenPath;
     }
-
-    $data["slug"] = Str::slug($data["nombre"]);
 
     $productos = $data['productos'];
     unset($data['productos']);
@@ -81,7 +80,6 @@ class CategoriaController extends Controller {
    * Update the specified resource in storage.
    */
   public function update(CategoriaUpdateRequest $request, Categoria $categoria) {
-
     $data = $request->validated();
 
     $data["slug"] = Str::slug($data["nombre"]);

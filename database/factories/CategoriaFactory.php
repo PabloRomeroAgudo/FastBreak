@@ -31,9 +31,9 @@ class CategoriaFactory extends Factory {
     ];
 
     $imagenes = [
-      '/categorias/plantilla1.png',
-      '/categorias/plantilla2.png',
-      '/categorias/plantilla3.png',
+      'categorias/plantilla1.png',
+      'categorias/plantilla2.png',
+      'categorias/plantilla3.png',
     ];
 
     $nombre = $this->faker->unique()->randomElement($categorias);

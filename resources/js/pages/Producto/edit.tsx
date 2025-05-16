@@ -1,33 +1,37 @@
 import AppLayout from '@/layouts/app-layout'
-import { Categoria } from '@/types'
+import { Producto } from '@/types'
 import { Head, useForm } from '@inertiajs/react'
 import { LoaderCircle, Trash, X } from 'lucide-react'
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
+import '../../../css/inputNumber.css'
 
-interface Producto {
+interface Categoria {
   id: number
   nombre: string
 }
 
-interface Categoria2 extends Categoria {
-  productos: Producto[]
+interface Producto2 extends Omit<Producto, 'pivot'> {
+  categorias: Categoria[]
 }
 
 interface Props {
-  categoria: Categoria2
-  productosProp: Producto[]
+  producto: Producto2
+  categoriasProp: Categoria[]
 }
 
-export default function Edit({ categoria, productosProp }: Props) {
-  const { nombre, descripcion, imagen } = categoria
+export default function Edit({ producto, categoriasProp }: Props) {
+  const { nombre, precio, descripcion, ingredientes, alergenos, imagen } = producto
 
   const { data, setData, post, processing } = useForm({
     nombre,
+    precio: precio as number | null,
     descripcion,
+    ingredientes: ingredientes?.split(', ') ?? null,
+    alergenos: alergenos?.split(', ') ?? null,
     imagen: null as File | null,
     borrarImagen: false as boolean,
-    productos: categoria.productos.map((p) => p.id) as number[] | null,
+    categorias: producto.categorias.map((c) => c.id) as number[] | null,
   })
 
   const { delete: destroy, processing: processingBorrado } = useForm({})
@@ -39,7 +43,7 @@ export default function Edit({ categoria, productosProp }: Props) {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
 
-    post(route('categoria.update', { id: categoria.id, ...data, _method: 'PUT' }), {
+    post(route('producto.update', { id: producto.id, ...data, _method: 'PUT' }), {
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
       onSuccess: () => toast.success('Categoria editada correctamente.'),
     })
@@ -52,25 +56,24 @@ export default function Edit({ categoria, productosProp }: Props) {
   }
 
   const handleDelete = () => {
-    destroy(route('categoria.destroy', categoria.id))
+    destroy(route('producto.destroy', producto.id))
   }
 
   return (
     <AppLayout
-      subtitulo={`Editar categoria "${nombre}"`}
+      subtitulo={`Editar producto "${nombre}"`}
       needBack={true}
-      url='home'
     >
       <Head>
-        <title>{`Editar categoria "${nombre}"`}</title>
+        <title>{`Editar producto "${nombre}"`}</title>
       </Head>
 
       <div className='flex flex-col items-center gap-2'>
         <form
           onSubmit={handleSubmit}
-          className='bg-negro text-blanco font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
+          className='bg-negro font-principal text-blanco flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
         >
-          <label className='flex flex-col'>
+          <label className='text-blanco flex flex-col'>
             Nombre:
             <input
               type='text'
@@ -80,12 +83,43 @@ export default function Edit({ categoria, productosProp }: Props) {
             />
           </label>
 
-          <label className='flex flex-col'>
+          <label className='text-blanco flex flex-col'>
+            Precio:
+            <input
+              type='number'
+              value={data.precio || ''}
+              step={0.01}
+              onChange={(e) => setData('precio', e.target.value ? Number(e.target.value) : null)}
+              className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
+            />
+          </label>
+
+          <label className='text-blanco flex flex-col'>
             Descripción:
             <textarea
               value={data.descripcion}
               onChange={(e) => setData('descripcion', e.target.value)}
-              className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] rounded-md p-2'
+              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+            />
+          </label>
+
+          <label className='flex flex-col'>
+            Ingredientes:
+            <textarea
+              value={data.ingredientes?.join(', ')}
+              onChange={(e) => setData('ingredientes', e.target.value !== '' ? e.target.value.split(', ') : null)}
+              placeholder='Espacios separados por ", "'
+              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
+            />
+          </label>
+
+          <label className='flex flex-col'>
+            Alérgenos:
+            <textarea
+              value={data.alergenos?.join(', ')}
+              placeholder='Espacios separados por ", "'
+              onChange={(e) => setData('alergenos', e.target.value !== '' ? e.target.value.split(', ') : null)}
+              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
             />
           </label>
 
@@ -138,28 +172,28 @@ export default function Edit({ categoria, productosProp }: Props) {
         </form>
 
         <section className='bg-negro grid w-3/5 min-w-max justify-center gap-3 self-center rounded-2xl p-3 text-white'>
-          <h3 className='text-center text-2xl'>Productos a añadir</h3>
+          <h3 className='text-center text-2xl'>Categorías a las que pertenece</h3>
           <ul className='grid grid-cols-1 gap-3 sm:grid-cols-2 sm:justify-items-center lg:grid-cols-3'>
-            {productosProp.map((producto) => {
+            {categoriasProp.map((categoria) => {
               return (
                 <li
-                  key={producto.id}
+                  key={categoria.id}
                   className='flex w-full items-center'
                 >
                   <div className='h-full w-full max-w-72'>
                     <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
                       <input
                         type='checkbox'
-                        checked={!!data.productos?.find((id) => id === producto.id)}
+                        checked={!!data.categorias?.find((id) => id === categoria.id)}
                         className='peer checked:border-amarillo h-5 w-5 cursor-pointer appearance-none rounded border border-white shadow transition-all hover:shadow-md'
                         onChange={(e) => {
                           if (e.target.checked) {
-                            const nuevoArr = [...(data.productos || [])]
-                            nuevoArr.push(producto.id)
-                            setData('productos', nuevoArr)
+                            const nuevoArr = [...(data.categorias || [])]
+                            nuevoArr.push(categoria.id)
+                            setData('categorias', nuevoArr)
                           } else {
-                            const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
-                            setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
+                            const nuevoArr = data.categorias?.filter((p) => p !== categoria.id) || []
+                            setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
                           }
                         }}
                       />
@@ -176,7 +210,7 @@ export default function Edit({ categoria, productosProp }: Props) {
                         </svg>
                       </span>
                       <span className='[&::-webkit-scrollbar-track]:bg-negro overflow-auto text-nowrap decoration-1 underline-offset-2 peer-checked:underline [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:rounded-full'>
-                        {producto.nombre}
+                        {categoria.nombre}
                       </span>
                     </label>
                   </div>
@@ -190,7 +224,7 @@ export default function Edit({ categoria, productosProp }: Props) {
           className='bg-negro text-rojo cursor-pointer rounded-md p-2'
           onClick={() => document.querySelector('dialog')?.showModal()}
         >
-          Borrar Categoria
+          Borrar Producto
         </button>
       </div>
 
@@ -202,7 +236,7 @@ export default function Edit({ categoria, productosProp }: Props) {
           >
             <X />
           </button>
-          <h1 className='text-amarillo max-w-52 text-center'>¿Seguro que quieres borrar la categoría "{nombre}"?</h1>
+          <h1 className='text-amarillo max-w-52 text-center'>¿Seguro que quieres borrar el producto "{nombre}"?</h1>
           <button
             onClick={handleDelete}
             className='text-rojo/60 border-rojo/60 hover:text-rojo hover:border-rojo disabled:text-rojo/30 disabled:border-rojo/30 flex cursor-pointer items-center justify-center gap-1 self-end rounded-md border transition'
