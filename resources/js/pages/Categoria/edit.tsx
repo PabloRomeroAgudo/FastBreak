@@ -147,7 +147,7 @@ export default function Edit({ categoria, productosProp }: Props) {
                   key={producto.id}
                   className='flex w-full items-center'
                 >
-                  <div className='h-full w-full'>
+                  <div className='h-full w-full max-w-72'>
                     <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
                       <input
                         type='checkbox'
@@ -176,7 +176,9 @@ export default function Edit({ categoria, productosProp }: Props) {
                           ></path>
                         </svg>
                       </span>
-                      <span className='decoration-1 underline-offset-2 peer-checked:underline'>{producto.nombre}</span>
+                      <span className='[&::-webkit-scrollbar-track]:bg-negro overflow-auto text-nowrap decoration-1 underline-offset-2 peer-checked:underline [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:rounded-full'>
+                        {producto.nombre}
+                      </span>
                     </label>
                   </div>
                 </li>

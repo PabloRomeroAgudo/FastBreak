@@ -172,7 +172,7 @@ export default function Create({ categoriasProp }: Props) {
                   key={categoria.id}
                   className='flex w-full items-center'
                 >
-                  <div className='h-full w-full'>
+                  <div className='h-full w-full max-w-72'>
                     <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
                       <input
                         checked={!!data.categorias?.find((id) => id === categoria.id)}
@@ -201,7 +201,9 @@ export default function Create({ categoriasProp }: Props) {
                           ></path>
                         </svg>
                       </span>
-                      <span className='decoration-1 underline-offset-2 peer-checked:underline'>{categoria.nombre}</span>
+                      <span className='[&::-webkit-scrollbar-track]:bg-negro overflow-auto text-nowrap decoration-1 underline-offset-2 peer-checked:underline [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:rounded-full'>
+                        {categoria.nombre}
+                      </span>
                     </label>
                   </div>
                 </li>
