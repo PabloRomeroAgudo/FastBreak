@@ -137,16 +137,16 @@ export default function Edit({ categoria, productosProp }: Props) {
           </button>
         </form>
 
-        <section className='bg-negro grid w-3/5 min-w-max justify-center gap-3 self-center rounded-2xl p-3 text-white'>
+        <section className='bg-negro grid w-3/5 min-w-max gap-3 self-center rounded-2xl p-3 text-white'>
           <h3 className='text-center text-2xl'>Productos a añadir</h3>
-          <ul className='grid grid-cols-1 gap-3 sm:grid-cols-2 sm:justify-items-center lg:grid-cols-3'>
+          <ul className='grid grid-cols-[repeat(auto-fit,15rem)] justify-center gap-3'>
             {productosProp.map((producto) => {
               return (
                 <li
                   key={producto.id}
-                  className='flex w-full items-center'
+                  className='flex items-center justify-center'
                 >
-                  <div className='h-full w-full max-w-72'>
+                  <div className='h-full w-full'>
                     <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
                       <input
                         type='checkbox'
