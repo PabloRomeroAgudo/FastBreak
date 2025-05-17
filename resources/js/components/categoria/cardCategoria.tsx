@@ -25,7 +25,7 @@ export function CardCategoria({ categoria, someHasImage }: Props) {
                 />
               )
             ) : (
-              <div className='bg-muted aspect-square transition-transform'></div>
+              <div className='img bg-muted aspect-square transition-transform'></div>
             )}
           </Link>
         )}
