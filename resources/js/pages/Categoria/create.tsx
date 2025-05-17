@@ -1,11 +1,11 @@
 import Nav, { LinkValues } from '@/components/categoria/nav'
+import ImageInputWithPreview from '@/components/image-input-with-preview'
 import LabelInput from '@/components/label-input'
 import LabelTextArea from '@/components/label-textArea'
 import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
-import { Trash } from 'lucide-react'
-import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
+import { FormEventHandler, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 interface Producto {
@@ -27,8 +27,6 @@ export default function Create({ productosProp }: Props) {
 
   const [url, setUrl] = useState<string | null>(null)
 
-  const inputRef = useRef<HTMLInputElement>(null)
-
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
 
@@ -37,14 +35,9 @@ export default function Create({ productosProp }: Props) {
       onSuccess: () => {
         toast.success('Categoria creada correctamente.')
         reset()
+        setUrl(null)
       },
     })
-  }
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null
-    setData('imagen', file)
-    setUrl(file ? URL.createObjectURL(file) : null)
   }
 
   return (
@@ -77,40 +70,11 @@ export default function Create({ productosProp }: Props) {
               onChange={(e) => setData('descripcion', e.target.value)}
             />
 
-            <div className='grid justify-items-center gap-2 self-center'>
-              <div className='relative size-56 overflow-hidden rounded-2xl'>
-                <input
-                  className='absolute inset-0 z-10 size-full cursor-pointer text-transparent file:hidden'
-                  type='file'
-                  ref={inputRef}
-                  accept='.jpg, .jpeg, .png, .webp'
-                  onChange={handleFileChange}
-                />
-                {url && (
-                  <img
-                    src={url}
-                    alt={`Imagen de la categoria`}
-                    className='aspect-square w-full object-contain'
-                  />
-                )}
-
-                <div className='bg-blanco/40 text-negro absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
-                  <span>{url ? `Toca para cambiar` : `Toca para añadir`}</span>
-                </div>
-              </div>
-
-              <div className='text-rojo cursor-pointer p-2'>
-                <Trash
-                  onClick={() => {
-                    setData('imagen', null)
-                    setUrl(null)
-                    if (inputRef.current) {
-                      inputRef.current.value = ''
-                    }
-                  }}
-                />
-              </div>
-            </div>
+            <ImageInputWithPreview
+              setData={setData}
+              url={url}
+              setUrl={setUrl}
+            />
 
             <SubmitButton
               texto='Añadir'

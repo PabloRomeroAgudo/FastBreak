@@ -1,11 +1,12 @@
+import ImageInputWithPreview from '@/components/image-input-with-preview'
 import LabelInput from '@/components/label-input'
 import LabelTextArea from '@/components/label-textArea'
 import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Categoria } from '@/types'
 import { Head, useForm } from '@inertiajs/react'
-import { LoaderCircle, Trash, X } from 'lucide-react'
-import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
+import { LoaderCircle, X } from 'lucide-react'
+import { FormEventHandler, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 interface Producto {
@@ -35,8 +36,6 @@ export default function Edit({ categoria, productosProp }: Props) {
 
   const { delete: destroy, processing: processingBorrado } = useForm({})
 
-  const inputRef = useRef<HTMLInputElement>(null)
-
   const [url, setUrl] = useState(imagen)
 
   const handleSubmit: FormEventHandler = (e) => {
@@ -46,12 +45,6 @@ export default function Edit({ categoria, productosProp }: Props) {
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
       onSuccess: () => toast.success('Categoria editada correctamente.'),
     })
-  }
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null
-    setData('imagen', file)
-    setUrl(file ? URL.createObjectURL(file) : null)
   }
 
   const handleDelete = () => {
@@ -85,43 +78,11 @@ export default function Edit({ categoria, productosProp }: Props) {
             onChange={(e) => setData('descripcion', e.target.value)}
           />
 
-          <div className='grid justify-items-center gap-2 self-center'>
-            <div className='relative size-56 overflow-hidden rounded-2xl'>
-              <input
-                className='absolute inset-0 z-10 size-full cursor-pointer text-transparent file:hidden'
-                ref={inputRef}
-                type='file'
-                accept='.jpg, .jpeg, .png, .webp'
-                onChange={handleFileChange}
-              />
-              {url && (
-                <img
-                  src={url}
-                  alt={`Imagen de la categoria ${nombre}`}
-                  className='aspect-square w-full object-contain'
-                />
-              )}
-
-              <div className='bg-blanco/40 text-negro absolute inset-0 grid size-full place-items-center rounded-sm p-2'>
-                <span>{url ? `Toca para cambiar` : `Toca para añadir`}</span>
-              </div>
-            </div>
-
-            <div
-              title='Eliminar imagen seleccionada'
-              className='text-rojo cursor-pointer p-2'
-            >
-              <Trash
-                onClick={() => {
-                  setData('borrarImagen', true)
-                  setUrl(null)
-                  if (inputRef.current) {
-                    inputRef.current.value = ''
-                  }
-                }}
-              />
-            </div>
-          </div>
+          <ImageInputWithPreview
+            setData={setData}
+            url={url}
+            setUrl={setUrl}
+          />
 
           <SubmitButton
             texto='Guardar'
