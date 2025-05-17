@@ -1,7 +1,10 @@
 import Nav, { LinkValues } from '@/components/categoria/nav'
+import LabelInput from '@/components/label-input'
+import LabelTextArea from '@/components/label-textArea'
+import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
-import { LoaderCircle, Trash } from 'lucide-react'
+import { Trash } from 'lucide-react'
 import { ChangeEvent, FormEventHandler, useRef, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
@@ -62,24 +65,17 @@ export default function Create({ productosProp }: Props) {
             onSubmit={handleSubmit}
             className='bg-negro text-blanco font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
           >
-            <label className='flex flex-col'>
-              Nombre:
-              <input
-                type='text'
-                value={data.nombre}
-                onChange={(e) => setData('nombre', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
-              />
-            </label>
+            <LabelInput
+              titulo='Nombre'
+              value={data.nombre}
+              onChange={(e) => setData('nombre', e.target.value)}
+            />
 
-            <label className='flex flex-col'>
-              Descripción:
-              <textarea
-                value={data.descripcion}
-                onChange={(e) => setData('descripcion', e.target.value)}
-                className='bg-amarillo text-negro placeholder:text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] rounded-md p-2'
-              />
-            </label>
+            <LabelTextArea
+              titulo='Descripción'
+              value={data.descripcion}
+              onChange={(e) => setData('descripcion', e.target.value)}
+            />
 
             <div className='grid justify-items-center gap-2 self-center'>
               <div className='relative size-56 overflow-hidden rounded-2xl'>
@@ -116,14 +112,10 @@ export default function Create({ productosProp }: Props) {
               </div>
             </div>
 
-            <button
-              className='bg-amarillo disabled:bg-amarillo/40 text-negro flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
-              type='submit'
-              disabled={processing}
-            >
-              {processing && <LoaderCircle className='h-4 w-4 animate-spin' />}
-              Añadir
-            </button>
+            <SubmitButton
+              texto='Añadir'
+              processing={processing}
+            />
           </form>
         </section>
 

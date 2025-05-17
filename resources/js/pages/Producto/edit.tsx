@@ -1,3 +1,6 @@
+import LabelInput, { InputTypes } from '@/components/label-input'
+import LabelTextArea from '@/components/label-textArea'
+import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Producto } from '@/types'
 import { Head, useForm } from '@inertiajs/react'
@@ -68,60 +71,44 @@ export default function Edit({ producto, categoriasProp }: Props) {
         <title>{`Editar producto "${nombre}"`}</title>
       </Head>
 
-      <div className='flex flex-col items-center gap-2'>
+      <div className='flex flex-col items-center gap-5'>
         <form
           onSubmit={handleSubmit}
           className='bg-negro font-principal text-blanco flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
         >
-          <label className='text-blanco flex flex-col'>
-            Nombre:
-            <input
-              type='text'
-              value={data.nombre}
-              onChange={(e) => setData('nombre', e.target.value)}
-              className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
-            />
-          </label>
+          <LabelInput
+            titulo='Nombre'
+            value={data.nombre}
+            onChange={(e) => setData('nombre', e.target.value)}
+          />
 
-          <label className='text-blanco flex flex-col'>
-            Precio:
-            <input
-              type='number'
-              value={data.precio || ''}
-              step={0.01}
-              onChange={(e) => setData('precio', e.target.value ? Number(e.target.value) : null)}
-              className='bg-amarillo text-negro placeholder:text-negro rounded-md p-2'
-            />
-          </label>
+          <LabelInput
+            titulo='Precio'
+            type={InputTypes.numero}
+            value={data.precio || ''}
+            onChange={(e) => setData('precio', e.target.value ? Number(e.target.value) : null)}
+            step={0.01}
+          />
 
-          <label className='text-blanco flex flex-col'>
-            Descripción:
-            <textarea
-              value={data.descripcion}
-              onChange={(e) => setData('descripcion', e.target.value)}
-              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
-            />
-          </label>
+          <LabelTextArea
+            titulo='Descripción'
+            value={data.descripcion}
+            onChange={(e) => setData('descripcion', e.target.value)}
+          />
 
-          <label className='flex flex-col'>
-            Ingredientes:
-            <textarea
-              value={data.ingredientes?.join(', ')}
-              onChange={(e) => setData('ingredientes', e.target.value !== '' ? e.target.value.split(', ') : null)}
-              placeholder='Espacios separados por ", "'
-              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
-            />
-          </label>
+          <LabelTextArea
+            titulo='Ingredientes'
+            value={data.ingredientes?.join(', ')}
+            onChange={(e) => setData('ingredientes', e.target.value !== '' ? e.target.value.split(', ') : null)}
+            placeholder='Espacios separados por ", "'
+          />
 
-          <label className='flex flex-col'>
-            Alérgenos:
-            <textarea
-              value={data.alergenos?.join(', ')}
-              placeholder='Espacios separados por ", "'
-              onChange={(e) => setData('alergenos', e.target.value !== '' ? e.target.value.split(', ') : null)}
-              className='bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2'
-            />
-          </label>
+          <LabelTextArea
+            titulo='Alérgenos'
+            value={data.alergenos?.join(', ')}
+            onChange={(e) => setData('alergenos', e.target.value !== '' ? e.target.value.split(', ') : null)}
+            placeholder='Espacios separados por ", "'
+          />
 
           <div className='grid justify-items-center gap-2 self-center'>
             <div className='relative size-56 overflow-hidden rounded-2xl'>
@@ -161,14 +148,10 @@ export default function Edit({ producto, categoriasProp }: Props) {
             </div>
           </div>
 
-          <button
-            className='bg-amarillo text-negro disabled:bg-amarillo/40 flex cursor-pointer items-center gap-1 self-center rounded-sm px-6 py-1.5 disabled:cursor-not-allowed'
-            type='submit'
-            disabled={processing}
-          >
-            {processing && <LoaderCircle className='h-4 w-4 animate-spin' />}
-            Guardar
-          </button>
+          <SubmitButton
+            texto='Guardar'
+            processing={processing}
+          />
         </form>
 
         <section className='bg-negro grid w-3/5 min-w-max gap-3 self-center rounded-2xl p-3 text-white'>
