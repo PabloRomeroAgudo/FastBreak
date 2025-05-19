@@ -84,26 +84,30 @@ export default function Edit({ categoria, productosProp }: Props) {
           />
         </FormLayout>
 
-        <PillLayout titulo='Productos a añadir'>
-          {productosProp.map((producto) => {
-            return (
-              <Pill
-                key={producto.id}
-                nombre={producto.nombre}
-                checked={!!data.productos?.find((id) => id === producto.id)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const nuevoArr = [...(data.productos || [])]
-                    nuevoArr.push(producto.id)
-                    setData('productos', nuevoArr)
-                  } else {
-                    const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
-                    setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
-                  }
-                }}
-              />
-            )
-          })}
+        <PillLayout
+          titulo='Productos a añadir'
+          data='productosProp'
+        >
+          {productosProp &&
+            productosProp.map((producto) => {
+              return (
+                <Pill
+                  key={producto.id}
+                  nombre={producto.nombre}
+                  checked={!!data.productos?.find((id) => id === producto.id)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const nuevoArr = [...(data.productos || [])]
+                      nuevoArr.push(producto.id)
+                      setData('productos', nuevoArr)
+                    } else {
+                      const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
+                      setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
+                    }
+                  }}
+                />
+              )
+            })}
         </PillLayout>
 
         <button

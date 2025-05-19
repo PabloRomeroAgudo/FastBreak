@@ -108,26 +108,30 @@ export default function Create({ categoriasProp }: Props) {
           </FormLayout>
         </section>
 
-        <PillLayout titulo='Categorías a las que pertenece'>
-          {categoriasProp.map((categoria) => {
-            return (
-              <Pill
-                key={categoria.id}
-                nombre={categoria.nombre}
-                checked={!!data.categorias?.find((id) => id === categoria.id)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const nuevoArr = [...(data.categorias || [])]
-                    nuevoArr.push(categoria.id)
-                    setData('categorias', nuevoArr)
-                  } else {
-                    const nuevoArr = data.categorias?.filter((c) => c !== categoria.id) || []
-                    setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
-                  }
-                }}
-              />
-            )
-          })}
+        <PillLayout
+          titulo='Categorías a las que pertenece'
+          data={'categoriasProp'}
+        >
+          {categoriasProp &&
+            categoriasProp.map((categoria) => {
+              return (
+                <Pill
+                  key={categoria.id}
+                  nombre={categoria.nombre}
+                  checked={!!data.categorias?.find((id) => id === categoria.id)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const nuevoArr = [...(data.categorias || [])]
+                      nuevoArr.push(categoria.id)
+                      setData('categorias', nuevoArr)
+                    } else {
+                      const nuevoArr = data.categorias?.filter((c) => c !== categoria.id) || []
+                      setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
+                    }
+                  }}
+                />
+              )
+            })}
         </PillLayout>
       </div>
 

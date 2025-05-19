@@ -110,26 +110,30 @@ export default function Edit({ producto, categoriasProp }: Props) {
           />
         </FormLayout>
 
-        <PillLayout titulo='Categorías a las que pertenece'>
-          {categoriasProp.map((categoria) => {
-            return (
-              <Pill
-                key={categoria.id}
-                nombre={categoria.nombre}
-                checked={!!data.categorias?.find((id) => id === categoria.id)}
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    const nuevoArr = [...(data.categorias || [])]
-                    nuevoArr.push(categoria.id)
-                    setData('categorias', nuevoArr)
-                  } else {
-                    const nuevoArr = data.categorias?.filter((p) => p !== categoria.id) || []
-                    setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
-                  }
-                }}
-              />
-            )
-          })}
+        <PillLayout
+          titulo='Categorías a las que pertenece'
+          data={'categoriasProp'}
+        >
+          {categoriasProp &&
+            categoriasProp.map((categoria) => {
+              return (
+                <Pill
+                  key={categoria.id}
+                  nombre={categoria.nombre}
+                  checked={!!data.categorias?.find((id) => id === categoria.id)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const nuevoArr = [...(data.categorias || [])]
+                      nuevoArr.push(categoria.id)
+                      setData('categorias', nuevoArr)
+                    } else {
+                      const nuevoArr = data.categorias?.filter((p) => p !== categoria.id) || []
+                      setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
+                    }
+                  }}
+                />
+              )
+            })}
         </PillLayout>
 
         <button

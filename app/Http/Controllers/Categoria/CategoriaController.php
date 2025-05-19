@@ -32,9 +32,7 @@ class CategoriaController extends Controller {
    * Show the form for creating a new resource.
    */
   public function create() {
-    $productos = Producto::get(['id', 'nombre']);
-
-    return Inertia::render('Categoria/create', ["productosProp" => $productos]);
+    return Inertia::render('Categoria/create', ["productosProp" => Inertia::defer(fn() => Producto::get(['id', 'nombre']))]);
   }
 
   /**
@@ -72,8 +70,10 @@ class CategoriaController extends Controller {
       $query->select('productos.id', 'nombre');
     }]);
 
-    $productos = Producto::get(['id', 'nombre']);
-    return Inertia::render('Categoria/edit', ["categoria" => $categoria, "productosProp" => $productos]);
+    return Inertia::render('Categoria/edit', [
+      "categoria" => $categoria,
+      "productosProp" => Inertia::defer(fn() => Producto::get(['id', 'nombre']))
+    ]);
   }
 
   /**
