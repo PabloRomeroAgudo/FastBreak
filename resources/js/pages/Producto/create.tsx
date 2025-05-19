@@ -1,7 +1,10 @@
 import Nav, { LinkValues } from '@/components/categoria/nav'
+import FormLayout from '@/components/form-layout'
 import ImageInputWithPreview from '@/components/image-input-with-preview'
 import LabelInput, { InputTypes } from '@/components/label-input'
 import LabelTextArea from '@/components/label-textArea'
+import Pill from '@/components/pill'
+import PillLayout from '@/components/pill-layout'
 import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Head, useForm } from '@inertiajs/react'
@@ -9,13 +12,13 @@ import { FormEventHandler, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 import '../../../css/inputNumber.css'
 
-interface Categorias {
+interface Categoria {
   id: number
   nombre: string
 }
 
 interface Props {
-  categoriasProp: Categorias[]
+  categoriasProp: Categoria[]
 }
 
 export default function Create({ categoriasProp }: Props) {
@@ -57,11 +60,7 @@ export default function Create({ categoriasProp }: Props) {
         <Nav active={LinkValues.producto} />
 
         <section className='flex justify-center'>
-          <form
-            noValidate
-            onSubmit={handleSubmit}
-            className='bg-negro font-principal text-blanco flex w-2/5 min-w-xs flex-col gap-8 rounded-xl p-10'
-          >
+          <FormLayout handleSubmit={handleSubmit}>
             <LabelInput
               titulo='Nombre'
               value={data.nombre}
@@ -106,57 +105,30 @@ export default function Create({ categoriasProp }: Props) {
               texto='Añadir'
               processing={processing}
             />
-          </form>
+          </FormLayout>
         </section>
 
-        <section className='bg-negro grid w-3/5 min-w-max gap-3 self-center rounded-2xl p-3 text-white'>
-          <h3 className='text-center text-2xl'>Categorías a las que pertenece</h3>
-          <ul className='grid grid-cols-[repeat(auto-fit,15rem)] justify-center gap-3'>
-            {categoriasProp.map((categoria) => {
-              return (
-                <li
-                  key={categoria.id}
-                  className='flex items-center justify-center'
-                >
-                  <div className='h-full w-full'>
-                    <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
-                      <input
-                        checked={!!data.categorias?.find((id) => id === categoria.id)}
-                        type='checkbox'
-                        className='peer checked:border-amarillo h-5 w-5 cursor-pointer appearance-none rounded border border-white shadow transition-all hover:shadow-md'
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            const nuevoArr = [...(data.categorias || [])]
-                            nuevoArr.push(categoria.id)
-                            setData('categorias', nuevoArr)
-                          } else {
-                            const nuevoArr = data.categorias?.filter((c) => c !== categoria.id) || []
-                            setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
-                          }
-                        }}
-                      />
-                      <span className='pointer-events-none absolute left-2 size-5 transform opacity-0 transition-opacity peer-checked:opacity-100'>
-                        <svg
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                        >
-                          <path
-                            fillRule='evenodd'
-                            d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                            clipRule='evenodd'
-                          ></path>
-                        </svg>
-                      </span>
-                      <span className='[&::-webkit-scrollbar-track]:bg-negro overflow-auto text-nowrap decoration-1 underline-offset-2 peer-checked:underline [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:rounded-full'>
-                        {categoria.nombre}
-                      </span>
-                    </label>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
+        <PillLayout titulo='Categorías a las que pertenece'>
+          {categoriasProp.map((categoria) => {
+            return (
+              <Pill
+                key={categoria.id}
+                nombre={categoria.nombre}
+                checked={!!data.categorias?.find((id) => id === categoria.id)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const nuevoArr = [...(data.categorias || [])]
+                    nuevoArr.push(categoria.id)
+                    setData('categorias', nuevoArr)
+                  } else {
+                    const nuevoArr = data.categorias?.filter((c) => c !== categoria.id) || []
+                    setData('categorias', nuevoArr.length > 0 ? nuevoArr : null)
+                  }
+                }}
+              />
+            )
+          })}
+        </PillLayout>
       </div>
 
       <Toaster richColors />

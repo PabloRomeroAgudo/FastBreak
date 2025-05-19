@@ -1,7 +1,10 @@
 import DeleteDialog, { TypeDelete } from '@/components/delete-dialog'
+import FormLayout from '@/components/form-layout'
 import ImageInputWithPreview from '@/components/image-input-with-preview'
 import LabelInput from '@/components/label-input'
 import LabelTextArea from '@/components/label-textArea'
+import Pill from '@/components/pill'
+import PillLayout from '@/components/pill-layout'
 import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Categoria } from '@/types'
@@ -56,10 +59,7 @@ export default function Edit({ categoria, productosProp }: Props) {
       </Head>
 
       <div className='flex flex-col items-center gap-5'>
-        <form
-          onSubmit={handleSubmit}
-          className='bg-negro text-blanco font-principal flex w-2/5 min-w-xs flex-col justify-center gap-8 rounded-xl p-10'
-        >
+        <FormLayout handleSubmit={handleSubmit}>
           <LabelInput
             titulo='Nombre'
             value={data.nombre}
@@ -82,56 +82,29 @@ export default function Edit({ categoria, productosProp }: Props) {
             texto='Guardar'
             processing={processing}
           />
-        </form>
+        </FormLayout>
 
-        <section className='bg-negro grid w-3/5 min-w-max gap-3 self-center rounded-2xl p-3 text-white'>
-          <h3 className='text-center text-2xl'>Productos a añadir</h3>
-          <ul className='grid grid-cols-[repeat(auto-fit,15rem)] justify-center gap-3'>
-            {productosProp.map((producto) => {
-              return (
-                <li
-                  key={producto.id}
-                  className='flex items-center justify-center'
-                >
-                  <div className='h-full w-full'>
-                    <label className='has-checked:text-amarillo relative grid h-full cursor-pointer grid-cols-[max-content_1fr] items-center gap-2 rounded-full border px-2 py-1 transition-colors'>
-                      <input
-                        type='checkbox'
-                        checked={!!data.productos?.find((id) => id === producto.id)}
-                        className='peer checked:border-amarillo h-5 w-5 cursor-pointer appearance-none rounded border border-white shadow transition-all hover:shadow-md'
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            const nuevoArr = [...(data.productos || [])]
-                            nuevoArr.push(producto.id)
-                            setData('productos', nuevoArr)
-                          } else {
-                            const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
-                            setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
-                          }
-                        }}
-                      />
-                      <span className='pointer-events-none absolute left-2 size-5 transform opacity-0 transition-opacity peer-checked:opacity-100'>
-                        <svg
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                        >
-                          <path
-                            fillRule='evenodd'
-                            d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-                            clipRule='evenodd'
-                          ></path>
-                        </svg>
-                      </span>
-                      <span className='[&::-webkit-scrollbar-track]:bg-negro overflow-auto text-nowrap decoration-1 underline-offset-2 peer-checked:underline [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-track]:rounded-full'>
-                        {producto.nombre}
-                      </span>
-                    </label>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-        </section>
+        <PillLayout titulo='Productos a añadir'>
+          {productosProp.map((producto) => {
+            return (
+              <Pill
+                key={producto.id}
+                nombre={producto.nombre}
+                checked={!!data.productos?.find((id) => id === producto.id)}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    const nuevoArr = [...(data.productos || [])]
+                    nuevoArr.push(producto.id)
+                    setData('productos', nuevoArr)
+                  } else {
+                    const nuevoArr = data.productos?.filter((p) => p !== producto.id) || []
+                    setData('productos', nuevoArr.length > 0 ? nuevoArr : null)
+                  }
+                }}
+              />
+            )
+          })}
+        </PillLayout>
 
         <button
           className='bg-negro text-rojo cursor-pointer rounded-md p-2'
