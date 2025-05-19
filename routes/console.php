@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 
 use function Termwind\ask;
 use function Termwind\render;
@@ -72,3 +73,13 @@ Artisan::command('borradoProducto', function () {
     }
   }
 });
+
+Artisan::command('probarCorreo {to}', function (string $to) {
+  // Enviar un correo de texto plano
+  Mail::raw('¡Probando configuración de correo!', function ($message) use ($to) {
+    $message->to($to)
+      ->subject('Correo de prueba Fastbreak');
+  });
+
+  $this->info("Correo enviado a {$to}");
+})->purpose('Prueba de envío de correo desde consola');

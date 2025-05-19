@@ -13,6 +13,7 @@
     "inertiajs/inertia-laravel": "^2.0",
     "laravel/framework": "^12.0",
     "laravel/tinker": "^2.10.1",
+    "laravel/ui": "^4.6",
     "tightenco/ziggy": "^2.4"
   },
   "require-dev": {
@@ -48,7 +49,8 @@
     "refresh:db": [
       "@php artisan migrate:refresh",
       "@php artisan db:seed",
-      "@php artisan borrado"
+      "@php artisan borradoCategorias",
+      "@php artisan borradoProducto"
     ],
     "crear:controller": [
       "@php artisan make:controller"

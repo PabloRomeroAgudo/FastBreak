@@ -10,11 +10,9 @@ use App\Http\Controllers\TransaccionController;
 use App\Http\Middleware\UserIsAdmin;
 use App\Http\Middleware\UserIsWorker;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-// Auth::routes(['verify' => true]);
 
 Route::get('/', function () {
   return redirect('categoria');
