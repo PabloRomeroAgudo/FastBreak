@@ -1,3 +1,4 @@
+import DeleteDialog, { TypeDelete } from '@/components/delete-dialog'
 import ImageInputWithPreview from '@/components/image-input-with-preview'
 import LabelInput, { InputTypes } from '@/components/label-input'
 import LabelTextArea from '@/components/label-textArea'
@@ -5,7 +6,6 @@ import SubmitButton from '@/components/submit-button'
 import AppLayout from '@/layouts/app-layout'
 import { Producto } from '@/types'
 import { Head, useForm } from '@inertiajs/react'
-import { LoaderCircle, X } from 'lucide-react'
 import { FormEventHandler, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 import '../../../css/inputNumber.css'
@@ -38,8 +38,6 @@ export default function Edit({ producto, categoriasProp }: Props) {
     categorias: producto.categorias.map((c) => c.id) as number[] | null,
   })
 
-  const { delete: destroy, processing: processingBorrado } = useForm({})
-
   const [url, setUrl] = useState(imagen)
 
   const handleSubmit: FormEventHandler = (e) => {
@@ -49,10 +47,6 @@ export default function Edit({ producto, categoriasProp }: Props) {
       onError: (errors) => Object.values(errors).forEach((error) => toast.error(error)),
       onSuccess: () => toast.success('Producto editado correctamente.'),
     })
-  }
-
-  const handleDelete = () => {
-    destroy(route('producto.destroy', producto.id))
   }
 
   return (
@@ -173,25 +167,11 @@ export default function Edit({ producto, categoriasProp }: Props) {
         </button>
       </div>
 
-      <dialog className='backdrop:bg-negro/70 absolute top-1/2 left-1/2 -translate-1/2 overflow-visible'>
-        <div className='border-amarillo bg-negro text-blanco grid gap-8 overflow-hidden border p-8'>
-          <button
-            onClick={() => document.querySelector('dialog')?.close()}
-            className='border-amarillo bg-negro hover:text-blanco absolute -top-2 -right-2 cursor-pointer border text-gray-300 transition'
-          >
-            <X />
-          </button>
-          <h1 className='text-amarillo max-w-52 text-center'>¿Seguro que quieres borrar el producto "{nombre}"?</h1>
-          <button
-            onClick={handleDelete}
-            className='text-rojo/60 border-rojo/60 hover:text-rojo hover:border-rojo disabled:text-rojo/30 disabled:border-rojo/30 flex cursor-pointer items-center justify-center gap-1 self-end rounded-md border transition'
-            disabled={processingBorrado}
-          >
-            {processingBorrado && <LoaderCircle className='h-4 w-4 animate-spin' />}
-            {processingBorrado ? 'Borrando...' : 'Borrar'}
-          </button>
-        </div>
-      </dialog>
+      <DeleteDialog
+        id={producto.id}
+        nombre={nombre}
+        type={TypeDelete.PRODUCTO}
+      />
 
       <Toaster richColors />
     </AppLayout>
