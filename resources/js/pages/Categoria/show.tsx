@@ -1,5 +1,6 @@
 import CardProducto from '@/components/producto/cardProducto'
 import CarouselCat from '@/components/producto/carouselCat'
+import { useIsMobile } from '@/hooks/use-mobile'
 import AppLayout from '@/layouts/app-layout'
 import { Pagination, type Categoria } from '@/types'
 import { Head, Link } from '@inertiajs/react'
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export default function Categoria({ categoria, categorias, paginacion }: Props) {
+  const isMobile = useIsMobile()
+
   const productos = paginacion.data
 
   const areProducts = productos.length > 0
@@ -23,13 +26,12 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
     <AppLayout
       subtitulo={categoria.nombre}
       needBack={true}
-      url='/categoria'
     >
       <Head>
         <title>{categoria.nombre}</title>
       </Head>
 
-      <section className='-mt-4 mb-4 flex justify-center px-4'>
+      <section className='-mt-4 flex justify-center px-4'>
         <CarouselCat
           categorias={categorias}
           categoriaActiva={categoria}
@@ -50,7 +52,7 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
             })}
           </div>
 
-          <footer className='text-negro flex w-full max-w-5xl justify-self-center border-y'>
+          <footer className={`text-negro flex w-1/2 max-w-5xl self-end justify-self-center ${isMobile && 'justify-between'}`}>
             <Link
               href={paginacion.prev_page_url}
               className={`hover:text-amarillo p-2 transition-all disabled:pointer-events-none ${!paginacion.prev_page_url && 'pointer-events-none text-gray-200'}`}
@@ -60,20 +62,21 @@ export default function Categoria({ categoria, categorias, paginacion }: Props) 
               <ArrowLeft />
             </Link>
 
-            {paginacion.links
-              .filter((link) => !link.label.includes('&'))
-              .map((link, idx) => {
-                return (
-                  <Link
-                    key={idx}
-                    href={link.url}
-                    prefetch={['click', 'hover']}
-                    className={`font-principal mx-auto p-2 ${link.active && 'text-amarillo underline'}`}
-                  >
-                    {link.label}
-                  </Link>
-                )
-              })}
+            {!isMobile &&
+              paginacion.links
+                .filter((link) => !link.label.includes('&'))
+                .map((link, idx) => {
+                  return (
+                    <Link
+                      key={idx}
+                      href={link.url}
+                      prefetch={['click', 'hover']}
+                      className={`font-principal mx-auto p-2 ${link.active && 'text-amarillo underline'}`}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                })}
 
             <Link
               href={paginacion.next_page_url}

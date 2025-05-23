@@ -7,16 +7,12 @@ import { Head } from '@inertiajs/react'
 import { useContext, useState } from 'react'
 import { Toaster } from 'sonner'
 
-interface Props {
-  redirect: string
-}
-
 export enum TitleValues {
   noOrder = '¡Vaya, parece que aún no has pedido nada...!',
   success = 'Tu pedido se ha añadido correctamente',
 }
 
-export default function Carrito({ redirect }: Props) {
+export default function Carrito() {
   const [title, setTitle] = useState(TitleValues.noOrder)
 
   const hasBought = title !== TitleValues.noOrder
@@ -31,7 +27,6 @@ export default function Carrito({ redirect }: Props) {
     <AppLayout
       subtitulo={'Carrito'}
       needBack={true}
-      url={redirect}
     >
       <Head>
         <title>Carrito</title>

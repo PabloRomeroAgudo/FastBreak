@@ -2,15 +2,20 @@ import Nav, { LinkValues } from '@/components/pedidos/nav'
 import Pedidos from '@/components/pedidos/pedidos'
 import AppLayout from '@/layouts/app-layout'
 import { Pedido } from '@/types'
-import { Head } from '@inertiajs/react'
+import { Head, usePage, usePoll } from '@inertiajs/react'
 
-interface Props {
-  pedidos: Pedido[]
-}
+export default function Prepare() {
+  const { pedidos } = usePage<{ pedidos: Pedido[] }>().props
 
-export default function Prepare({ pedidos }: Props) {
+  usePoll(40000, { only: ['pedidos'] })
+
+  console.log(pedidos)
+
   return (
-    <AppLayout subtitulo='Pedidos'>
+    <AppLayout
+      subtitulo='Pedidos'
+      needBack={true}
+    >
       <Head>
         <title>Pedidos para preparar</title>
       </Head>

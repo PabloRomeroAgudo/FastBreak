@@ -37,7 +37,7 @@ export default function CarouselCat({ categorias, categoriaActiva }: Props) {
             >
               <Link
                 title={categoria.nombre}
-                href={`/categoria/${categoria.nombre}`}
+                href={route('categoria.show', categoria.slug)}
                 className='group flex w-fit max-w-20 flex-col items-center transition-all hover:scale-110'
               >
                 <h4

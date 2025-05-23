@@ -1,0 +1,11 @@
+article:has(.titulo:hover) .img,
+article .img:hover {
+  scale: 1.2;
+}
+
+article .titulo:hover,
+article:has(.img:hover) .titulo {
+  color: var(--color-amarillo);
+  text-decoration: underline;
+  scale: 1.1;
+}

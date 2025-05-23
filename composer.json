@@ -13,6 +13,7 @@
     "inertiajs/inertia-laravel": "^2.0",
     "laravel/framework": "^12.0",
     "laravel/tinker": "^2.10.1",
+    "laravel/ui": "^4.6",
     "tightenco/ziggy": "^2.4"
   },
   "require-dev": {
@@ -41,6 +42,19 @@
     }
   },
   "scripts": {
+    "crear:db": [
+      "@php artisan migrate",
+      "@php artisan db:seed"
+    ],
+    "refresh:db": [
+      "@php artisan migrate:refresh",
+      "@php artisan db:seed",
+      "@php artisan borradoCategorias",
+      "@php artisan borradoProducto"
+    ],
+    "crear:controller": [
+      "@php artisan make:controller"
+    ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover --ansi"
@@ -64,17 +78,6 @@
       "npm run build:ssr",
       "Composer\\Config::disableProcessTimeout",
       "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr"
-    ],
-    "crear:db": [
-      "php artisan migrate",
-      "php artisan db:seed"
-    ],
-    "refresh:db": [
-      "php artisan migrate:refresh",
-      "php artisan db:seed"
-    ],
-    "crear:controller": [
-      "php artisan make:controller"
     ]
   },
   "extra": {

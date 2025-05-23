@@ -32,7 +32,10 @@ export default function Saldo() {
   }
 
   return (
-    <AppLayout subtitulo='Añadir saldo'>
+    <AppLayout
+      subtitulo='Añadir saldo'
+      needBack={true}
+    >
       <Head>
         <title>Añadir saldo</title>
       </Head>

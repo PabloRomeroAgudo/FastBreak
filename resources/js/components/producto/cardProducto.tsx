@@ -2,6 +2,7 @@ import { CarritoContext } from '@/context/carrito'
 import { getPrice2Decimals, goToUrlWithRedirect } from '@/lib/utils'
 import { Carrito, Datum, SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
+import { Pencil } from 'lucide-react'
 import { useContext, useState } from 'react'
 import { toast } from 'sonner'
 import { Buttons } from './buttons'
@@ -97,10 +98,19 @@ export default function CardProducto({ producto, someHasImage }: Props) {
       <div className='flex items-center gap-4'>
         <Link
           href={`/producto/${nombre}`}
-          className='after:bg-negro hover:after:bg-amarillo hover:text-amarillo relative w-fit text-2xl font-bold transition-all after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear hover:scale-110 hover:after:scale-x-100'
+          className='hover:text-amarillo text-2xl font-bold transition-all hover:underline'
         >
           <h3>{nombre}</h3>
         </Link>
+
+        {auth.user && auth.user.esAdmin && (
+          <Link
+            href={route('producto.edit', producto.slug)}
+            className='hover:text-amarillo ml-auto'
+          >
+            <Pencil />
+          </Link>
+        )}
 
         {/* PRECIO cuando no hay imagen */}
         {!someHasImage && (
@@ -110,7 +120,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
         )}
       </div>
 
-      <p className='text-gris grow'>{descripcion}</p>
+      <p className={`text-gris grow`}>{descripcion}</p>
 
       {!someHasImage && (
         <Buttons

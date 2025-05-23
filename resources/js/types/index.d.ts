@@ -44,11 +44,13 @@ export interface User {
   [key: string]: unknown // This allows for additional properties...
   saldo: number
   esUsuario: boolean
+  esAdmin: boolean
 }
 
 export type Categoria = {
   id: number
   nombre: string
+  slug: string
   descripcion: string
   imagen: null | string
 }
@@ -57,7 +59,7 @@ export type Producto = {
   id: number
   nombre: string
   precio: number
-  descripcion: string | null
+  descripcion: string
   ingredientes: string | null
   alergenos: string | null
   max_stock: number
@@ -111,6 +113,7 @@ export type Pagination = {
 export type Datum = {
   id: number
   nombre: string
+  slug: string
   precio: number
   descripcion: string
   ingredientes: null

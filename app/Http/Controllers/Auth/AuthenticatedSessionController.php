@@ -11,19 +11,15 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 
-use function App\Helpers\getRedirectParam;
 
 class AuthenticatedSessionController extends Controller {
   /**
    * Show the login page.
    */
   public function create(Request $request): Response {
-    $redirect = getRedirectParam($request);
-
     return Inertia::render('auth/login', [
       'canResetPassword' => Route::has('password.request'),
       'status' => $request->session()->get('status'),
-      'redirect' => $redirect
     ]);
   }
 
@@ -31,13 +27,13 @@ class AuthenticatedSessionController extends Controller {
    * Handle an incoming authentication request.
    */
   public function store(LoginRequest $request): RedirectResponse {
+    $previousRouteName = $request->cookie('previous_route_name', '/');
+
     $request->authenticate();
 
     $request->session()->regenerate();
 
-    $redirect = getRedirectParam($request);
-
-    return redirect()->intended($redirect);
+    return redirect($previousRouteName);
   }
 
   /**

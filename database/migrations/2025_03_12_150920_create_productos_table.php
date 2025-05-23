@@ -11,9 +11,10 @@ return new class extends Migration {
   public function up(): void {
     Schema::create('productos', function (Blueprint $table) {
       $table->id();
-      $table->string('nombre')->nullable(false);
+      $table->string('nombre')->nullable(false)->unique(true);
+      $table->string('slug')->nullable(false)->unique(true);
       $table->float('precio')->nullable(false);
-      $table->text('descripcion');
+      $table->text('descripcion')->nullable(false);
       $table->string('ingredientes')->nullable();
       $table->string('alergenos')->nullable();
       $table->integer('max_stock')->default(0);

@@ -29,6 +29,8 @@ class RegisteredUserController extends Controller {
    * @throws \Illuminate\Validation\ValidationException
    */
   public function store(RegisterRequest $request): RedirectResponse {
+    $previousRouteName = $request->cookie('previous_route_name', '/');
+
     $data = $request->validated();
 
     $data['id_rol'] = RolTypes::USUARIO;
@@ -39,6 +41,6 @@ class RegisteredUserController extends Controller {
 
     Auth::login($user);
 
-    return to_route('categorias');
+    return redirect($previousRouteName);
   }
 }

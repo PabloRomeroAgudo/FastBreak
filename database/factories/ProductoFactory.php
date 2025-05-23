@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Producto>
@@ -15,11 +16,13 @@ class ProductoFactory extends Factory {
    */
   public function definition(): array {
 
-    $imagen = "/img/productos/plantilla1.png";
+    $imagen = "productos/plantilla1.png";
 
+    $nombre = $this->faker->sentence(nbWords: 2);
 
     return [
-      'nombre' => $this->faker->sentence(nbWords: 2),
+      'nombre' => $nombre,
+      'slug' => Str::slug($nombre, language: 'es'),
       'precio' => $this->faker->randomFloat(2, 0, 20),
       'descripcion' => $this->faker->paragraph(),
       'imagen' => $this->faker->optional()->randomElement([$imagen])

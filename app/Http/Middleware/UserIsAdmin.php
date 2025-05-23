@@ -13,7 +13,7 @@ class UserIsAdmin {
    * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
    */
   public function handle(Request $request, Closure $next): Response {
-    if ($request->user()->isNormalUser()) return to_route('home');
+    if (!$request->user()->isAdmin()) return to_route('home');
 
     return $next($request);
   }

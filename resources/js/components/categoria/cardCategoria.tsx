@@ -1,5 +1,7 @@
-import { Categoria } from '@/types'
-import { Link } from '@inertiajs/react'
+import { Categoria, SharedData } from '@/types'
+import { Link, usePage } from '@inertiajs/react'
+import { Pencil } from 'lucide-react'
+import './../../../css/hoverCardCategoria.css'
 
 interface Props {
   categoria: Categoria
@@ -7,29 +9,45 @@ interface Props {
 }
 
 export function CardCategoria({ categoria, someHasImage }: Props) {
+  const { auth } = usePage<SharedData>().props
+
   return (
-    <Link
-      href={`/categoria/${categoria.nombre}`}
-      className='group flex flex-col gap-2 transition'
-    >
-      <div className='overflow-clip rounded-xl transition duration-300'>
-        {someHasImage &&
-          (categoria.imagen ? (
-            categoria.imagen && (
-              <img
-                src={categoria.imagen}
-                alt={`Imagen de la categoria ${categoria.nombre}`}
-                className='aspect-square w-full transition-transform group-hover:scale-120'
-              />
-            )
-          ) : (
-            <div className='bg-muted aspect-square transition-transform group-hover:scale-120'></div>
-          ))}
+    <article className='group flex flex-col gap-2'>
+      <div className='overflow-clip rounded-xl'>
+        {someHasImage && (
+          <Link href={route('categoria.show', categoria.slug)}>
+            {categoria.imagen ? (
+              categoria.imagen && (
+                <img
+                  src={categoria.imagen}
+                  alt={`Imagen de la categoria ${categoria.nombre}`}
+                  className='img aspect-square w-full object-contain transition-transform'
+                />
+              )
+            ) : (
+              <div className='img bg-muted aspect-square transition-transform'></div>
+            )}
+          </Link>
+        )}
       </div>
-      <h3 className='after:bg-negro group-hover:after:bg-amarillo group-hover:text-amarillo relative w-fit text-2xl font-bold transition-all group-hover:scale-110 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transition-all after:ease-linear group-hover:after:scale-x-100'>
-        {categoria.nombre}
-      </h3>
+      <div className='flex items-center justify-items-start'>
+        <Link
+          href={route('categoria.show', categoria.slug)}
+          className='text-2xl font-bold'
+        >
+          <h3 className='titulo transition-all'>{categoria.nombre}</h3>
+        </Link>
+
+        {auth.user && auth.user.esAdmin && (
+          <Link
+            href={route('categoria.edit', categoria.slug)}
+            className='hover:text-amarillo ml-auto'
+          >
+            <Pencil />
+          </Link>
+        )}
+      </div>
       <p className='text-gris group-hover:text-negro text-pretty transition-colors'>{categoria.descripcion}</p>
-    </Link>
+    </article>
   )
 }
