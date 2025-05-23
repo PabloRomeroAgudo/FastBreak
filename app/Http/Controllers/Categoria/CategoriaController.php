@@ -103,7 +103,7 @@ class CategoriaController extends Controller {
     }
     unset($data['borrarImagen']);
 
-    $productos = $data['productos'];
+    $productos = $data['productos'] ?? [];
     unset($data['productos']);
 
     $categoria->productos()->sync($productos);
