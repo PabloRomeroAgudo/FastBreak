@@ -17,7 +17,7 @@ export default function LabelTextArea({ titulo, value, onChange, className = '',
       <textarea
         value={value}
         onChange={onChange}
-        className={cn('bg-amarillo text-negro font-body field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2', className)}
+        className={cn('bg-amarillo text-negro field-sizing-content max-h-[calc(5lh_+_8px)] resize-none rounded-md p-2', className)}
         {...props}
       />
     </label>
