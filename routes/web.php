@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Carrito\CarritoController;
-use App\Http\Controllers\Categoria\CategoriaController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\PedidosEntregarController;
 use App\Http\Controllers\PedidosPrepararController;
