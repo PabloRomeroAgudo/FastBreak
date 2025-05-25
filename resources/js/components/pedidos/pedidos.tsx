@@ -48,7 +48,9 @@ export default function Pedidos({ pedidos, isPrepare = false }: Props) {
                   <div className='grid grow grid-cols-3 items-center text-center transition-opacity group-open:opacity-0'>
                     <h3>Pedido {index + 1}</h3>
                     <span className='text-amarillo text-3xl md:text-5xl'>Código: {pedido.codigo}</span>
-                    <span>{pedido.hora}</span>
+                    <span>
+                      {pedido.fecha} {pedido.hora}
+                    </span>
                   </div>
                 </summary>
 
