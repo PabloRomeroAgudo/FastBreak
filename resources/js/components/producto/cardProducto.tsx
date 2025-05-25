@@ -1,6 +1,6 @@
 import { CarritoContext } from '@/context/carrito'
 import { getPrice2Decimals, goToUrlWithRedirect } from '@/lib/utils'
-import { Carrito, Datum, SharedData } from '@/types'
+import { Carrito, Producto, SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Pencil } from 'lucide-react'
 import { useContext, useState } from 'react'
@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { Buttons } from './buttons'
 
 interface Props {
-  producto: Datum
+  producto: Producto
   someHasImage: boolean
 }
 
