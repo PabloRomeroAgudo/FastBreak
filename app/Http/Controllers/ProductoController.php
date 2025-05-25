@@ -11,18 +11,21 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
-class ProductoController extends Controller {
+class ProductoController extends Controller
+{
   /**
    * Display a listing of the resource.
    */
-  public function index() {
+  public function index()
+  {
     //
   }
 
   /**
    * Show the form for creating a new resource.
    */
-  public function create() {
+  public function create()
+  {
 
     return Inertia::render('Producto/create', ["categoriasProp" => Inertia::defer(fn() => Categoria::get(['id', 'nombre']))]);
   }
@@ -30,7 +33,8 @@ class ProductoController extends Controller {
   /**
    * Store a newly created resource in storage.
    */
-  public function store(ProductoCreateRequest $request) {
+  public function store(ProductoCreateRequest $request)
+  {
     $data = $request->validated();
 
     $data["slug"] = Str::slug($data["nombre"]);
@@ -65,14 +69,17 @@ class ProductoController extends Controller {
   /**
    * Display the specified resource.
    */
-  public function show(Producto $producto) {
+  public function show(Producto $producto)
+  {
     //
+    return Inertia::render('Producto/show', ["producto" => $producto]);
   }
 
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(Producto $producto) {
+  public function edit(Producto $producto)
+  {
     $producto->load(['categorias' => function ($query) {
       $query->select('categorias.id', 'nombre');
     }]);
@@ -83,7 +90,8 @@ class ProductoController extends Controller {
   /**
    * Update the specified resource in storage.
    */
-  public function update(ProductoUpdateRequest $request, Producto $producto) {
+  public function update(ProductoUpdateRequest $request, Producto $producto)
+  {
     $data = $request->validated();
 
     $data["slug"] = Str::slug($data["nombre"]);
@@ -128,7 +136,8 @@ class ProductoController extends Controller {
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(Producto $producto) {
+  public function destroy(Producto $producto)
+  {
     $producto->delete();
 
     return to_route('home');

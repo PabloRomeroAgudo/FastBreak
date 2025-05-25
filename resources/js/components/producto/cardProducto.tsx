@@ -79,7 +79,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
             {imagen ? (
               <img
                 src={imagen}
-                alt={`Imagen de la producto ${nombre}`}
+                alt={`Imagen de ${nombre}`}
                 className='aspect-square w-full object-contain'
               />
             ) : (
@@ -97,8 +97,8 @@ export default function CardProducto({ producto, someHasImage }: Props) {
 
       <div className='flex items-center gap-4'>
         <Link
-          href={`/producto/${nombre}`}
-          className='hover:text-amarillo text-2xl font-bold transition-all hover:underline'
+          href={`/producto/${id}`}
+          className='hover:text-amarillo text-2xl font-bold transition-all'
         >
           <h3>{nombre}</h3>
         </Link>

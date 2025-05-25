@@ -52,6 +52,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('producto/{producto:slug}/edit', [ProductoController::class, 'edit'])->name('producto.edit');
     Route::post('producto/{producto}/edit', [ProductoController::class, 'update'])->name('producto.update');
     Route::delete('producto/{producto}', [ProductoController::class, 'destroy'])->name('producto.destroy');
+    Route::get('producto/{producto}', [ProductoController::class, 'show'])->name('producto.show');
   });
 });
 
