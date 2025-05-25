@@ -51,12 +51,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('producto/{producto:slug}/edit', [ProductoController::class, 'edit'])->name('producto.edit');
     Route::post('producto/{producto}/edit', [ProductoController::class, 'update'])->name('producto.update');
     Route::delete('producto/{producto}', [ProductoController::class, 'destroy'])->name('producto.destroy');
-    Route::get('producto/{producto}', [ProductoController::class, 'show'])->name('producto.show');
   });
 });
 
 
 Route::get('categoria/{categoria:slug}', [CategoriaController::class, 'show'])->name('categoria.show');
+Route::get('producto/{producto:slug}', [ProductoController::class, 'show'])->name('producto.show');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
