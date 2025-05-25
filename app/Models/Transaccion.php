@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Transaccion extends Model {
   protected $table = 'transacciones';
@@ -20,6 +22,12 @@ class Transaccion extends Model {
     return [
       'fecha' => 'datetime',
     ];
+  }
+
+  protected function codigo(): Attribute {
+    return Attribute::make(
+      get: fn(?int $value) => str::padLeft($value, 4, "0")
+    );
   }
 
   public function usuario(): BelongsTo {

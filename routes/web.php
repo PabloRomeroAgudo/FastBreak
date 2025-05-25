@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\TransaccionController;
 use App\Http\Middleware\UserIsAdmin;
 use App\Http\Middleware\UserIsWorker;
+use App\Models\Transaccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +26,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::get('carrito', function (Request $request) {
     return Inertia::render('Carrito/carrito');
   })->name('carrito');
-
-
   Route::post('carrito', [TransaccionController::class, 'store'])->name('pago');
+
+  Route::get('mis-pedidos', [TransaccionController::class, 'index'])->name('misPedidos');
+
 
   Route::middleware(UserIsWorker::class)->group(function () {
     Route::get('saldo/add', [IngresoController::class, 'create'])->name('saldo');
