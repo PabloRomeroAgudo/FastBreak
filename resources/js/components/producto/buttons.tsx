@@ -1,12 +1,15 @@
+import { cn } from '@/lib/utils'
+
 interface Props {
   cantidad: number
   handleClickAddItem: (newCantidad: number) => void
   handleClickAddToCart: () => void
+  className?: string
 }
 
-export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart }: Props) {
+export function Buttons({ cantidad, handleClickAddItem, handleClickAddToCart, className = '' }: Props) {
   return (
-    <div className='flex flex-col gap-3'>
+    <div className={cn('flex flex-col gap-3', className)}>
       <div className='font-principal flex gap-1'>
         <button
           disabled={cantidad <= 0}
