@@ -53,6 +53,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
       newCarrito.productos.push({
         id,
         nombre,
+        slug,
         precio,
         descripcion,
         cantidad,
