@@ -2,13 +2,13 @@ import { Buttons } from '@/components/producto/buttons'
 import { CarritoContext } from '@/context/carrito'
 import AppLayout from '@/layouts/app-layout'
 import { goToUrlWithRedirect } from '@/lib/utils'
-import { Carrito, Datum, SharedData } from '@/types'
+import { Carrito, Producto, SharedData } from '@/types'
 import { Head, usePage } from '@inertiajs/react'
 import { useContext, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 interface Props {
-  producto: Datum
+  producto: Producto
 }
 
 export default function Show({ producto }: Props) {
@@ -20,7 +20,7 @@ export default function Show({ producto }: Props) {
   const { auth } = usePage<SharedData>().props
   const { url } = usePage()
   const [cantidad, setCantidad] = useState(0)
-  const { id, nombre, descripcion, imagen, precio } = producto
+  const { id, nombre, slug, descripcion, imagen, precio, ingredientes, alergenos } = producto
 
   const handleClickAddItem = (modifier: number) => {
     setCantidad((prevCantidad) => prevCantidad + modifier)
@@ -48,6 +48,7 @@ export default function Show({ producto }: Props) {
       newCarrito.productos.push({
         id,
         nombre,
+        slug,
         precio,
         descripcion,
         cantidad,
@@ -68,32 +69,42 @@ export default function Show({ producto }: Props) {
         subtitulo={nombre}
         needBack={true}
       >
-        <section className='container mx-auto px-4 py-10'>
-          <div className='bg-blanco flex flex-col gap-8 rounded-lg p-6 shadow-lg md:flex-row'>
-            <div className='flex-shrink-0 md:w-1/2'>
-              {imagen ? (
-                <img
-                  src={imagen}
-                  alt={`Imagen de ${producto.nombre}`}
-                  className='h-auto w-full rounded-md object-cover'
-                />
-              ) : (
-                <div className='bg-muted flex h-64 w-full items-center justify-center rounded-md md:h-96'>
-                  <span className='text-gray-500'>No hay imagen disponible</span>
-                </div>
-              )}
-            </div>
-            <div className='flex-grow self-stretch'>
-              <h1 className='text-negro mb-4 text-4xl font-bold'>{producto.nombre}</h1>
-              <p className='mb-6 text-lg text-gray-800'>{producto.descripcion}</p>
-              <p className='mb-6 text-lg text-gray-800'>Ingredientes: {producto.ingredientes}</p>
-              <p className='mb-6 text-lg text-gray-800'>Alérgenos: {producto.alergenos}</p>
-              <p className='text-rojo font-principal mb-6 text-3xl font-semibold'>{producto.precio}€</p>
+        <section className='bg-blanco mx-auto grid w-4/5 gap-8 rounded-lg px-4 py-10 shadow-xl md:grid-cols-[1fr_2px_1fr]'>
+          <div className='aspect-square w-1/2 max-w-full self-center justify-self-center overflow-clip rounded-md md:h-full md:w-auto xl:w-2/3'>
+            {imagen ? (
+              <img
+                src={imagen}
+                alt={`Imagen de ${nombre}`}
+                className='size-full object-contain'
+              />
+            ) : (
+              <div className='bg-muted flex size-full items-center justify-center'></div>
+            )}
+          </div>
+
+          <div className='h-full bg-gray-300'></div>
+
+          <div className='flex flex-col gap-3'>
+            <h3 className='text-negro font-principal text-center text-2xl font-bold text-pretty md:text-4xl'>{nombre}</h3>
+            <p className='text-md text-pretty text-gray-800 md:text-lg'>{descripcion}</p>
+            {ingredientes && (
+              <div>
+                <h4 className='font-principal text-center text-lg uppercase md:text-xl'>Ingredientes</h4>
+                <p className='text-md text-gray-800 md:text-lg'>{ingredientes}</p>
+              </div>
+            )}
+            {alergenos && (
+              <div>
+                <h4 className='font-principal text-center text-lg uppercase md:text-xl'>Alérgenos</h4>
+                <p className='text-md text-gray-800 md:text-lg'>{alergenos}</p>
+              </div>
+            )}
+            <p className='text-rojo font-principal text-3xl font-semibold'>{precio}€</p>
+            <div className='mt-auto w-2/3 max-w-xl self-center'>
               <Buttons
                 cantidad={cantidad}
                 handleClickAddItem={handleClickAddItem}
                 handleClickAddToCart={handleClickAddToCart}
-                className='mt-auto'
               />
             </div>
           </div>

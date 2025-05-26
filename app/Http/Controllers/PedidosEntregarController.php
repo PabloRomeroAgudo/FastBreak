@@ -18,12 +18,13 @@ class PedidosEntregarController extends Controller {
     }])
       ->where('estado', TransaccionEstado::PREPARADO)
       ->select('id', 'codigo', 'fecha')
-      // ->orderBy('fecha', 'desc')
+      ->orderBy('fecha', 'asc')
       ->get()
       ->map(function (Transaccion $pedido) {
         $arr = $pedido->toArray();
         // FORMATO CORRECTO: 'H:i'
         $arr['hora'] = $pedido->fecha->format('H:i');
+        $arr['fecha'] = $pedido->fecha->format('d-m-Y');
         return $arr;
       });
 

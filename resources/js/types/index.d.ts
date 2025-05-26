@@ -58,6 +58,7 @@ export type Categoria = {
 export type Producto = {
   id: number
   nombre: string
+  slug: string
   precio: number
   descripcion: string
   ingredientes: string | null
@@ -72,7 +73,7 @@ type PivotProducto = {
   id_producto: number
 }
 
-export type ProductoCarrito = Pick<Producto, 'id' | 'nombre' | 'precio' | 'descripcion'?> & { cantidad: number }
+export type ProductoCarrito = Pick<Producto, 'id' | 'nombre' | 'slug' | 'precio' | 'descripcion'?> & { cantidad: number }
 
 export type Carrito = {
   productos: ProductoCarrito[]
@@ -99,7 +100,7 @@ interface Pedido {
 // Paginacion que viene de Laravel
 export type Pagination = {
   current_page: number
-  data: Datum[]
+  data: Producto[]
   first_page_url: string
   from: number
   links: LinksPag[]
@@ -110,26 +111,8 @@ export type Pagination = {
   to: number
 }
 
-export type Datum = {
-  id: number
-  nombre: string
-  slug: string
-  precio: number
-  descripcion: string
-  ingredientes: null
-  alergenos: null
-  max_stock: number
-  imagen: null | string
-  pivot: Pivot
-}
-
 export type LinksPag = {
   url: string
   label: string
   active: boolean
-}
-
-export type Pivot = {
-  id_categoria: number
-  id_producto: number
 }
