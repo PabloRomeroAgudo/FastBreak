@@ -1,6 +1,6 @@
 import { CarritoContext } from '@/context/carrito'
 import { getPrice2Decimals, goToUrlWithRedirect } from '@/lib/utils'
-import { Carrito, Datum, SharedData } from '@/types'
+import { Carrito, Producto, SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { Pencil } from 'lucide-react'
 import { useContext, useState } from 'react'
@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { Buttons } from './buttons'
 
 interface Props {
-  producto: Datum
+  producto: Producto
   someHasImage: boolean
 }
 
@@ -24,7 +24,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
   const { url } = usePage()
   const [cantidad, setCantidad] = useState(0)
 
-  const { id, nombre, descripcion, imagen, precio } = producto
+  const { id, nombre, slug, descripcion, imagen, precio } = producto
 
   const handleClickAddItem = (modifier: number) => {
     setCantidad((prevCantidad) => prevCantidad + modifier)
@@ -53,6 +53,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
       newCarrito.productos.push({
         id,
         nombre,
+        slug,
         precio,
         descripcion,
         cantidad,
@@ -79,7 +80,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
             {imagen ? (
               <img
                 src={imagen}
-                alt={`Imagen de la producto ${nombre}`}
+                alt={`Imagen de ${nombre}`}
                 className='aspect-square w-full object-contain'
               />
             ) : (
@@ -97,7 +98,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
 
       <div className='flex items-center gap-4'>
         <Link
-          href={`/producto/${nombre}`}
+          href={route('producto.show', slug)}
           className='hover:text-amarillo text-2xl font-bold transition-all hover:underline'
         >
           <h3>{nombre}</h3>
@@ -105,7 +106,7 @@ export default function CardProducto({ producto, someHasImage }: Props) {
 
         {auth.user && auth.user.esAdmin && (
           <Link
-            href={route('producto.edit', producto.slug)}
+            href={route('producto.edit', slug)}
             className='hover:text-amarillo ml-auto'
           >
             <Pencil />

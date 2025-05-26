@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\Carrito\CarritoController;
-use App\Http\Controllers\Categoria\CategoriaController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\IngresoController;
 use App\Http\Controllers\PedidosEntregarController;
 use App\Http\Controllers\PedidosPrepararController;
@@ -59,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 Route::get('categoria/{categoria:slug}', [CategoriaController::class, 'show'])->name('categoria.show');
+Route::get('producto/{producto:slug}', [ProductoController::class, 'show'])->name('producto.show');
 
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';

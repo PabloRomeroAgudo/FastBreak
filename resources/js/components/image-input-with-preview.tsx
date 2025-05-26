@@ -14,7 +14,7 @@ export default function ImageInputWithPreview({
   setData,
   url,
   setUrl,
-  textoSinFoto = 'Toca para añadir',
+  textoSinFoto = 'Toca para añadir imagen',
   textoConFoto = 'Toca para cambiar',
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null)

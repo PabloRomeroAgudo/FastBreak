@@ -67,6 +67,7 @@ class ProductoController extends Controller {
    */
   public function show(Producto $producto) {
     //
+    return Inertia::render('Producto/show', ["producto" => $producto]);
   }
 
   /**

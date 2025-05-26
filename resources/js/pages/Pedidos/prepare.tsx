@@ -9,8 +9,6 @@ export default function Prepare() {
 
   usePoll(40000, { only: ['pedidos'] })
 
-  console.log(pedidos)
-
   return (
     <AppLayout
       subtitulo='Pedidos'

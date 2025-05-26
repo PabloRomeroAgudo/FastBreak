@@ -1,5 +1,6 @@
 import { useIsMobile } from '@/hooks/use-mobile'
 import { ProductoCarrito } from '@/types'
+import { Link } from '@inertiajs/react'
 import { ArrowRight } from 'lucide-react'
 import InfoAndButton from './infoAndBoton'
 
@@ -17,9 +18,14 @@ export default function ElemCarrito({ producto }: Props) {
           size={30}
           className='transition-transform duration-300 group-open:rotate-90'
         />
-        {producto.nombre}
+        <Link
+          href={route('producto.show', producto.slug)}
+          className='hover:text-amarillo cursor-pointer transition-colors'
+        >
+          {producto.nombre}
+        </Link>
       </summary>
-      <div className='grid p-5 pt-0'>
+      <div className='flex justify-between p-5 pt-0'>
         <InfoAndButton
           producto={producto}
           esMovil={esMovil}
@@ -27,8 +33,13 @@ export default function ElemCarrito({ producto }: Props) {
       </div>
     </details>
   ) : (
-    <article className='text-amarillo font-principal bg-negro grid grid-flow-col items-center gap-2.5 p-5 text-3xl'>
-      <h3 className='text-blanco w-48'>{producto.nombre}</h3>
+    <article className='text-amarillo font-principal bg-negro grid grid-cols-4 items-center gap-2.5 p-5 text-3xl'>
+      <Link
+        href={route('producto.show', producto.slug)}
+        className='text-blanco hover:text-amarillo w-fit cursor-pointer transition-colors'
+      >
+        <h3>{producto.nombre}</h3>
+      </Link>
       <InfoAndButton
         producto={producto}
         esMovil={esMovil}
