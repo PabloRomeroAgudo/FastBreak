@@ -97,6 +97,11 @@ interface Pedido {
   productos: ProductoPedido[]
 }
 
+interface transaccion extends Pedido {
+  total: number
+  estado: string
+}
+
 // Paginacion que viene de Laravel
 export type Pagination = {
   current_page: number

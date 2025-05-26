@@ -46,8 +46,8 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
     },
     {
       hasPermission: true,
-      title: 'Pedidos',
-      url: '/pedidos',
+      title: 'Mis pedidos',
+      url: route('misPedidos'),
       icon: StickyNote,
       isIcon: true,
       method: 'get',
