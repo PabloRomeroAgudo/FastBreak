@@ -17,15 +17,20 @@ class TransaccionController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    $transacciones = Auth::user()->transacciones()->with(['productos' => function ($q) {
-      $q->select('productos.nombre');
-    }])->get()->map(function (Transaccion $pedido) {
-      $arr = $pedido->toArray();
-      // FORMATO CORRECTO: 'H:i'
-      $arr['hora'] = $pedido->fecha->format('H:i');
-      $arr['fecha'] = $pedido->fecha->format('d-m-Y');
-      return $arr;
-    });;
+    $transacciones = Auth::user()
+      ->transacciones()
+      ->with(['productos' => function ($q) {
+        $q->select('productos.nombre');
+      }])
+      ->orderBy('fecha', 'desc')
+      ->get()
+      ->map(function (Transaccion $pedido) {
+        $arr = $pedido->toArray();
+        // FORMATO CORRECTO: 'H:i'
+        $arr['hora'] = $pedido->fecha->format('H:i');
+        $arr['fecha'] = $pedido->fecha->format('d-m-Y');
+        return $arr;
+      });;
     return Inertia::render("Categoria/misPedidos", ["transacciones" => $transacciones]);
   }
 
