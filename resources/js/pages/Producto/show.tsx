@@ -2,13 +2,13 @@ import { Buttons } from '@/components/producto/buttons'
 import { CarritoContext } from '@/context/carrito'
 import AppLayout from '@/layouts/app-layout'
 import { goToUrlWithRedirect } from '@/lib/utils'
-import { Carrito, Datum, SharedData } from '@/types'
+import { Carrito, Producto, SharedData } from '@/types'
 import { Head, usePage } from '@inertiajs/react'
 import { useContext, useState } from 'react'
 import { toast, Toaster } from 'sonner'
 
 interface Props {
-  producto: Datum
+  producto: Producto
 }
 
 export default function Show({ producto }: Props) {
@@ -69,7 +69,7 @@ export default function Show({ producto }: Props) {
         subtitulo={nombre}
         needBack={true}
       >
-        <section className='bg-blanco mx-auto grid w-4/5 gap-8 rounded-lg px-4 py-10 shadow-xl md:grid-cols-2'>
+        <section className='bg-blanco mx-auto grid w-4/5 gap-8 rounded-lg px-4 py-10 shadow-xl md:grid-cols-[1fr_2px_1fr]'>
           <div className='aspect-square w-1/2 max-w-full self-center justify-self-center overflow-clip rounded-md md:h-full md:w-auto xl:w-2/3'>
             {imagen ? (
               <img
@@ -81,6 +81,9 @@ export default function Show({ producto }: Props) {
               <div className='bg-muted flex size-full items-center justify-center'></div>
             )}
           </div>
+
+          <div className='h-full bg-gray-300'></div>
+
           <div className='flex flex-col gap-3'>
             <h3 className='text-negro font-principal text-center text-2xl font-bold text-pretty md:text-4xl'>{nombre}</h3>
             <p className='text-md text-pretty text-gray-800 md:text-lg'>{descripcion}</p>
@@ -97,12 +100,13 @@ export default function Show({ producto }: Props) {
               </div>
             )}
             <p className='text-rojo font-principal text-3xl font-semibold'>{precio}€</p>
-            <Buttons
-              cantidad={cantidad}
-              handleClickAddItem={handleClickAddItem}
-              handleClickAddToCart={handleClickAddToCart}
-              className='mt-auto'
-            />
+            <div className='mt-auto w-2/3 max-w-xl self-center'>
+              <Buttons
+                cantidad={cantidad}
+                handleClickAddItem={handleClickAddItem}
+                handleClickAddToCart={handleClickAddToCart}
+              />
+            </div>
           </div>
         </section>
         <Toaster richColors />
