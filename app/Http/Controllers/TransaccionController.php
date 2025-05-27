@@ -20,7 +20,7 @@ class TransaccionController extends Controller {
     $transacciones = Auth::user()
       ->transacciones()
       ->with(['productos' => function ($q) {
-        $q->select('productos.nombre');
+        $q->withTrashed()->select('productos.nombre', 'productos.precio');
       }])
       ->orderBy('fecha', 'desc')
       ->get()
@@ -30,7 +30,7 @@ class TransaccionController extends Controller {
         $arr['hora'] = $pedido->fecha->format('H:i');
         $arr['fecha'] = $pedido->fecha->format('d-m-Y');
         return $arr;
-      });;
+      });
     return Inertia::render("Categoria/misPedidos", ["transacciones" => $transacciones]);
   }
 
