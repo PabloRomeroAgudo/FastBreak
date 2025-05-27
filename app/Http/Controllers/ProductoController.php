@@ -48,7 +48,7 @@ class ProductoController extends Controller {
       $imagen = $data['imagen'];
 
 
-      $imagenPath = $imagen->store('productos', 'public');
+      $imagenPath = $imagen->store('productos');
 
       $data['imagen'] = $imagenPath;
     }
@@ -99,16 +99,16 @@ class ProductoController extends Controller {
 
     if ($data['imagen']) {
       $imagen = $data['imagen'];
-      $imagenPath = $imagen->store('productos', 'public');
+      $imagenPath = $imagen->store('productos');
       $data['imagen'] = $imagenPath;
 
       // borrar la anterior si existía
       if ($producto->getRawOriginal('imagen')) {
-        Storage::disk('public')->delete($producto->getRawOriginal('imagen'));
+        Storage::delete($producto->getRawOriginal('imagen'));
       }
     } else if ($data['borrarImagen']) {
       if ($producto->getRawOriginal('imagen')) {
-        Storage::disk('public')->delete($producto->getRawOriginal('imagen'));
+        Storage::delete($producto->getRawOriginal('imagen'));
       }
       $data['imagen'] = null;
     } else {
@@ -130,6 +130,9 @@ class ProductoController extends Controller {
    * Remove the specified resource from storage.
    */
   public function destroy(Producto $producto) {
+    if ($producto->getRawOriginal('imagen')) {
+      Storage::delete($producto->getRawOriginal('imagen'));
+    }
     $producto->delete();
 
     return to_route('home');
