@@ -40,8 +40,10 @@ export default function MisPedidos({ transacciones }: Props) {
               </div>
             </summary>
 
-            <article className='font-principal bg-negro text-blanco flex flex-col justify-between gap-4 text-xl opacity-0 transition-opacity group-open:opacity-100 md:flex-row md:px-4'>
-              <span className='text-amarillo self-center text-center text-5xl'>Codigo: {t.codigo}</span>
+            <article className='font-principal text-blanco flex flex-col justify-between gap-4 text-xl opacity-0 transition-opacity group-open:opacity-100 md:px-4 lg:flex-row'>
+              <span className={`self-center text-3xl md:text-5xl ${t.estado === 'entregado' ? 'text-negro' : 'text-amarillo'} `}>
+                Codigo: {t.codigo}
+              </span>
               <span className='self-center text-center text-3xl'>{t.estado}</span>
               <div className='flex flex-col gap-2 self-center'>
                 {t.productos.map((producto) => {
