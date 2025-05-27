@@ -133,6 +133,7 @@ class ProductoController extends Controller {
     if ($producto->getRawOriginal('imagen')) {
       Storage::delete($producto->getRawOriginal('imagen'));
     }
+    $producto->categorias()->detach();
     $producto->delete();
 
     return to_route('home');
