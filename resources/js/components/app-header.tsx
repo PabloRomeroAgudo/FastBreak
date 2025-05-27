@@ -136,7 +136,7 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                                         iconNode={item.icon}
                                         className='size-6 opacity-80 group-hover:opacity-100'
                                       />
-                                      {item.icon === ShoppingCart && <BadgeCarrito />}
+                                      {item.icon === ShoppingCart && <BadgeCarrito className='opacity-80' />}
                                     </div>
                                   )}
                                 </Link>
