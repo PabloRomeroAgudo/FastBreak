@@ -4,6 +4,7 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 use function Termwind\ask;
 use function Termwind\render;
@@ -83,3 +84,13 @@ Artisan::command('probarCorreo {to}', function (string $to) {
 
   $this->info("Correo enviado a {$to}");
 })->purpose('Prueba de envío de correo desde consola');
+
+Artisan::command('probars3', function () {
+  $path = 'productos/plantilla1.png';
+
+  if (Storage::disk('s3')->exists($path)) {
+    dump('conexión realizada con exito!');
+  } else {
+    $this->error("El archivo '$path' no existe en S3.");
+  }
+});
