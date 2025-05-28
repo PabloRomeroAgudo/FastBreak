@@ -50,11 +50,11 @@ export default function MisPedidos({ transacciones }: Props) {
                   return (
                     <label
                       key={`${producto.pivot.id_transaccion}-${producto.pivot.id_producto}`}
-                      className={`relative grid grid-cols-[1fr_auto_auto] items-end gap-5 px-2 text-xl sm:text-3xl ${t.productos.length > 1 && 'border-b'}`}
+                      className={`relative grid grid-cols-[1fr_auto_6rem] items-end gap-5 px-2 text-xl sm:text-3xl ${t.productos.length > 1 && 'border-b'}`}
                     >
-                      <span className='w-full sm:w-60'>{producto.nombre}</span>
+                      <span className='w-full'>{producto.nombre}</span>
                       <span className='text-nowrap'> {producto.pivot.cantidad} Uds</span>
-                      <span className='grow text-end'>{producto.precio}€</span>
+                      <span className='text-end'>{producto.precio}€</span>
                     </label>
                   )
                 })}
