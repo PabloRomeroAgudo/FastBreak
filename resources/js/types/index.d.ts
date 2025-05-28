@@ -104,7 +104,7 @@ interface Transaccion extends Omit<Pedido, 'productos'> {
 }
 
 interface ProductoTransaccion extends ProductoPedido {
-  precio: number
+  pivot: ProductoPedido['pivot'] & { precio: number }
 }
 
 // Paginacion que viene de Laravel

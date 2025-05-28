@@ -20,7 +20,7 @@ class TransaccionController extends Controller {
     $transacciones = Auth::user()
       ->transacciones()
       ->with(['productos' => function ($q) {
-        $q->withTrashed()->select('productos.nombre', 'productos.precio');
+        $q->withTrashed()->select('productos.nombre');
       }])
       ->orderBy('fecha', 'desc')
       ->get()
@@ -31,6 +31,7 @@ class TransaccionController extends Controller {
         $arr['fecha'] = $pedido->fecha->format('d-m-Y');
         return $arr;
       });
+
     return Inertia::render("Categoria/misPedidos", ["transacciones" => $transacciones]);
   }
 
@@ -45,10 +46,6 @@ class TransaccionController extends Controller {
    * Store a newly created resource in storage.
    */
   public function store(TransaccionRequest $request) {
-
-
-
-
     $carrito  = $request->validated('carrito');
     [
       'precioTotal' => $precioTotal,
@@ -68,7 +65,7 @@ class TransaccionController extends Controller {
 
       $datosPivot = [];
       foreach ($productos as $item) {
-        $datosPivot[$item['id']] = ['cantidad' => $item['cantidad']];
+        $datosPivot[$item['id']] = ['cantidad' => $item['cantidad'], 'precio' => $item['precio']];
       }
       $transaccion->productos()->attach($datosPivot);
 

@@ -11,12 +11,10 @@ return new class extends Migration {
   public function up(): void {
     Schema::create('transacciones_productos', function (Blueprint $table) {
       $table->id();
-      $table->unsignedBigInteger('id_transaccion')->nullable(false);
-      $table->unsignedBigInteger('id_producto')->nullable(false);
+      $table->foreignId('id_transaccion')->nullable(false)->constrained('transacciones');
+      $table->foreignId('id_producto')->nullable(false)->constrained('productos');
       $table->integer('cantidad')->nullable(false);
-
-      $table->foreign('id_transaccion')->references('id')->on('transacciones');
-      $table->foreign('id_producto')->references('id')->on('productos');
+      $table->float('precio')->nullable(false);
     });
   }
 

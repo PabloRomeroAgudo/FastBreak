@@ -54,7 +54,7 @@ export default function MisPedidos({ transacciones }: Props) {
                     >
                       <span className='w-full'>{producto.nombre}</span>
                       <span className='text-nowrap'> {producto.pivot.cantidad} Uds</span>
-                      <span className='text-end'>{producto.precio}€</span>
+                      <span className='text-end'>{producto.pivot.precio}€</span>
                     </label>
                   )
                 })}
