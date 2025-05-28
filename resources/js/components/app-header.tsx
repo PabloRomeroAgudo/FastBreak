@@ -3,10 +3,12 @@ import { Icon } from '@/components/icon'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { CarritoContext } from '@/context/carrito'
 import { getPrice2Decimals } from '@/lib/utils'
 import { type BreadcrumbItem, type NavItem, type SharedData } from '@/types'
 import { Link, usePage } from '@inertiajs/react'
 import { ClipboardList, Euro, LogOut, Menu, Plus, ShoppingCart, StickyNote } from 'lucide-react'
+import { useContext } from 'react'
 import AppLogo from './app-logo'
 import BadgeCarrito from './badge-carrito'
 import Subtitle from './subtitle'
@@ -25,6 +27,13 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url = '' }: AppHeaderProps) {
+  const contexto = useContext(CarritoContext)
+  if (!contexto) {
+    throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
+  }
+  const { carrito } = contexto
+  const totalCantidad = carrito.productos.reduce((acc, producto) => acc + producto.cantidad, 0)
+
   const page = usePage<SharedData>()
   const { auth } = page.props
 
@@ -136,7 +145,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                                         iconNode={item.icon}
                                         className='size-6 opacity-80 group-hover:opacity-100'
                                       />
-                                      {item.icon === ShoppingCart && <BadgeCarrito className='opacity-80' />}
+                                      {item.icon === ShoppingCart && (
+                                        <BadgeCarrito
+                                          totalCantidad={totalCantidad}
+                                          className='opacity-80'
+                                        />
+                                      )}
                                     </div>
                                   )}
                                 </Link>
@@ -199,10 +213,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                 >
                   <div className='relative'>
                     <Menu className='text-amarillo h-5 w-5' />
-                    <span className='absolute top-0 -right-1 flex size-2'>
-                      <span className='absolute inline-flex size-full animate-ping rounded-full bg-red-400 opacity-75'></span>
-                      <span className='relative inline-flex size-full rounded-full bg-red-500'></span>
-                    </span>
+                    {totalCantidad > 0 && (
+                      <span className='absolute top-0 -right-1 flex size-2'>
+                        <span className='absolute inline-flex size-full animate-ping rounded-full bg-red-400 opacity-75'></span>
+                        <span className='relative inline-flex size-full rounded-full bg-red-500'></span>
+                      </span>
+                    )}
                   </div>
                 </Button>
               </SheetTrigger>
@@ -241,7 +257,12 @@ export function AppHeader({ breadcrumbs = [], subtitulo, needBack = false, url =
                                   )}
                                   <span className='flex items-baseline gap-0.5'>
                                     {item.title}
-                                    {item.icon === ShoppingCart && <BadgeCarrito className='static' />}
+                                    {item.icon === ShoppingCart && (
+                                      <BadgeCarrito
+                                        totalCantidad={totalCantidad}
+                                        className='static'
+                                      />
+                                    )}
                                   </span>
                                 </Link>
                               ) : (

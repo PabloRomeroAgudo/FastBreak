@@ -1,15 +1,6 @@
-import { CarritoContext } from '@/context/carrito'
 import { cn } from '@/lib/utils'
-import { useContext } from 'react'
 
-export default function BadgeCarrito({ className = '' }: { className?: string }) {
-  const contexto = useContext(CarritoContext)
-  if (!contexto) {
-    throw new Error('useCarrito debe usarse dentro de un CarritoProvider')
-  }
-  const { carrito } = contexto
-  const totalCantidad = carrito.productos.reduce((acc, producto) => acc + producto.cantidad, 0)
-
+export default function BadgeCarrito({ totalCantidad, className = '' }: { totalCantidad: number; className?: string }) {
   return (
     totalCantidad > 0 && (
       <span
