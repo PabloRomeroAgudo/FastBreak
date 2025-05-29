@@ -32,7 +32,7 @@ class TransaccionController extends Controller {
         return $arr;
       });
 
-    return Inertia::render("Categoria/misPedidos", ["transacciones" => $transacciones]);
+    return Inertia::render("Pedidos/misPedidos", ["transacciones" => $transacciones]);
   }
 
   /**
