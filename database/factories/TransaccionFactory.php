@@ -44,7 +44,10 @@ class TransaccionFactory extends Factory {
 
       foreach ($productos as $producto) {
         $cantidad = rand(1, 7);
-        $transaccion->productos()->attach($producto->id, ['cantidad' => $cantidad]);
+        $transaccion->productos()->attach($producto->id, [
+          'cantidad' => $cantidad,
+          'precio' => $producto->precio
+        ]);
         $total += $producto->precio * $cantidad;
       }
 

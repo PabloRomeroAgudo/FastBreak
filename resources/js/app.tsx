@@ -3,7 +3,7 @@ import '../css/app.css'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createRoot } from 'react-dom/client'
-import { initializeTheme } from './hooks/use-appearance'
+// import { initializeTheme } from './hooks/use-appearance'
 
 // Supports weights 100-900
 import '@fontsource-variable/inter'
@@ -30,4 +30,4 @@ createInertiaApp({
 })
 
 // This will set light / dark mode on load...
-initializeTheme()
+// initializeTheme()

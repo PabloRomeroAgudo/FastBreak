@@ -12,9 +12,7 @@ class PedidosPrepararController extends Controller {
    * Display a listing of the resource.
    */
   public function index() {
-    $pedidos = Transaccion::with(['productos' => function ($q) {
-      $q->select('productos.nombre');
-    }])
+    $pedidos = Transaccion::with('productos:nombre')
       ->where('estado', TransaccionEstado::PEDIDO)
       ->select('id', 'codigo', 'fecha')
       ->orderBy('fecha', 'asc')

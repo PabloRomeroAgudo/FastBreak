@@ -97,9 +97,14 @@ interface Pedido {
   productos: ProductoPedido[]
 }
 
-interface transaccion extends Pedido {
+interface Transaccion extends Omit<Pedido, 'productos'> {
   total: number
   estado: string
+  productos: ProductoTransaccion[]
+}
+
+interface ProductoTransaccion extends ProductoPedido {
+  pivot: ProductoPedido['pivot'] & { precio: number }
 }
 
 // Paginacion que viene de Laravel

@@ -48,7 +48,7 @@ class CategoriaController extends Controller {
       $imagen = $data['imagen'];
 
 
-      $imagenPath = $imagen->store('categorias', 'public');
+      $imagenPath = $imagen->store('categorias');
 
       $data['imagen'] = $imagenPath;
     }
@@ -86,16 +86,16 @@ class CategoriaController extends Controller {
 
     if ($data['imagen']) {
       $imagen = $data['imagen'];
-      $imagenPath = $imagen->store('categorias', 'public');
+      $imagenPath = $imagen->store('categorias');
       $data['imagen'] = $imagenPath;
 
       // borrar la anterior si existía
       if ($categoria->getRawOriginal('imagen')) {
-        Storage::disk('public')->delete($categoria->getRawOriginal('imagen'));
+        Storage::delete($categoria->getRawOriginal('imagen'));
       }
     } else if ($data['borrarImagen']) {
       if ($categoria->getRawOriginal('imagen')) {
-        Storage::disk('public')->delete($categoria->getRawOriginal('imagen'));
+        Storage::delete($categoria->getRawOriginal('imagen'));
       }
       $data['imagen'] = null;
     } else {
@@ -117,6 +117,9 @@ class CategoriaController extends Controller {
    * Remove the specified resource from storage.
    */
   public function destroy(Categoria $categoria) {
+    if ($categoria->getRawOriginal('imagen')) {
+      Storage::delete($categoria->getRawOriginal('imagen'));
+    }
     $categoria->delete();
 
     return to_route('home');

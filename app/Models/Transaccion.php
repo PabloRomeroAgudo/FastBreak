@@ -38,6 +38,6 @@ class Transaccion extends Model {
 
   public function productos(): BelongsToMany {
     return $this->belongsToMany(Producto::class, 'transacciones_productos', 'id_transaccion', 'id_producto')
-      ->withPivot('cantidad');
+      ->withPivot('cantidad', 'precio');
   }
 }

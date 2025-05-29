@@ -1,0 +1,79 @@
+C:\V\DAW\TFG\FastBreak
+├── app
+|  ├── Enums
+|  ├── Helpers
+|  ├── Http
+|  |  ├── Controllers
+|  |  |  ├── Auth
+|  |  |  └── Settings
+|  |  ├── Middleware
+|  |  └── Requests
+|  |     ├── Auth
+|  |     ├── Categoria
+|  |     ├── Ingreso
+|  |     ├── Producto
+|  |     ├── Settings
+|  |     └── Transaccion
+|  ├── Models
+|  └── Providers
+├── bootstrap
+|  └── cache
+├── config
+├── database
+|  ├── factories
+|  ├── migrations
+|  └── seeders
+├── public
+|  ├── build
+|  |  └── assets
+|  └── ico
+├── resources
+|  ├── css
+|  ├── js
+|  |  ├── components
+|  |  |  ├── carrito
+|  |  |  ├── categoria
+|  |  |  ├── pedidos
+|  |  |  ├── producto
+|  |  |  └── ui
+|  |  ├── context
+|  |  ├── hooks
+|  |  ├── layouts
+|  |  |  ├── app
+|  |  |  ├── auth
+|  |  |  └── settings
+|  |  ├── lib
+|  |  ├── pages
+|  |  |  ├── auth
+|  |  |  ├── Carrito
+|  |  |  ├── Categoria
+|  |  |  ├── Ingreso
+|  |  |  ├── Pedidos
+|  |  |  ├── Producto
+|  |  |  └── settings
+|  |  └── types
+|  └── views
+├── routes
+├── storage
+|  ├── app
+|  |  ├── private
+|  |  └── public
+|  |     ├── categorias
+|  |     └── productos
+|  ├── debugbar
+|  ├── framework
+|  |  ├── cache
+|  |  |  └── data
+|  |  ├── sessions
+|  |  ├── testing
+|  |  └── views
+|  └── logs
+└── tests
+|  ├── Feature
+|  |  ├── Auth
+|  |  └── Settings
+|  └── Unit
+
+directory: 4689
+
+ignored: directory (18)

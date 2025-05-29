@@ -20,7 +20,7 @@ export default function ElemCarrito({ producto }: Props) {
         />
         <Link
           href={route('producto.show', producto.slug)}
-          className='hover:text-amarillo cursor-pointer transition-colors'
+          className='hover:text-amarillo cursor-pointer underline transition-colors'
         >
           {producto.nombre}
         </Link>

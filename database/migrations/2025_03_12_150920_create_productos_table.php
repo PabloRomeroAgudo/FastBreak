@@ -19,6 +19,7 @@ return new class extends Migration {
       $table->string('alergenos')->nullable();
       $table->integer('max_stock')->default(0);
       $table->string('imagen')->nullable(true);
+      $table->softDeletes();
     });
   }
 

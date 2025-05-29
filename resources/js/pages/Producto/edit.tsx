@@ -43,6 +43,12 @@ export default function Edit({ producto, categoriasProp }: Props) {
 
   const [url, setUrl] = useState(imagen)
 
+  const { delete: destroy, processing: processingBorrado } = useForm({})
+
+  const handleDelete = () => {
+    destroy(route('producto.destroy', producto.id))
+  }
+
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
 
@@ -145,9 +151,10 @@ export default function Edit({ producto, categoriasProp }: Props) {
       </div>
 
       <DeleteDialog
-        id={producto.id}
         nombre={nombre}
         type={TypeDelete.PRODUCTO}
+        handleDelete={handleDelete}
+        processing={processingBorrado}
       />
 
       <Toaster richColors />

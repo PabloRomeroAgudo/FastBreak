@@ -1,4 +1,3 @@
-import { useForm } from '@inertiajs/react'
 import { LoaderCircle, X } from 'lucide-react'
 
 export enum TypeDelete {
@@ -7,17 +6,13 @@ export enum TypeDelete {
 }
 
 interface Props {
-  id: number
   nombre: string
   type: TypeDelete
+  processing: boolean
+  handleDelete: () => void
 }
 
-export default function DeleteDialog({ id, nombre, type }: Props) {
-  const { delete: destroy, processing: processingBorrado } = useForm({})
-
-  const handleDelete = () => {
-    destroy(route('producto.destroy', id))
-  }
+export default function DeleteDialog({ nombre, type, processing, handleDelete }: Props) {
   return (
     <dialog className='backdrop:bg-negro/70 absolute top-1/2 left-1/2 -translate-1/2 overflow-visible rounded-2xl'>
       <div className='border-amarillo bg-negro text-blanco grid gap-8 overflow-hidden rounded-2xl border p-8'>
@@ -33,10 +28,10 @@ export default function DeleteDialog({ id, nombre, type }: Props) {
         <button
           onClick={handleDelete}
           className='text-rojo/60 border-rojo/60 hover:text-rojo hover:border-rojo disabled:text-rojo/30 disabled:border-rojo/30 flex cursor-pointer items-center justify-center gap-1 self-end rounded-md border transition'
-          disabled={processingBorrado}
+          disabled={processing}
         >
-          {processingBorrado && <LoaderCircle className='h-4 w-4 animate-spin' />}
-          {processingBorrado ? 'Borrando...' : 'Borrar'}
+          {processing && <LoaderCircle className='h-4 w-4 animate-spin' />}
+          {processing ? 'Borrando...' : 'Borrar'}
         </button>
       </div>
     </dialog>

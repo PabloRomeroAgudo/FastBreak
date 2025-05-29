@@ -16,7 +16,7 @@ export default function Pedidos({ pedidos, isPrepare = false }: Props) {
     setCodigo(e.target.value)
   }
 
-  const pedidosFiltered = pedidos.filter((p) => p.codigo.startsWith(codigo))
+  const pedidosFiltered = pedidos.filter((p) => p.codigo.includes(codigo))
 
   return (
     <>
