@@ -91,20 +91,6 @@ MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-En nuestro caso se ha utilizado una cuenta de gmail, estos son algunos de los valores que hay que poner:
-
-```bash
-MAIL_MAILER=smtp
-MAIL_SCHEME=null
-MAIL_HOST=smtp.gmail.com
-MAIL_PORT=587
-MAIL_USERNAME=tuCorreo
-MAIL_PASSWORD=tuContraseña
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=tuCorreo
-MAIL_FROM_NAME="${APP_NAME}"
-```
-
 > [!IMPORTANT]
 > Para la contraseña se recomienda usar una _App Password_, para ello se necesita tener un 2FA ([+ info](https://support.google.com/accounts/answer/185833?hl=es)).
 
@@ -133,6 +119,91 @@ Para levantar el proyecto ejecutar:
 ```bash
 composer run dev # Levantar jobs, vite y laravel
 ```
+
+## Estructura
+
+La estructura del proyecto sigue la típica de un proyecto de Laravel con React. Esta se puede encontrar en [estructura.txt](./estructura.txt):
+
+```
+├── app
+│  ├── Enums
+│  ├── Helpers
+│  ├── Http
+│  │  ├── Controllers
+│  │  │  ├── Auth
+│  │  │  └── Settings
+│  │  ├── Middleware
+│  │  └── Requests
+│  │     ├── Auth
+│  │     ├── Categoria
+│  │     ├── Ingreso
+│  │     ├── Producto
+│  │     ├── Settings
+│  │     └── Transaccion
+│  ├── Models
+│  └── Providers
+├── bootstrap
+│  └── cache
+├── config
+├── database
+│  ├── factories
+│  ├── migrations
+│  └── seeders
+├── public
+│  ├── build
+│  │  └── assets
+│  └── ico
+├── resources
+│  ├── css
+│  ├── js
+│  │  ├── components
+│  │  │  ├── carrito
+│  │  │  ├── categoria
+│  │  │  ├── pedidos
+│  │  │  ├── producto
+│  │  │  └── ui
+│  │  ├── context
+│  │  ├── hooks
+│  │  ├── layouts
+│  │  │  ├── app
+│  │  │  ├── auth
+│  │  │  └── settings
+│  │  ├── lib
+│  │  ├── pages
+│  │  │  ├── auth
+│  │  │  ├── Carrito
+│  │  │  ├── Categoria
+│  │  │  ├── Ingreso
+│  │  │  ├── Pedidos
+│  │  │  ├── Producto
+│  │  │  └── settings
+│  │  └── types
+│  └── views
+├── routes
+├── storage
+│  ├── app
+│  │  ├── private
+│  │  └── public
+│  │     ├── categorias
+│  │     └── productos
+│  ├── debugbar
+│  ├── framework
+│  │  ├── cache
+│  │  │  └── data
+│  │  ├── sessions
+│  │  ├── testing
+│  │  └── views
+│  └── logs
+├── tests
+│  ├── Feature
+│  │  ├── Auth
+│  │  └── Settings
+│  └── Unit
+```
+
+## Dia a dia
+
+Para un seguimiento del proyecto, se ha realizado un ["cuaderno de bitácora"](./bitacora.md) para mantener un registro de nuestro trabajo
 
 ## 📄 Autores
 
