@@ -92,6 +92,7 @@ MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 > [!IMPORTANT]
+> En nuestro caso, se ha usado una cuenta de gmail.
 > Para la contraseña se recomienda usar una _App Password_, para ello se necesita tener un 2FA ([+ info](https://support.google.com/accounts/answer/185833?hl=es)).
 
 ### 📖 Crear base de datos
