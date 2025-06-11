@@ -16,7 +16,7 @@ class ProductoFactory extends Factory {
    */
   public function definition(): array {
 
-    $imagen = "productos/plantilla1.png";
+    $imagen = "productos/plantilla1.webp";
 
     $nombre = $this->faker->sentence(nbWords: 2);
 
