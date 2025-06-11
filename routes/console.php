@@ -14,8 +14,10 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Artisan::command('borradoCategorias', function () {
+  if (env('FILESYSTEM_DISK') === 's3') return;
+
   $ruta = public_path('storage/categorias');
-  $excepciones = ['plantilla1.png', 'plantilla2.png', 'plantilla3.png'];
+  $excepciones = ['plantilla1.webp', 'plantilla2.webp', 'plantilla3.webp'];
 
   $archivos = array_filter(File::files($ruta), function ($archivo) use ($excepciones) {
     return !in_array($archivo->getFilename(), $excepciones);
@@ -45,8 +47,10 @@ Artisan::command('borradoCategorias', function () {
 });
 
 Artisan::command('borradoProducto', function () {
+  if (env('FILESYSTEM_DISK') === 's3') return;
+
   $ruta = public_path('storage/productos');
-  $excepciones = ['plantilla1.png', 'plantilla2.png', 'plantilla3.png'];
+  $excepciones = ['plantilla1.webp', 'plantilla2.webp', 'plantilla3.webp'];
 
   $archivos = array_filter(File::files($ruta), function ($archivo) use ($excepciones) {
     return !in_array($archivo->getFilename(), $excepciones);
@@ -86,7 +90,7 @@ Artisan::command('probarCorreo {to}', function (string $to) {
 })->purpose('Prueba de envío de correo desde consola');
 
 Artisan::command('probars3', function () {
-  $path = 'productos/plantilla1.png';
+  $path = 'productos/plantilla1.webp';
 
   if (Storage::disk('s3')->exists($path)) {
     dump('conexión realizada con exito!');
