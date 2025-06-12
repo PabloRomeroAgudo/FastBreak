@@ -62,6 +62,20 @@ Además, es necesario generar el fichero .env a través del [.env.example](/.env
 php artisan key:generate
 ```
 
+### 🖼️ Generar link para almacenar las imágenes
+
+En el .env asegurar que se tiene la siguiente linea:
+
+```bash
+FILESYSTEM_DISK=public
+```
+
+Después, ejecutar el comando `php artisan storage:link`.
+
+Tras esto, en la carpeta storage/public, crear las carpetas categorias y productos
+
+Por último, introducir las plantillas que se pueden encontrar en [public/Plantillas](/public/Plantillas/) (las tres para categorias y la primera para productos).
+
 ### Configurar base de datos
 
 Cambiar la información relacionada a la base de datos que se encuentra en:
